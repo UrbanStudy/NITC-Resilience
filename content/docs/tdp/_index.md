@@ -35,11 +35,16 @@ After renaming or deleting the `courses` folder, you may wish to update any `[[m
 
 For example, if you delete this folder, you can remove the following from your menu configuration:
 
-```toml
-[[main]]
-  name = "Courses"
-  url = "courses/"
-  weight = 50
+```{r echo=FALSE}
+library(ggplot2)
+oplot <- ggplot(Orange, aes(x = age, 
+                   y = circumference, 
+                   colour = Tree)) +
+  geom_point() +
+  geom_line() +
+  guides(colour = FALSE) +
+  theme_bw()
+oplot
 ```
 
 Or, if you are creating a software documentation site, you can rename the `courses` folder to `docs` and update the associated *Courses* menu configuration to:
