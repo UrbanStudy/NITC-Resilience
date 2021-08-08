@@ -2,6 +2,9 @@
 .idea/
 
 # Hugo
-resources/
-public/
+/resources/
+/public/
 jsconfig.json
+.Rproj.user
+.DS_Store
+Thumbs.db
