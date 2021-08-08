@@ -8,7 +8,7 @@ icon_pack: fas
 
 # Page metadata.
 title: Social Vulnerability Index
-date: `r format(Sys.time(), '%d %B, %Y')`
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 type: book  # Do not modify.
 ---
 
