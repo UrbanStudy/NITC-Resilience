@@ -53,8 +53,11 @@ The 17 Factors (Zandt et al., 2012)
 ## Child care Needs
 
 
+
+
+
 ```r
-Fami.Cild_vars <- c(paste0("B09002_00", 2:9),paste0("B09002_0", 10:20))
+Fami.Cild_vars <- paste0("B09002_00", 2:9)
 l5_vars <- c("B01001_003", "B01001_027")
 vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
@@ -117,61 +120,6 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
   <tr>
    <td style="text-align:left;"> B09002_009 </td>
    <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present: </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_010 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!Under 3 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_011 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!3 and 4 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_012 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!5 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_013 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!6 to 11 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_014 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!12 to 17 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_015 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present: </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_016 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!Under 3 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_017 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!3 and 4 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_018 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!5 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_019 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!6 to 11 years </td>
-   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> B09002_020 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!12 to 17 years </td>
    <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
   </tr>
 </tbody>
@@ -435,15 +383,17 @@ vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25044_003", "B25044_010"), output = "wide",
+  variables = c("B08201_002", "B25044_003", "B25044_010"), output = "wide",
  summary_var = "B25044_001" , cache_table = T
 )) %>% str()
 ```
 
 ```
-## tibble [355 × 8] (S3: tbl_df/tbl/data.frame)
+## tibble [355 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ GEOID      : chr [1:355] "41005020700" "41005022500" "41005023401" "41005024100" ...
 ##  $ NAME       : chr [1:355] "Census Tract 207, Clackamas County, Oregon" "Census Tract 225, Clackamas County, Oregon" "Census Tract 234.01, Clackamas County, Oregon" "Census Tract 241, Clackamas County, Oregon" ...
+##  $ B08201_002E: num [1:355] 30 149 18 10 53 169 225 91 126 778 ...
+##  $ B08201_002M: num [1:355] 27 80 21 16 43 93 91 52 99 199 ...
 ##  $ B25044_003E: num [1:355] 30 8 18 10 0 18 0 45 69 22 ...
 ##  $ B25044_003M: num [1:355] 27 16 21 16 17 27 12 36 80 33 ...
 ##  $ B25044_010E: num [1:355] 0 141 0 0 53 151 225 46 57 756 ...
@@ -880,20 +830,20 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B17020_002"),
+  variables = c("B17020_002","C17002_002","C17002_003"),
  summary_var = "B17020_001" , cache_table = T
 )) %>% str()
 ```
 
 ```
-## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
-##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
-##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
-##  $ variable   : chr [1:355] "B17020_002" "B17020_002" "B17020_002" "B17020_002" ...
-##  $ estimate   : num [1:355] 55 348 268 147 155 201 205 71 466 88 ...
-##  $ moe        : num [1:355] 43 207 137 90 106 137 118 77 256 65 ...
-##  $ summary_est: num [1:355] 3973 6258 4010 6065 5697 ...
-##  $ summary_moe: num [1:355] 256 332 283 338 256 285 179 207 299 161 ...
+## tibble [1,065 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:1065] "41005020100" "41005020100" "41005020100" "41005020200" ...
+##  $ NAME       : chr [1:1065] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:1065] "B17020_002" "C17002_002" "C17002_003" "B17020_002" ...
+##  $ estimate   : num [1:1065] 55 34 21 348 241 107 268 139 129 147 ...
+##  $ moe        : num [1:1065] 43 43 19 207 155 91 137 117 77 90 ...
+##  $ summary_est: num [1:1065] 3973 3973 3973 6258 6258 ...
+##  $ summary_moe: num [1:1065] 256 256 256 332 332 332 283 283 283 338 ...
 ```
 
 ## Civic Capacity needs
@@ -940,20 +890,21 @@ vars %>% filter(name %in% occ.tel_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25043_007","B25043_016"),
+  variables = c("B25043_007","B25043_016"), output = "wide",
  summary_var = "B25043_001" , cache_table = T
 )) %>% str()
 ```
 
 ```
-## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
-##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
-##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
-##  $ variable   : chr [1:710] "B25043_007" "B25043_016" "B25043_007" "B25043_016" ...
-##  $ estimate   : num [1:710] 14 0 0 0 0 36 0 122 0 0 ...
-##  $ moe        : num [1:710] 16 12 17 17 12 41 17 114 17 17 ...
-##  $ summary_est: num [1:710] 1696 1696 2914 2914 1713 ...
-##  $ summary_moe: num [1:710] 116 116 140 140 102 102 139 139 81 81 ...
+## tibble [355 × 8] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020700" "41005022500" "41005023401" "41005024100" ...
+##  $ NAME       : chr [1:355] "Census Tract 207, Clackamas County, Oregon" "Census Tract 225, Clackamas County, Oregon" "Census Tract 234.01, Clackamas County, Oregon" "Census Tract 241, Clackamas County, Oregon" ...
+##  $ B25043_007E: num [1:355] 9 8 0 45 35 0 8 8 20 0 ...
+##  $ B25043_007M: num [1:355] 15 16 17 55 40 17 13 8 31 17 ...
+##  $ B25043_016E: num [1:355] 0 12 0 0 23 122 30 70 17 38 ...
+##  $ B25043_016M: num [1:355] 12 20 17 17 36 114 27 30 27 44 ...
+##  $ summary_est: num [1:355] 1445 3022 1763 1783 3054 ...
+##  $ summary_moe: num [1:355] 88 163 105 120 131 139 125 92 86 152 ...
 ```
 
 

@@ -6,7 +6,7 @@ tags: ["R Markdown", "ACS", "Census data"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = F)
 if (!require(pacman)) {install.packages("pacman"); library(pacman)}
 p_load(tidyverse, tidycensus, tigris, mapview, kableExtra )
 # crsuggest,
@@ -51,6 +51,7 @@ pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
 vars <- load_variables(2019, "acs5")
 # View(vars)
 str(vars)
+length(unique(vars$concept))
 ```
 
 ## Total Population

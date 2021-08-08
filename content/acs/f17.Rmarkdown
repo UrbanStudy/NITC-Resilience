@@ -42,8 +42,11 @@ vars <- load_variables(2019, "acs5")
 
 ## Child care Needs
 
+
+
+
 ```{r}
-Fami.Cild_vars <- c(paste0("B09002_00", 2:9),paste0("B09002_0", 10:20))
+Fami.Cild_vars <- paste0("B09002_00", 2:9)
 l5_vars <- c("B01001_003", "B01001_027")
 vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
@@ -140,7 +143,7 @@ vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25044_003", "B25044_010"), output = "wide",
+  variables = c("B08201_002", "B25044_003", "B25044_010"), output = "wide",
  summary_var = "B25044_001" , cache_table = T
 )) %>% str()
 ```
@@ -270,7 +273,7 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B17020_002"),
+  variables = c("B17020_002","C17002_002","C17002_003"),
  summary_var = "B17020_001" , cache_table = T
 )) %>% str()
 ```
@@ -290,7 +293,7 @@ vars %>% filter(name %in% occ.tel_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25043_007","B25043_016"),
+  variables = c("B25043_007","B25043_016"), output = "wide",
  summary_var = "B25043_001" , cache_table = T
 )) %>% str()
 ```
