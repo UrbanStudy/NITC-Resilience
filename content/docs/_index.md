@@ -1,7 +1,7 @@
 ---
-title: Census Data
+title: Concepts
 type: book  # Do not modify.
-toc: false
+toc: true
 ---
 
 

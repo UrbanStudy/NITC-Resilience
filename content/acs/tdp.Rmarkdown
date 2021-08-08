@@ -1,6 +1,6 @@
 ---
 title: "Transit Dependent Population"
-date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+date: "`r Sys.Date()`"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
@@ -8,8 +8,8 @@ tags: ["R Markdown", "ACS", "Census data"]
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
 if (!require(pacman)) {install.packages("pacman"); library(pacman)}
-p_load(tidyverse, tidycensus, tigris, kableExtra )
-# mapview, crsuggest,
+p_load(tidyverse, tidycensus, tigris, mapview, kableExtra )
+# crsuggest,
 # remotes::install_github("walkerke/crsuggest")
 # remotes::install_github("walkerke/tidycensus")
 # devtools::install_github('walkerke/tigris')
@@ -138,7 +138,7 @@ pdx_tr2 <- pdx_tr %>% left_join(noveh2,by="GEOID")
 
 
 
-```{r, eval=F}
+```{r, eval=T}
 mapview(pdx_tr1, zcol = "noveh.per") + 
 mapview(pdx_tr1, zcol = "B08014_002E") +
 mapview(pdx_tr2, zcol = "noveh.per") + 

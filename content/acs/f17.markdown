@@ -1,0 +1,1188 @@
+---
+title: "Social Vulnerability Index"
+date: "2021-08-07"
+categories: ["R"]
+tags: ["R Markdown", "ACS", "Census data"]
+---
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+
+The 17 Factors (Zandt et al., 2012)
+
+
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+
+
+```r
+tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+pdx_counties <- counties("41", cb = FALSE, year = 2019) %>% filter(NAME %in% tri_cou) # GEOID==tri_cou
+pdx_tr <- tracts(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+# pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+```
+
+
+
+
+# Base Social Vulnerability Indicators(percentages)
+
+## Child care Needs
+
+
+```r
+Fami.Cild_vars <- c(paste0("B09002_00", 2:9),paste0("B09002_0", 10:20))
+l5_vars <- c("B01001_003", "B01001_027")
+vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B01001_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Male:!!Under 5 years </td>
+   <td style="text-align:left;"> SEX BY AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B01001_027 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Female:!!Under 5 years </td>
+   <td style="text-align:left;"> SEX BY AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families: </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families:!!Under 3 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families:!!3 and 4 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_005 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families:!!5 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families:!!6 to 11 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In married-couple families:!!12 to 17 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families: </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_009 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present: </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_010 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!Under 3 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_011 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!3 and 4 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_012 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!5 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_013 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!6 to 11 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_014 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Male householder, no spouse present:!!12 to 17 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_015 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present: </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_016 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!Under 3 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_017 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!3 and 4 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_018 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!5 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_019 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!6 to 11 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B09002_020 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In other families:!!Female householder, no spouse present:!!12 to 17 years </td>
+   <td style="text-align:left;"> OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE </td>
+  </tr>
+</tbody>
+</table>
+
+### Single parent households with children/Total Households
+
+
+```r
+(Fami.Cild_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = "B09002_008",
+ summary_var = "B09002_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B09002_008" "B09002_008" "B09002_008" "B09002_008" ...
+##  $ estimate   : num [1:355] 64 183 93 226 255 113 55 157 221 85 ...
+##  $ moe        : num [1:355] 46 115 48 125 148 79 42 102 130 52 ...
+##  $ summary_est: num [1:355] 822 1018 662 1077 1431 ...
+##  $ summary_moe: num [1:355] 118 209 118 213 144 133 97 107 206 61 ...
+```
+
+### Population 5 or below/Total Population 
+
+
+```r
+(l5_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = l5_vars,
+ summary_var = "B01001_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B01001_003" "B01001_027" "B01001_003" "B01001_027" ...
+##  $ estimate   : num [1:710] 68 74 41 48 104 86 141 109 186 193 ...
+##  $ moe        : num [1:710] 46 47 37 50 40 48 110 88 73 102 ...
+##  $ summary_est: num [1:710] 3984 3984 6258 6258 4019 ...
+##  $ summary_moe: num [1:710] 255 255 332 332 282 282 339 339 256 256 ...
+```
+
+## Elder Care Needs
+
+
+```r
+g65_vars <- c("C18130_001","C18130_016")
+g65.pov_vars <- c("C18130_018", "C18130_021") # C18130_016
+vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> C18130_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> AGE BY DISABILITY STATUS BY POVERTY STATUS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C18130_016 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over: </td>
+   <td style="text-align:left;"> AGE BY DISABILITY STATUS BY POVERTY STATUS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C18130_018 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!With a disability:!!Income in the past 12-months below poverty level </td>
+   <td style="text-align:left;"> AGE BY DISABILITY STATUS BY POVERTY STATUS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C18130_021 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!No disability:!!Income in the past 12-months below poverty level </td>
+   <td style="text-align:left;"> AGE BY DISABILITY STATUS BY POVERTY STATUS </td>
+  </tr>
+</tbody>
+</table>
+
+### Population 65 or above/Total Population
+
+
+```r
+(g65_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = "C18130_016",
+ summary_var = "C18130_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "C18130_016" "C18130_016" "C18130_016" "C18130_016" ...
+##  $ estimate   : num [1:355] 823 1591 589 1304 679 ...
+##  $ moe        : num [1:355] 134 213 78 170 102 112 66 119 200 100 ...
+##  $ summary_est: num [1:355] 3973 6258 3996 6065 5697 ...
+##  $ summary_moe: num [1:355] 256 332 286 338 256 285 179 207 299 161 ...
+```
+
+### Population 65 or above & below poverty/Pop. 65 or above
+
+
+```r
+(g65.pov_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = g65.pov_vars,
+ summary_var = "C18130_016" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "C18130_018" "C18130_021" "C18130_018" "C18130_021" ...
+##  $ estimate   : num [1:710] 6 40 16 29 22 10 0 16 11 44 ...
+##  $ moe        : num [1:710] 9 44 25 33 35 14 17 25 18 40 ...
+##  $ summary_est: num [1:710] 823 823 1591 1591 589 ...
+##  $ summary_moe: num [1:710] 134 134 213 213 78 78 170 170 102 102 ...
+```
+
+## Transportation needs
+
+### Workers using public transportation/Civilian pop. 16+ and employed
+
+
+```r
+g16.tran_vars <- c("B08301_010", "B23025_004")
+vars %>% filter(name %in% g16.tran_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B08301_010 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Public transportation (excluding taxicab): </td>
+   <td style="text-align:left;"> MEANS OF TRANSPORTATION TO WORK </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force:!!Civilian labor force:!!Employed </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g16.tran_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = "B08301_010",
+ summary_var = "B23025_004" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B08301_010" "B08301_010" "B08301_010" "B08301_010" ...
+##  $ estimate   : num [1:355] 103 72 29 61 44 76 67 74 83 21 ...
+##  $ moe        : num [1:355] 52 60 26 51 50 58 53 62 65 31 ...
+##  $ summary_est: num [1:355] 1947 3254 2246 3281 2795 ...
+##  $ summary_moe: num [1:355] 177 274 186 320 270 272 162 198 241 115 ...
+```
+
+### Occupied housing units without a vehicle/Occupied housing units
+
+
+```r
+occ.0veh_vars <- c("B25044_001","B25044_002","B25044_003","B25044_009", "B25044_010",
+                   "B08201_001","B08201_002")
+vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B08201_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> HOUSEHOLD SIZE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B08201_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!No vehicle available </td>
+   <td style="text-align:left;"> HOUSEHOLD SIZE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Owner occupied: </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Owner occupied:!!No vehicle available </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_009 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Renter occupied: </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_010 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Renter occupied:!!No vehicle available </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(occ.0veh_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25044_003", "B25044_010"),
+ summary_var = "B25044_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B25044_003" "B25044_010" "B25044_003" "B25044_010" ...
+##  $ estimate   : num [1:710] 31 71 32 95 8 75 18 151 36 0 ...
+##  $ moe        : num [1:710] 29 64 36 85 13 58 27 100 41 17 ...
+##  $ summary_est: num [1:710] 1696 1696 2914 2914 1713 ...
+##  $ summary_moe: num [1:710] 116 116 140 140 102 102 139 139 81 81 ...
+```
+
+## Temporary Shelter and housing recovery needs
+
+### Vacant Housing units/Total housing units
+
+
+```r
+vac_vars <- c("B25002_001","B25002_002","B25002_003")
+vars %>% filter(name %in% vac_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B25002_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> OCCUPANCY STATUS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25002_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Occupied </td>
+   <td style="text-align:left;"> OCCUPANCY STATUS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25002_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Vacant </td>
+   <td style="text-align:left;"> OCCUPANCY STATUS </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(vac_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25002_003"),
+ summary_var = "B25002_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B25002_003" "B25002_003" "B25002_003" "B25002_003" ...
+##  $ estimate   : num [1:355] 178 100 91 74 66 89 40 107 102 91 ...
+##  $ moe        : num [1:355] 96 97 74 107 62 84 41 64 87 60 ...
+##  $ summary_est: num [1:355] 1874 3014 1804 2824 2289 ...
+##  $ summary_moe: num [1:355] 63 123 70 118 67 50 49 50 114 53 ...
+```
+
+### Persons in renter occupied housing units/Total occupied housing units
+
+
+```r
+rent_vars <- c("B25008_001","B25008_002","B25008_003")
+vars %>% filter(name %in% rent_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B25008_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25008_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Owner occupied </td>
+   <td style="text-align:left;"> TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25008_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Renter occupied </td>
+   <td style="text-align:left;"> TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(vrent_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25008_003"),
+ summary_var = "B25008_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B25008_003" "B25008_003" "B25008_003" "B25008_003" ...
+##  $ estimate   : num [1:355] 587 1661 1083 1915 1600 ...
+##  $ moe        : num [1:355] 211 406 205 400 342 296 66 216 432 148 ...
+##  $ summary_est: num [1:355] 3984 6258 4003 6065 5697 ...
+##  $ summary_moe: num [1:355] 255 332 283 338 256 281 183 207 299 161 ...
+```
+
+### Non-white population/Total population
+
+
+```r
+nonWhi_vars <- c("B02001_001","B02001_002")
+vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B02001_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!White alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(nonWhi_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B02001_002"),
+ summary_var = "B02001_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B02001_002" "B02001_002" "B02001_002" "B02001_002" ...
+##  $ estimate   : num [1:355] 3316 5847 3382 4957 4515 ...
+##  $ moe        : num [1:355] 278 377 288 460 330 418 189 245 303 187 ...
+##  $ summary_est: num [1:355] 3984 6258 4019 6112 5697 ...
+##  $ summary_moe: num [1:355] 255 332 282 339 256 292 183 207 306 161 ...
+```
+
+### Population in group quarters/Total population
+
+
+```r
+group_vars <- c("B01003_001","B26001_001")
+vars %>% filter(name %in% group_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B01003_001 </td>
+   <td style="text-align:left;"> Estimate!!Total </td>
+   <td style="text-align:left;"> TOTAL POPULATION </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B26001_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> GROUP QUARTERS POPULATION </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(group_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B26001_001"),
+ summary_var = "B01003_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B26001_001" "B26001_001" "B26001_001" "B26001_001" ...
+##  $ estimate   : num [1:355] 0 0 16 47 0 57 16 7 71 0 ...
+##  $ moe        : num [1:355] 12 17 12 21 17 35 10 4 109 12 ...
+##  $ summary_est: num [1:355] 3984 6258 4019 6112 5697 ...
+##  $ summary_moe: num [1:355] 255 332 282 339 256 292 183 207 306 161 ...
+```
+
+### Housing units built 20 years ago/Total housing Units
+
+
+```r
+H.g20_vars <- c("B25034_002","B25034_003","B25034_004")
+vars %>% filter(name %in% H.g20_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B25034_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Built 2014 or later </td>
+   <td style="text-align:left;"> YEAR STRUCTURE BUILT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25034_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Built 2010 to 2013 </td>
+   <td style="text-align:left;"> YEAR STRUCTURE BUILT </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25034_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Built 2000 to 2009 </td>
+   <td style="text-align:left;"> YEAR STRUCTURE BUILT </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(H.g20_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = H.g20_vars,
+ summary_var = "B25034_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [1,065 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:1065] "41005020100" "41005020100" "41005020100" "41005020200" ...
+##  $ NAME       : chr [1:1065] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:1065] "B25034_002" "B25034_003" "B25034_004" "B25034_002" ...
+##  $ estimate   : num [1:1065] 161 79 264 86 0 292 10 112 121 0 ...
+##  $ moe        : num [1:1065] 86 54 74 85 17 122 16 64 49 17 ...
+##  $ summary_est: num [1:1065] 1874 1874 1874 3014 3014 ...
+##  $ summary_moe: num [1:1065] 63 63 63 123 123 123 70 70 70 118 ...
+```
+
+### Mobile Homes/Total housing units
+
+
+```r
+mob.H_vars <- c("B11011_002", "B11011_003", "B11011_006", "B11011_011", "B11011_015", "B11011_019",
+                "B25024_001","B25024_010","B25024_011")
+vars %>% filter(name %in% mob.H_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B11011_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Family households: </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B11011_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Family households:!!Married-couple family: </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B11011_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Family households:!!Married-couple family:!!Mobile homes and all other types of units </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B11011_011 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Family households:!!Other family:!!Male householder, no spouse present:!!Mobile homes and all other types of units </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B11011_015 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Family households:!!Other family:!!Female householder, no spouse present:!!Mobile homes and all other types of units </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B11011_019 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Nonfamily households:!!Mobile homes and all other types of units </td>
+   <td style="text-align:left;"> HOUSEHOLD TYPE BY UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25024_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25024_010 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Mobile home </td>
+   <td style="text-align:left;"> UNITS IN STRUCTURE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25024_011 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Boat, RV, van, etc. </td>
+   <td style="text-align:left;"> UNITS IN STRUCTURE </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(mob.H_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25024_010","B25024_011"),
+ summary_var = "B25024_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B25024_010" "B25024_011" "B25024_010" "B25024_011" ...
+##  $ estimate   : num [1:710] 0 0 15 0 0 0 18 0 0 0 ...
+##  $ moe        : num [1:710] 12 12 23 17 12 12 29 17 17 17 ...
+##  $ summary_est: num [1:710] 1874 1874 3014 3014 1804 ...
+##  $ summary_moe: num [1:710] 63 63 123 123 70 70 118 118 67 67 ...
+```
+
+### Persons in poverty/Total population
+
+
+```r
+pov_vars <- c("B17020_001", "B17020_002", 
+                "C17002_001","C17002_002","C17002_003")
+vars %>% filter(name %in% pov_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B17020_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B17020_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level: </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY AGE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C17002_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C17002_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Under .50 </td>
+   <td style="text-align:left;"> RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C17002_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!.50 to .99 </td>
+   <td style="text-align:left;"> RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(pov_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B17020_002"),
+ summary_var = "B17020_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B17020_002" "B17020_002" "B17020_002" "B17020_002" ...
+##  $ estimate   : num [1:355] 55 348 268 147 155 201 205 71 466 88 ...
+##  $ moe        : num [1:355] 43 207 137 90 106 137 118 77 256 65 ...
+##  $ summary_est: num [1:355] 3973 6258 4010 6065 5697 ...
+##  $ summary_moe: num [1:355] 256 332 283 338 256 285 179 207 299 161 ...
+```
+
+## Civic Capacity needs
+
+### Occupied housing units without a telephone/Total occupied Hus
+
+
+```r
+occ.tel_vars <- c("B25043_001","B25043_007","B25043_016")
+vars %>% filter(name %in% occ.tel_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B25043_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> TENURE BY TELEPHONE SERVICE AVAILABLE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25043_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Owner occupied:!!No telephone service available: </td>
+   <td style="text-align:left;"> TENURE BY TELEPHONE SERVICE AVAILABLE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25043_016 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Renter occupied:!!No telephone service available: </td>
+   <td style="text-align:left;"> TENURE BY TELEPHONE SERVICE AVAILABLE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(occ.tel_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25043_007","B25043_016"),
+ summary_var = "B25043_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B25043_007" "B25043_016" "B25043_007" "B25043_016" ...
+##  $ estimate   : num [1:710] 14 0 0 0 0 36 0 122 0 0 ...
+##  $ moe        : num [1:710] 16 12 17 17 12 41 17 114 17 17 ...
+##  $ summary_est: num [1:710] 1696 1696 2914 2914 1713 ...
+##  $ summary_moe: num [1:710] 116 116 140 140 102 102 139 139 81 81 ...
+```
+
+
+### Population above 25 with less than high school/Total pop above 25
+
+
+```r
+g25.HS_vars <- c("B21003_001","B21003_002","B21003_003","B21003_007","B21003_008")
+vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B21003_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B21003_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Veteran: </td>
+   <td style="text-align:left;"> VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B21003_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Veteran:!!Less than high school graduate </td>
+   <td style="text-align:left;"> VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B21003_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Nonveteran: </td>
+   <td style="text-align:left;"> VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B21003_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Nonveteran:!!Less than high school graduate </td>
+   <td style="text-align:left;"> VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g25.HS_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B21003_003","B21003_008"),
+ summary_var = "B21003_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B21003_003" "B21003_008" "B21003_003" "B21003_008" ...
+##  $ estimate   : num [1:710] 0 108 0 16 0 47 0 87 19 84 ...
+##  $ moe        : num [1:710] 12 108 17 25 12 32 17 75 32 83 ...
+##  $ summary_est: num [1:710] 3020 3020 4804 4804 2918 ...
+##  $ summary_moe: num [1:710] 197 197 235 235 178 178 273 273 185 185 ...
+```
+
+### Population 16+ in labor force and unemployed/Pop in Labor force 16+
+
+
+```r
+g16.unem_vars <- c("B23025_002","B23025_003","B23025_004","B23025_005","B23025_006","B23025_007")
+vars %>% filter(name %in% g16.unem_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B23025_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force: </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force:!!Civilian labor force: </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force:!!Civilian labor force:!!Employed </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_005 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force:!!Civilian labor force:!!Unemployed </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!In labor force:!!Armed Forces </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23025_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Not in labor force </td>
+   <td style="text-align:left;"> EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g16.unem_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B23025_005"),
+ summary_var = "B23025_002" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [355 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:355] "41005020100" "41005020200" "41005020302" "41005020303" ...
+##  $ NAME       : chr [1:355] "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 203.02, Clackamas County, Oregon" "Census Tract 203.03, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:355] "B23025_005" "B23025_005" "B23025_005" "B23025_005" ...
+##  $ estimate   : num [1:355] 35 78 168 43 212 152 114 72 169 26 ...
+##  $ moe        : num [1:355] 44 59 78 48 90 70 57 46 113 21 ...
+##  $ summary_est: num [1:355] 1982 3332 2428 3324 3007 ...
+##  $ summary_moe: num [1:355] 195 276 206 322 282 274 161 190 240 122 ...
+```
+
+### Population above 5 that speak English not well or not at all/Pop>5
+
+
+```r
+g5.nonE_vars <- paste0("B06007_00",1:9)
+vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B06007_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak only English </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak Spanish: </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak Spanish:!!Speak English "very well" </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_005 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak Spanish:!!Speak English less than "very well" </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak other languages: </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak other languages:!!Speak English "very well" </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Speak other languages:!!Speak English less than "very well" </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B06007_009 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Born in state of residence: </td>
+   <td style="text-align:left;"> PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UNITED STATES </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g5.nonE_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B06007_005","B06007_008"),
+ summary_var = "B06007_001" , cache_table = T
+)) %>% str()
+```
+
+```
+## tibble [710 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID      : chr [1:710] "41005020100" "41005020100" "41005020200" "41005020200" ...
+##  $ NAME       : chr [1:710] "Census Tract 201, Clackamas County, Oregon" "Census Tract 201, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" "Census Tract 202, Clackamas County, Oregon" ...
+##  $ variable   : chr [1:710] "B06007_005" "B06007_008" "B06007_005" "B06007_008" ...
+##  $ estimate   : num [1:710] 138 37 0 42 27 108 74 214 16 294 ...
+##  $ moe        : num [1:710] 114 47 17 67 29 80 74 165 28 133 ...
+##  $ summary_est: num [1:710] 3842 3842 6169 6169 3829 ...
+##  $ summary_moe: num [1:710] 258 258 312 312 282 282 347 347 283 283 ...
+```
+

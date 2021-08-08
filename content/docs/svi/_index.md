@@ -12,6 +12,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 type: book  # Do not modify.
 ---
 
-## Flexibility
+## Base Social Vulnerability Indicators
 
-Source: TIGER data base, calculated for use with Census 2010
+(percentages)
+
