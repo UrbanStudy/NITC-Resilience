@@ -23,7 +23,7 @@ The 17 Factors (Zandt et al., 2012)
 
 <!-- #  {.tabset .tabset-fade .tabset-pills} -->
 
-```{r}
+```{r,echo=F}
 tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
 pdx_counties <- counties("41", cb = FALSE, year = 2019) %>% filter(NAME %in% tri_cou) # GEOID==tri_cou
 pdx_tr <- tracts(state = "41",county = tri_cou, cb = FALSE, year = 2019)
@@ -68,7 +68,7 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = l5_vars,
+  variables = l5_vars, output = "wide",
  summary_var = "B01001_001" , cache_table = T
 )) %>% str()
 ```
@@ -101,7 +101,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = g65.pov_vars,
+  variables = g65.pov_vars, output = "wide",
  summary_var = "C18130_016" , cache_table = T
 )) %>% str()
 ```
@@ -140,7 +140,7 @@ vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25044_003", "B25044_010"),
+  variables = c("B25044_003", "B25044_010"), output = "wide",
  summary_var = "B25044_001" , cache_table = T
 )) %>% str()
 ```
@@ -232,7 +232,7 @@ vars %>% filter(name %in% H.g20_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = H.g20_vars,
+  variables = H.g20_vars, output = "wide",
  summary_var = "B25034_001" , cache_table = T
 )) %>% str()
 ```
@@ -251,7 +251,7 @@ vars %>% filter(name %in% mob.H_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25024_010","B25024_011"),
+  variables = c("B25024_010","B25024_011"), output = "wide",
  summary_var = "B25024_001" , cache_table = T
 )) %>% str()
 ```
@@ -309,7 +309,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B21003_003","B21003_008"),
+  variables = c("B21003_003","B21003_008"), output = "wide",
  summary_var = "B21003_001" , cache_table = T
 )) %>% str()
 ```
@@ -345,7 +345,7 @@ vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B06007_005","B06007_008"),
+  variables = c("B06007_005","B06007_008"), output = "wide",
  summary_var = "B06007_001" , cache_table = T
 )) %>% str()
 ```

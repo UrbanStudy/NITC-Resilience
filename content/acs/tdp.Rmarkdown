@@ -76,40 +76,55 @@ vars %>% dplyr::filter(grepl("Total:!!No vehicle available",label)) %>% kbl() %>
 
 - SEX OF WORKERS BY VEHICLES AVAILABLE
 
-"B08014_002" same to "B08141_002" MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
+```{r}
+vars %>% filter(name %in% c(paste0("B08014_00", 2:9),paste0("B08141_00", 2:9))) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+
 
 ```{r}
 (noveh1 <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = "B08014_002", output = "wide", 
+  variables = c("B08014_002","B08141_002"), output = "wide", 
   summary_var = "B08014_001", cache_table = T
   ) %>% 
   mutate(noveh.per= 100 * B08014_002E / summary_est) %>% 
-  select(GEOID,B08014_002E, summary_est, noveh.per)) %>% head()
+  select(GEOID,B08014_002E, B08141_002E,summary_est, noveh.per)) %>% head()
 ```
+
+*B08014_002* same to *B08141_002* MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
 
 - HOUSEHOLD SIZE BY VEHICLES AVAILABLE
 
-"B08201_002" same to "B08203_002" NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
+```{r}
+vars %>% filter(name %in% c(paste0("B08201_00", 2:9),paste0("B08203_00", 2:9))) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+
 
 ```{r}
 (noveh2 <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = "B08201_002", output = "wide", # same to "B08141_002"
+  variables = c("B08201_002","B08203_002"), output = "wide", # same to "B08141_002"
   summary_var = "B08201_001", cache_table = T
   ) %>% 
   mutate(noveh.per= 100 * B08201_002E / summary_est) %>% 
-  select(GEOID,B08201_002E, summary_est, noveh.per)) %>% head()
+  select(GEOID,B08201_002E, B08203_002E, summary_est, noveh.per)) %>% head()
 ```
 
+*B08201_002* same to *B08203_002* NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
 
 - TENURE BY VEHICLES AVAILABLE
 
-Sum of Owner and Renter same to "B08201_002"
+
 
 ```{r}
 vars %>% filter((grepl("occupied:!!No vehicle available",label))) %>% kbl() %>% 
@@ -129,7 +144,7 @@ get_acs(
   select(GEOID,noveh.per) %>% head()
 ```
 
-
+Sum of Owner and Renter same to "B08201_002"
 
 ```{r}
 pdx_tr1 <- pdx_tr %>% left_join(noveh1,by="GEOID")
