@@ -17,6 +17,10 @@ options(tigris_use_cache = TRUE)
 rappdirs::user_cache_dir('tigris')
 ```
 
+Social vulnerability (SV) is defined by Blaikie et al. (1994, 9) as "the characteristics of a person or group in terms of their capacity to anticipate, cope with, resist and recover from the impacts of a natural hazard."
+
+
+
 The 17 Factors (Zandt et al., 2012)
 
 
@@ -273,7 +277,7 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B17020_002","C17002_002","C17002_003"),
+  variables = c("B17020_002","C17002_002","C17002_003"), output = "wide",
  summary_var = "B17020_001" , cache_table = T
 )) %>% str()
 ```
