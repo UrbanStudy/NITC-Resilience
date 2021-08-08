@@ -1,6 +1,6 @@
 ---
 title: "Transit Dependent Population"
-date: Last compiled on `r format(Sys.time(), '%d %B, %Y')`
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
