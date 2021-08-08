@@ -1,0 +1,687 @@
+---
+title: "Transit Dependent Population"
+date: Last compiled on 07 August, 2021
+categories: ["R"]
+tags: ["R Markdown", "ACS", "Census data"]
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+<div id="geographic-boudary" class="section level1">
+<h1>Geographic Boudary</h1>
+<div id="three-counties" class="section level2">
+<h2>Three Counties</h2>
+<p>Source: TIGER data base, calculated for use with Census 2010</p>
+<p>Land area measurements are originally recorded as whole square meters
+sq.m = sq.km* 1,000,000; sq.km = sq.mi* 2.58999; sq.m = sq.mi* 2,589,988).</p>
+<pre class="r"><code>portland_city_place &lt;- places(&quot;41&quot;, cb = FALSE, year = 2019) %&gt;% filter(NAME==&quot;Portland&quot;)
+# pdx_md&lt;- metro_divisions(year=2019)  no protland #CBSAFP==&quot;38900&quot;, CSAFP==&quot;440&quot;, NAME %in% grepl(&quot;Portland&quot;, NAME)
+# ua &lt;-  urban_areas(year=2019) 
+# tri_cou &lt;- c(Multnomah = &quot;41051&quot;, Washington = &quot;41067&quot;, Clackamas = &quot;41005&quot;) #, Yamhill = &quot;41071&quot; , Clark = &quot;53011&quot;
+tri_cou &lt;- c(&#39;051&#39;,&#39;067&#39;,&#39;005&#39;)# &quot;Multnomah&quot;, &quot;Washington&quot;, &quot;Clackamas&quot;
+pdx_counties &lt;- counties(&quot;41&quot;, cb = FALSE, year = 2019) %&gt;% filter(NAME %in% tri_cou) # GEOID==tri_cou
+pdx_tr &lt;- tracts(state = &quot;41&quot;,county = tri_cou, cb = FALSE, year = 2019)
+pdx_bg &lt;- block_groups(state = &quot;41&quot;,county = tri_cou, cb = FALSE, year = 2019)
+# pdx_bg &lt;- pdx_bg %&gt;% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)</code></pre>
+</div>
+</div>
+<div id="acs-variables" class="section level1">
+<h1>ACS Variables</h1>
+<pre class="r"><code>vars &lt;- load_variables(2019, &quot;acs5&quot;)
+# View(vars)
+str(vars)</code></pre>
+<pre><code>## tibble [27,040 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ name   : chr [1:27040] &quot;B01001_001&quot; &quot;B01001_002&quot; &quot;B01001_003&quot; &quot;B01001_004&quot; ...
+##  $ label  : chr [1:27040] &quot;Estimate!!Total:&quot; &quot;Estimate!!Total:!!Male:&quot; &quot;Estimate!!Total:!!Male:!!Under 5 years&quot; &quot;Estimate!!Total:!!Male:!!5 to 9 years&quot; ...
+##  $ concept: chr [1:27040] &quot;SEX BY AGE&quot; &quot;SEX BY AGE&quot; &quot;SEX BY AGE&quot; &quot;SEX BY AGE&quot; ...</code></pre>
+<div id="total-population" class="section level2">
+<h2>Total Population</h2>
+<pre class="r"><code>(pop_tract &lt;- get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = c(&quot;B01003_001&quot;),cache_table = T
+)) %&gt;% str()</code></pre>
+<pre><code>## tibble [355 × 5] (S3: tbl_df/tbl/data.frame)
+##  $ GEOID   : chr [1:355] &quot;41005020100&quot; &quot;41005020200&quot; &quot;41005020302&quot; &quot;41005020303&quot; ...
+##  $ NAME    : chr [1:355] &quot;Census Tract 201, Clackamas County, Oregon&quot; &quot;Census Tract 202, Clackamas County, Oregon&quot; &quot;Census Tract 203.02, Clackamas County, Oregon&quot; &quot;Census Tract 203.03, Clackamas County, Oregon&quot; ...
+##  $ variable: chr [1:355] &quot;B01003_001&quot; &quot;B01003_001&quot; &quot;B01003_001&quot; &quot;B01003_001&quot; ...
+##  $ estimate: num [1:355] 3984 6258 4019 6112 5697 ...
+##  $ moe     : num [1:355] 255 332 282 339 256 292 183 207 306 161 ...</code></pre>
+<p>There is not driver information.</p>
+<div id="vehicle-households" class="section level4">
+<h4>Vehicle Households</h4>
+<pre class="r"><code>vars %&gt;% dplyr::filter(grepl(&quot;Total:!!No vehicle available&quot;,label)) %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+concept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B08014_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+SEX OF WORKERS BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08141_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08203_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08541_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE FOR WORKPLACE GEOGRAPHY
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>SEX OF WORKERS BY VEHICLES AVAILABLE</li>
+</ul>
+<p>“B08014_002” same to “B08141_002” MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE</p>
+<pre class="r"><code>(noveh1 &lt;- get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = &quot;B08014_002&quot;, output = &quot;wide&quot;, 
+  summary_var = &quot;B08014_001&quot;, cache_table = T
+  ) %&gt;% 
+  mutate(noveh.per= 100 * B08014_002E / summary_est) %&gt;% 
+  select(GEOID,B08014_002E, summary_est, noveh.per)) %&gt;% head()</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   GEOID       B08014_002E summary_est noveh.per
+##   &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+## 1 41005020700          23        1968     1.17 
+## 2 41005022500         120        4128     2.91 
+## 3 41005023401           0        2339     0    
+## 4 41005024100           0        2244     0    
+## 5 41005020600          42        4210     0.998
+## 6 41005020303           0        3191     0</code></pre>
+<ul>
+<li>HOUSEHOLD SIZE BY VEHICLES AVAILABLE</li>
+</ul>
+<p>“B08201_002” same to “B08203_002” NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE</p>
+<pre class="r"><code>(noveh2 &lt;- get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = &quot;B08201_002&quot;, output = &quot;wide&quot;, # same to &quot;B08141_002&quot;
+  summary_var = &quot;B08201_001&quot;, cache_table = T
+  ) %&gt;% 
+  mutate(noveh.per= 100 * B08201_002E / summary_est) %&gt;% 
+  select(GEOID,B08201_002E, summary_est, noveh.per)) %&gt;% head()</code></pre>
+<pre><code>## # A tibble: 6 x 4
+##   GEOID       B08201_002E summary_est noveh.per
+##   &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+## 1 41005020700          30        1445     2.08 
+## 2 41005022500         149        3022     4.93 
+## 3 41005023401          18        1763     1.02 
+## 4 41005024100          10        1783     0.561
+## 5 41005020600          53        3054     1.74 
+## 6 41005020303         169        2750     6.15</code></pre>
+<ul>
+<li>TENURE BY VEHICLES AVAILABLE</li>
+</ul>
+<p>Sum of Owner and Renter same to “B08201_002”</p>
+<pre class="r"><code>vars %&gt;% filter((grepl(&quot;occupied:!!No vehicle available&quot;,label))) %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+concept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B25044_003
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Owner occupied:!!No vehicle available
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25044_010
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Renter occupied:!!No vehicle available
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_003
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Owner occupied:!!No vehicle available:
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_004
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Owner occupied:!!No vehicle available:!!Householder 15 to 34 years
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_005
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Owner occupied:!!No vehicle available:!!Householder 35 to 64 years
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_006
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Owner occupied:!!No vehicle available:!!Householder 65 years and over
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_012
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Renter occupied:!!No vehicle available:
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_013
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Renter occupied:!!No vehicle available:!!Householder 15 to 34 years
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_014
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Renter occupied:!!No vehicle available:!!Householder 35 to 64 years
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B25045_015
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Renter occupied:!!No vehicle available:!!Householder 65 years and over
+</td>
+<td style="text-align:left;">
+TENURE BY VEHICLES AVAILABLE BY AGE OF HOUSEHOLDER
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = c(&quot;B25044_003&quot;,&quot;B25044_010&quot;), output = &quot;wide&quot;,
+  summary_var = &quot;B25044_001&quot;, cache_table = T
+  ) %&gt;% 
+  mutate(noveh.per= 100 * (B25044_003E + B25044_010E)/summary_est) %&gt;% 
+  select(GEOID,noveh.per) %&gt;% head()</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   GEOID       noveh.per
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 41005020700     2.08 
+## 2 41005022500     4.93 
+## 3 41005023401     1.02 
+## 4 41005024100     0.561
+## 5 41005020600     1.74 
+## 6 41005020303     6.15</code></pre>
+<pre class="r"><code>pdx_tr1 &lt;- pdx_tr %&gt;% left_join(noveh1,by=&quot;GEOID&quot;)
+pdx_tr2 &lt;- pdx_tr %&gt;% left_join(noveh2,by=&quot;GEOID&quot;)</code></pre>
+<pre class="r"><code>mapview(pdx_tr1, zcol = &quot;noveh.per&quot;) + 
+mapview(pdx_tr1, zcol = &quot;B08014_002E&quot;) +
+mapview(pdx_tr2, zcol = &quot;noveh.per&quot;) + 
+mapview(pdx_tr2, zcol = &quot;B08201_002E&quot;)</code></pre>
+<ul>
+<li>HOUSEHOLD SIZE BY VEHICLES AVAILABLE</li>
+</ul>
+<pre class="r"><code>vars %&gt;% filter(grepl(&quot;B08201_&quot;, name,fixed = T)) %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+concept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B08201_001
+</td>
+<td style="text-align:left;">
+Estimate!!Total:
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_003
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1 vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_004
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_005
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_006
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4 or more vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_007
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_008
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_009
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:!!1 vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_010
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:!!2 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_011
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:!!3 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_012
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!1-person household:!!4 or more vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_013
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_014
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_015
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:!!1 vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_016
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:!!2 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_017
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:!!3 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_018
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!2-person household:!!4 or more vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_019
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_020
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_021
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:!!1 vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_022
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:!!2 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_023
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:!!3 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_024
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!3-person household:!!4 or more vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_025
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_026
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:!!No vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_027
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:!!1 vehicle available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_028
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:!!2 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_029
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:!!3 vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B08201_030
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!4-or-more-person household:!!4 or more vehicles available
+</td>
+<td style="text-align:left;">
+HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
