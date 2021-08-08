@@ -1,7 +1,8 @@
 ---
 title: "Social Vulnerability Index"
 subtitle: "The 17 Factors (Zandt et al., 2012)"
-output: html_document
+categories: ["R"]
+tags: ["R Markdown", "ACS", "Census data"]
 ---
 
 ```{r setup, include=FALSE}

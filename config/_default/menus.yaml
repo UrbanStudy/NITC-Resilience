@@ -7,6 +7,9 @@ main:
   - name: Home
     url: /
     weight: 10
-  - name: Census Data
+  - name: Documents
     url: docs/
+    weight: 20
+  - name: Census Data
+    url: courses/
     weight: 20
