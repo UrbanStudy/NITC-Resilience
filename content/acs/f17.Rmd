@@ -1,7 +1,6 @@
 ---
 title: "Social Vulnerability Index"
-subtitle: "The 17 Factors (Zandt et al., 2012)"
-date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
@@ -17,6 +16,8 @@ p_load(tidyverse, tidycensus, tigris, kableExtra )
 options(tigris_use_cache = TRUE)
 rappdirs::user_cache_dir('tigris')
 ```
+
+The 17 Factors (Zandt et al., 2012)
 
 
 

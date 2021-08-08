@@ -1,0 +1,153 @@
+---
+title: "Transit Dependent Population"
+date: Last compiled on `r format(Sys.time(), '%d %B, %Y')`
+categories: ["R"]
+tags: ["R Markdown", "ACS", "Census data"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+if (!require(pacman)) {install.packages("pacman"); library(pacman)}
+p_load(tidyverse, tidycensus, tigris, kableExtra )
+# mapview, crsuggest,
+# remotes::install_github("walkerke/crsuggest")
+# remotes::install_github("walkerke/tidycensus")
+# devtools::install_github('walkerke/tigris')
+options(tigris_use_cache = TRUE)
+rappdirs::user_cache_dir('tigris')
+```
+
+
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+
+# Geographic Boudary
+
+## Three Counties
+
+Source: TIGER data base, calculated for use with Census 2010
+
+Land area measurements are originally recorded as whole square meters 
+sq.m = sq.km\* 1,000,000; sq.km = sq.mi\* 2.58999; sq.m = sq.mi\* 2,589,988).
+
+
+```{r}
+portland_city_place <- places("41", cb = FALSE, year = 2019) %>% filter(NAME=="Portland")
+# pdx_md<- metro_divisions(year=2019)  no protland #CBSAFP=="38900", CSAFP=="440", NAME %in% grepl("Portland", NAME)
+# ua <-  urban_areas(year=2019) 
+# tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
+tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+pdx_counties <- counties("41", cb = FALSE, year = 2019) %>% filter(NAME %in% tri_cou) # GEOID==tri_cou
+pdx_tr <- tracts(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+# pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+```
+
+
+# ACS Variables
+
+
+```{r,eval=T}
+vars <- load_variables(2019, "acs5")
+# View(vars)
+str(vars)
+```
+
+## Total Population
+
+```{r}
+(pop_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B01003_001"),cache_table = T
+)) %>% str()
+```
+
+There is not driver information.
+
+
+#### Vehicle Households
+
+```{r}
+vars %>% dplyr::filter(grepl("Total:!!No vehicle available",label)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+- SEX OF WORKERS BY VEHICLES AVAILABLE
+
+"B08014_002" same to "B08141_002" MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
+
+```{r}
+(noveh1 <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = "B08014_002", output = "wide", 
+  summary_var = "B08014_001", cache_table = T
+  ) %>% 
+  mutate(noveh.per= 100 * B08014_002E / summary_est) %>% 
+  select(GEOID,B08014_002E, summary_est, noveh.per)) %>% head()
+```
+
+- HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+
+"B08201_002" same to "B08203_002" NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
+
+```{r}
+(noveh2 <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = "B08201_002", output = "wide", # same to "B08141_002"
+  summary_var = "B08201_001", cache_table = T
+  ) %>% 
+  mutate(noveh.per= 100 * B08201_002E / summary_est) %>% 
+  select(GEOID,B08201_002E, summary_est, noveh.per)) %>% head()
+```
+
+
+- TENURE BY VEHICLES AVAILABLE
+
+Sum of Owner and Renter same to "B08201_002"
+
+```{r}
+vars %>% filter((grepl("occupied:!!No vehicle available",label))) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+```{r}
+get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B25044_003","B25044_010"), output = "wide",
+  summary_var = "B25044_001", cache_table = T
+  ) %>% 
+  mutate(noveh.per= 100 * (B25044_003E + B25044_010E)/summary_est) %>% 
+  select(GEOID,noveh.per) %>% head()
+```
+
+
+
+```{r}
+pdx_tr1 <- pdx_tr %>% left_join(noveh1,by="GEOID")
+pdx_tr2 <- pdx_tr %>% left_join(noveh2,by="GEOID")
+```
+
+
+
+```{r, eval=F}
+mapview(pdx_tr1, zcol = "noveh.per") + 
+mapview(pdx_tr1, zcol = "B08014_002E") +
+mapview(pdx_tr2, zcol = "noveh.per") + 
+mapview(pdx_tr2, zcol = "B08201_002E")
+```
+
+- HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+
+```{r}
+vars %>% filter(grepl("B08201_", name,fixed = T)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
