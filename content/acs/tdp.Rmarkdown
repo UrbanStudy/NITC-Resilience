@@ -72,14 +72,14 @@ There is not driver information.
 
 ```{r}
 vars %>% dplyr::filter(grepl("Total:!!No vehicle available",label)) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 - SEX OF WORKERS BY VEHICLES AVAILABLE
 
 ```{r}
 vars %>% filter(name %in% c(paste0("B08014_00", 2:9),paste0("B08141_00", 2:9))) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
@@ -103,7 +103,7 @@ vars %>% filter(name %in% c(paste0("B08014_00", 2:9),paste0("B08141_00", 2:9))) 
 
 ```{r}
 vars %>% filter(name %in% c(paste0("B08201_00", 2:9),paste0("B08203_00", 2:9))) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
@@ -129,7 +129,7 @@ vars %>% filter(name %in% c(paste0("B08201_00", 2:9),paste0("B08203_00", 2:9))) 
 
 ```{r}
 vars %>% filter((grepl("occupied:!!No vehicle available",label))) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
@@ -165,5 +165,5 @@ mapview(pdx_tr2, zcol = "B08201_002E")
 
 ```{r}
 vars %>% filter(grepl("B08201_", name,fixed = T)) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
