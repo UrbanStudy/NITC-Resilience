@@ -115,6 +115,26 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
 )) %>% head()
 ```
 
+## Disability
+
+### Population with a disability/Total Population (only 18-64 or all?)
+
+```{r}
+dis_vars <- c("C18130_003","C18130_010","C18130_017")
+vars %>% filter(name %in% dis_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(dis_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = dis_vars, output = 'wide',
+ summary_var = "C18130_001" , cache_table = T
+)) %>% head()
+```
+
 ## Transportation needs
 
 ### Workers using public transportation/Civilian pop. 16+ and employed
@@ -125,12 +145,15 @@ vars %>% filter(name %in% g16.tran_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+"B23025_004" = "C24010_001"
+
+
 ```{r}
 (g16.tran_tract <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = "B08301_010",
+  variables = "B08301_010", # c("C24010_001"),output = "wide",
  summary_var = "B23025_004" , cache_table = T
 )) %>% head()
 ```
@@ -260,7 +283,7 @@ vars %>% filter(name %in% mob.H_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25024_010","B25024_011"), output = "wide",
+  variables = "B25024_010", # c("B25024_011"), output = "wide",
  summary_var = "B25024_001" , cache_table = T
 )) %>% head()
 ```
@@ -268,18 +291,22 @@ vars %>% filter(name %in% mob.H_vars) %>% kbl() %>%
 ### Persons in poverty/Total population
 
 ```{r}
-pov_vars <- c("B17020_001", "B17020_002", 
-                "C17002_001","C17002_002","C17002_003")
+pov_vars <- c("B17020_001", "B17020_002", 	
+              "B17001_001","B17001_002",
+              "C17002_001","C17002_002","C17002_003")
 vars %>% filter(name %in% pov_vars) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+"B17001_001" (county level)= "B17020_002" = "C17002_002" + "C17002_003"
+
 
 ```{r}
 (pov_tract <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B17020_002","C17002_002","C17002_003"), output = "wide",
+  variables = "B17020_002", # c("B17020_002","C17002_002","C17002_003"), output = "wide",
  summary_var = "B17020_001" , cache_table = T
 )) %>% head()
 ```
@@ -344,7 +371,25 @@ vars %>% filter(name %in% g16.unem_vars) %>% kbl() %>%
 ### Population above 5 that speak English not well or not at all/Pop>5
 
 ```{r}
-g5.nonE_vars <- paste0("B06007_00",1:9)
+nonE_vars <- paste0("B06007_00",1:9)
+vars %>% filter(name %in% nonE_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(nonE_tract <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "tract",
+  variables = c("B06007_005","B06007_008"), output = "wide",
+ summary_var = "B06007_001" , cache_table = T
+)) %>% head()
+```
+
+```{r}
+# g5.nonE_vars <- (vars %>% filter(grepl("B16001_",name),grepl("Speak English less than \"very well\"",label)))$name
+# g5.nonE_vars <- (vars %>% filter(grepl("B16008_",name),grepl("Speak English less than \"very well\"",label)))$name
+g5.nonE_vars <- (vars %>% filter(grepl("C16001_",name),grepl("Speak English less than \"very well\"",label)))$name
 vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -354,8 +399,10 @@ vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B06007_005","B06007_008"), output = "wide",
- summary_var = "B06007_001" , cache_table = T
-)) %>% head()
+  variables = g5.nonE_vars, output = "wide",
+ summary_var = "C16001_001" , cache_table = T
+))  %>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE)) %>% # rowSums(g5.nonE_tract[,paste0(g5.nonE_vars,"E")])
+        select(-starts_with("B")) %>% head() # c(starts_with("B")&ends_with("E")
+# https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
+# https://github.com/tidyverse/dplyr/issues/4544
 ```
-
