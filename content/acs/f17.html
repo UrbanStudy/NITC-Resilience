@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-08-09" />
+<meta name="date" content="2021-08-16" />
 
 <title>Social Vulnerability Index</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 
 <h1 class="title toc-ignore">Social Vulnerability Index</h1>
-<h4 class="date">2021-08-09</h4>
+<h4 class="date">2021-08-16</h4>
 
 </div>
 
@@ -318,16 +318,175 @@ OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE
   geography = &quot;tract&quot;,
   variables = &quot;B09002_008&quot;,
  summary_var = &quot;B09002_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B09002_…       64    46         822         118
-## 2 4100502… Census Tract 202, Cl… B09002_…      183   115        1018         209
-## 3 4100502… Census Tract 203.02,… B09002_…       93    48         662         118
-## 4 4100502… Census Tract 203.03,… B09002_…      226   125        1077         213
-## 5 4100502… Census Tract 203.04,… B09002_…      255   148        1431         144
-## 6 4100502… Census Tract 204.01,… B09002_…      113    79        1352         133</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+822
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+1018
+</td>
+<td style="text-align:right;">
+209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+662
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+226
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+1077
+</td>
+<td style="text-align:right;">
+213
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+255
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+1431
+</td>
+<td style="text-align:right;">
+144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B09002_008
+</td>
+<td style="text-align:right;">
+113
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+1352
+</td>
+<td style="text-align:right;">
+133
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-5-or-belowtotal-population" class="section level3">
 <h3>Population 5 or below/Total Population</h3>
@@ -337,17 +496,196 @@ OWN CHILDREN UNDER 18 YEARS BY FAMILY TYPE AND AGE
   geography = &quot;tract&quot;,
   variables = l5_vars, output = &quot;wide&quot;,
  summary_var = &quot;B01001_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        B01001_003E B01001_003M B01001_027E B01001_027M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…         120          58         120          66        4064
-## 2 41005… Census Tra…         170          87         320         148        7703
-## 3 41005… Census Tra…         198          84         159          75        5035
-## 4 41005… Census Tra…          87          66         144          92        5083
-## 5 41005… Census Tra…         256          88         210         129        8556
-## 6 41005… Census Tra…         141         110         109          88        6112
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B01001_003E
+</th>
+<th style="text-align:right;">
+B01001_003M
+</th>
+<th style="text-align:right;">
+B01001_027E
+</th>
+<th style="text-align:right;">
+B01001_027M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+4064
+</td>
+<td style="text-align:right;">
+245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+320
+</td>
+<td style="text-align:right;">
+148
+</td>
+<td style="text-align:right;">
+7703
+</td>
+<td style="text-align:right;">
+463
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+198
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+159
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+5035
+</td>
+<td style="text-align:right;">
+347
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+144
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+5083
+</td>
+<td style="text-align:right;">
+455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+256
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+210
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+8556
+</td>
+<td style="text-align:right;">
+423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+110
+</td>
+<td style="text-align:right;">
+109
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+6112
+</td>
+<td style="text-align:right;">
+339
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="elder-care-needs" class="section level2">
@@ -425,16 +763,175 @@ AGE BY DISABILITY STATUS BY POVERTY STATUS
   geography = &quot;tract&quot;,
   variables = &quot;C18130_016&quot;,
  summary_var = &quot;C18130_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… C18130_…      823   134        3973         256
-## 2 4100502… Census Tract 202, Cl… C18130_…     1591   213        6258         332
-## 3 4100502… Census Tract 203.02,… C18130_…      589    78        3996         286
-## 4 4100502… Census Tract 203.03,… C18130_…     1304   170        6065         338
-## 5 4100502… Census Tract 203.04,… C18130_…      679   102        5697         256
-## 6 4100502… Census Tract 204.01,… C18130_…     1026   112        5978         285</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+823
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+3973
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+1591
+</td>
+<td style="text-align:right;">
+213
+</td>
+<td style="text-align:right;">
+6258
+</td>
+<td style="text-align:right;">
+332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+589
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+3996
+</td>
+<td style="text-align:right;">
+286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+1304
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+6065
+</td>
+<td style="text-align:right;">
+338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+679
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;">
+5697
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+C18130_016
+</td>
+<td style="text-align:right;">
+1026
+</td>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+5978
+</td>
+<td style="text-align:right;">
+285
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-65-or-above-below-povertypop.-65-or-above" class="section level3">
 <h3>Population 65 or above &amp; below poverty/Pop. 65 or above</h3>
@@ -444,17 +941,493 @@ AGE BY DISABILITY STATUS BY POVERTY STATUS
   geography = &quot;tract&quot;,
   variables = g65.pov_vars, output = &quot;wide&quot;,
  summary_var = &quot;C18130_016&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        C18130_018E C18130_018M C18130_021E C18130_021M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…           1           4          43          42         602
-## 2 41005… Census Tra…          57          73          91          56        1104
-## 3 41005… Census Tra…          72          55          63          54         963
-## 4 41005… Census Tra…          69          61          47          34        1128
-## 5 41005… Census Tra…          10          25          78          77        1182
-## 6 41005… Census Tra…           0          17          16          25        1304
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+C18130_018E
+</th>
+<th style="text-align:right;">
+C18130_018M
+</th>
+<th style="text-align:right;">
+C18130_021E
+</th>
+<th style="text-align:right;">
+C18130_021M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;">
+602
+</td>
+<td style="text-align:right;">
+74
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+1104
+</td>
+<td style="text-align:right;">
+185
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+963
+</td>
+<td style="text-align:right;">
+142
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+1128
+</td>
+<td style="text-align:right;">
+179
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+1182
+</td>
+<td style="text-align:right;">
+192
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+1304
+</td>
+<td style="text-align:right;">
+170
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="disability" class="section level2">
+<h2>Disability</h2>
+<div id="population-with-a-disabilitytotal-population-only-18-64-or-all" class="section level3">
+<h3>Population with a disability/Total Population (only 18-64 or all?)</h3>
+<pre class="r"><code>dis_vars &lt;- c(&quot;C18130_003&quot;,&quot;C18130_010&quot;,&quot;C18130_017&quot;)
+vars %&gt;% filter(name %in% dis_vars) %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+concept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C18130_003
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Under 18 years:!!With a disability:
+</td>
+<td style="text-align:left;">
+AGE BY DISABILITY STATUS BY POVERTY STATUS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C18130_010
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!18 to 64 years:!!With a disability:
+</td>
+<td style="text-align:left;">
+AGE BY DISABILITY STATUS BY POVERTY STATUS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C18130_017
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!65 years and over:!!With a disability:
+</td>
+<td style="text-align:left;">
+AGE BY DISABILITY STATUS BY POVERTY STATUS
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>(dis_tract &lt;- get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = dis_vars, output = &#39;wide&#39;,
+ summary_var = &quot;C18130_001&quot; , cache_table = T
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+C18130_003E
+</th>
+<th style="text-align:right;">
+C18130_003M
+</th>
+<th style="text-align:right;">
+C18130_010E
+</th>
+<th style="text-align:right;">
+C18130_010M
+</th>
+<th style="text-align:right;">
+C18130_017E
+</th>
+<th style="text-align:right;">
+C18130_017M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+108
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+4064
+</td>
+<td style="text-align:right;">
+245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+455
+</td>
+<td style="text-align:right;">
+176
+</td>
+<td style="text-align:right;">
+465
+</td>
+<td style="text-align:right;">
+142
+</td>
+<td style="text-align:right;">
+7483
+</td>
+<td style="text-align:right;">
+483
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+192
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+379
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+5025
+</td>
+<td style="text-align:right;">
+343
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+375
+</td>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+313
+</td>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+5068
+</td>
+<td style="text-align:right;">
+462
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+355
+</td>
+<td style="text-align:right;">
+140
+</td>
+<td style="text-align:right;">
+253
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+8556
+</td>
+<td style="text-align:right;">
+423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+405
+</td>
+<td style="text-align:right;">
+169
+</td>
+<td style="text-align:right;">
+6065
+</td>
+<td style="text-align:right;">
+338
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="transportation-needs" class="section level2">
@@ -503,22 +1476,182 @@ EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER
 </tr>
 </tbody>
 </table>
+<p>“B23025_004” = “C24010_001”</p>
 <pre class="r"><code>(g16.tran_tract &lt;- get_acs(
   state = &quot;41&quot;,
   county = tri_cou,
   geography = &quot;tract&quot;,
-  variables = &quot;B08301_010&quot;,
+  variables = &quot;B08301_010&quot;, # c(&quot;C24010_001&quot;),output = &quot;wide&quot;,
  summary_var = &quot;B23025_004&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B08301_…      103    52        1947         177
-## 2 4100502… Census Tract 202, Cl… B08301_…       72    60        3254         274
-## 3 4100502… Census Tract 203.02,… B08301_…       29    26        2246         186
-## 4 4100502… Census Tract 203.03,… B08301_…       61    51        3281         320
-## 5 4100502… Census Tract 203.04,… B08301_…       44    50        2795         270
-## 6 4100502… Census Tract 204.01,… B08301_…       76    58        2978         272</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+103
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+1947
+</td>
+<td style="text-align:right;">
+177
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+72
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+3254
+</td>
+<td style="text-align:right;">
+274
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+2246
+</td>
+<td style="text-align:right;">
+186
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+3281
+</td>
+<td style="text-align:right;">
+320
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+2795
+</td>
+<td style="text-align:right;">
+270
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B08301_010
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+2978
+</td>
+<td style="text-align:right;">
+272
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="occupied-housing-units-without-a-vehicleoccupied-housing-units" class="section level3">
 <h3>Occupied housing units without a vehicle/Occupied housing units</h3>
@@ -626,18 +1759,238 @@ TENURE BY VEHICLES AVAILABLE
   geography = &quot;tract&quot;,
   variables = c(&quot;B08201_002&quot;, &quot;B25044_003&quot;, &quot;B25044_010&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B25044_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 10
-##   GEOID  NAME        B08201_002E B08201_002M B25044_003E B25044_003M B25044_010E
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…          30          27          30          27           0
-## 2 41005… Census Tra…         149          80           8          16         141
-## 3 41005… Census Tra…          18          21          18          21           0
-## 4 41005… Census Tra…          10          16          10          16           0
-## 5 41005… Census Tra…          53          43           0          17          53
-## 6 41005… Census Tra…         169          93          18          27         151
-## # … with 3 more variables: B25044_010M &lt;dbl&gt;, summary_est &lt;dbl&gt;,
-## #   summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B08201_002E
+</th>
+<th style="text-align:right;">
+B08201_002M
+</th>
+<th style="text-align:right;">
+B25044_003E
+</th>
+<th style="text-align:right;">
+B25044_003M
+</th>
+<th style="text-align:right;">
+B25044_010E
+</th>
+<th style="text-align:right;">
+B25044_010M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1445
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+149
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+3022
+</td>
+<td style="text-align:right;">
+163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+1763
+</td>
+<td style="text-align:right;">
+105
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+1783
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+53
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+3054
+</td>
+<td style="text-align:right;">
+131
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+169
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+151
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+2750
+</td>
+<td style="text-align:right;">
+139
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="temporary-shelter-and-housing-recovery-needs" class="section level2">
@@ -703,16 +2056,175 @@ OCCUPANCY STATUS
   geography = &quot;tract&quot;,
   variables = c(&quot;B25002_003&quot;),
  summary_var = &quot;B25002_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B25002_…      178    96        1874          63
-## 2 4100502… Census Tract 202, Cl… B25002_…      100    97        3014         123
-## 3 4100502… Census Tract 203.02,… B25002_…       91    74        1804          70
-## 4 4100502… Census Tract 203.03,… B25002_…       74   107        2824         118
-## 5 4100502… Census Tract 203.04,… B25002_…       66    62        2289          67
-## 6 4100502… Census Tract 204.01,… B25002_…       89    84        2308          50</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+178
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+1874
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+97
+</td>
+<td style="text-align:right;">
+3014
+</td>
+<td style="text-align:right;">
+123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+1804
+</td>
+<td style="text-align:right;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+2824
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+2289
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25002_003
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+84
+</td>
+<td style="text-align:right;">
+2308
+</td>
+<td style="text-align:right;">
+50
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="persons-in-renter-occupied-housing-unitstotal-occupied-housing-units" class="section level3">
 <h3>Persons in renter occupied housing units/Total occupied housing units</h3>
@@ -775,16 +2287,175 @@ TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE
   geography = &quot;tract&quot;,
   variables = c(&quot;B25008_003&quot;),
  summary_var = &quot;B25008_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B25008_…      587   211        3984         255
-## 2 4100502… Census Tract 202, Cl… B25008_…     1661   406        6258         332
-## 3 4100502… Census Tract 203.02,… B25008_…     1083   205        4003         283
-## 4 4100502… Census Tract 203.03,… B25008_…     1915   400        6065         338
-## 5 4100502… Census Tract 203.04,… B25008_…     1600   342        5697         256
-## 6 4100502… Census Tract 204.01,… B25008_…      789   296        5996         281</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+587
+</td>
+<td style="text-align:right;">
+211
+</td>
+<td style="text-align:right;">
+3984
+</td>
+<td style="text-align:right;">
+255
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+1661
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+6258
+</td>
+<td style="text-align:right;">
+332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+1083
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+4003
+</td>
+<td style="text-align:right;">
+283
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+1915
+</td>
+<td style="text-align:right;">
+400
+</td>
+<td style="text-align:right;">
+6065
+</td>
+<td style="text-align:right;">
+338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+1600
+</td>
+<td style="text-align:right;">
+342
+</td>
+<td style="text-align:right;">
+5697
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25008_003
+</td>
+<td style="text-align:right;">
+789
+</td>
+<td style="text-align:right;">
+296
+</td>
+<td style="text-align:right;">
+5996
+</td>
+<td style="text-align:right;">
+281
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="non-white-populationtotal-population" class="section level3">
 <h3>Non-white population/Total population</h3>
@@ -836,16 +2507,175 @@ RACE
   geography = &quot;tract&quot;,
   variables = c(&quot;B02001_002&quot;),
  summary_var = &quot;B02001_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B02001_…     3316   278        3984         255
-## 2 4100502… Census Tract 202, Cl… B02001_…     5847   377        6258         332
-## 3 4100502… Census Tract 203.02,… B02001_…     3382   288        4019         282
-## 4 4100502… Census Tract 203.03,… B02001_…     4957   460        6112         339
-## 5 4100502… Census Tract 203.04,… B02001_…     4515   330        5697         256
-## 6 4100502… Census Tract 204.01,… B02001_…     5137   418        6053         292</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+3316
+</td>
+<td style="text-align:right;">
+278
+</td>
+<td style="text-align:right;">
+3984
+</td>
+<td style="text-align:right;">
+255
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+5847
+</td>
+<td style="text-align:right;">
+377
+</td>
+<td style="text-align:right;">
+6258
+</td>
+<td style="text-align:right;">
+332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+3382
+</td>
+<td style="text-align:right;">
+288
+</td>
+<td style="text-align:right;">
+4019
+</td>
+<td style="text-align:right;">
+282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+4957
+</td>
+<td style="text-align:right;">
+460
+</td>
+<td style="text-align:right;">
+6112
+</td>
+<td style="text-align:right;">
+339
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+4515
+</td>
+<td style="text-align:right;">
+330
+</td>
+<td style="text-align:right;">
+5697
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B02001_002
+</td>
+<td style="text-align:right;">
+5137
+</td>
+<td style="text-align:right;">
+418
+</td>
+<td style="text-align:right;">
+6053
+</td>
+<td style="text-align:right;">
+292
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-in-group-quarterstotal-population" class="section level3">
 <h3>Population in group quarters/Total population</h3>
@@ -897,16 +2727,175 @@ GROUP QUARTERS POPULATION
   geography = &quot;tract&quot;,
   variables = c(&quot;B26001_001&quot;),
  summary_var = &quot;B01003_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B26001_…        0    12        3984         255
-## 2 4100502… Census Tract 202, Cl… B26001_…        0    17        6258         332
-## 3 4100502… Census Tract 203.02,… B26001_…       16    12        4019         282
-## 4 4100502… Census Tract 203.03,… B26001_…       47    21        6112         339
-## 5 4100502… Census Tract 203.04,… B26001_…        0    17        5697         256
-## 6 4100502… Census Tract 204.01,… B26001_…       57    35        6053         292</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+3984
+</td>
+<td style="text-align:right;">
+255
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+6258
+</td>
+<td style="text-align:right;">
+332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+4019
+</td>
+<td style="text-align:right;">
+282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+6112
+</td>
+<td style="text-align:right;">
+339
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+5697
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B26001_001
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+6053
+</td>
+<td style="text-align:right;">
+292
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="housing-units-built-20-years-agototal-housing-units" class="section level3">
 <h3>Housing units built 20 years ago/Total housing Units</h3>
@@ -969,18 +2958,238 @@ YEAR STRUCTURE BUILT
   geography = &quot;tract&quot;,
   variables = H.g20_vars, output = &quot;wide&quot;,
  summary_var = &quot;B25034_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 10
-##   GEOID  NAME        B25034_002E B25034_002M B25034_003E B25034_003M B25034_004E
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…           0          12          31          26         232
-## 2 41005… Census Tra…          16          26           0          17         164
-## 3 41005… Census Tra…          71          47          95          71         102
-## 4 41005… Census Tra…          19          23           9          15         270
-## 5 41005… Census Tra…          33          38          89          71         383
-## 6 41005… Census Tra…           0          17           0          17         147
-## # … with 3 more variables: B25034_004M &lt;dbl&gt;, summary_est &lt;dbl&gt;,
-## #   summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B25034_002E
+</th>
+<th style="text-align:right;">
+B25034_002M
+</th>
+<th style="text-align:right;">
+B25034_003E
+</th>
+<th style="text-align:right;">
+B25034_003M
+</th>
+<th style="text-align:right;">
+B25034_004E
+</th>
+<th style="text-align:right;">
+B25034_004M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+232
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+1472
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+3157
+</td>
+<td style="text-align:right;">
+127
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+1867
+</td>
+<td style="text-align:right;">
+85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+270
+</td>
+<td style="text-align:right;">
+108
+</td>
+<td style="text-align:right;">
+1880
+</td>
+<td style="text-align:right;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+383
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:right;">
+3088
+</td>
+<td style="text-align:right;">
+123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+2824
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="mobile-homestotal-housing-units" class="section level3">
 <h3>Mobile Homes/Total housing units</h3>
@@ -1108,24 +3317,183 @@ UNITS IN STRUCTURE
   state = &quot;41&quot;,
   county = tri_cou,
   geography = &quot;tract&quot;,
-  variables = c(&quot;B25024_010&quot;,&quot;B25024_011&quot;), output = &quot;wide&quot;,
+  variables = &quot;B25024_010&quot;, # c(&quot;B25024_011&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B25024_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        B25024_010E B25024_010M B25024_011E B25024_011M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…           0          12           0          12        1472
-## 2 41005… Census Tra…          14          24           0          17        3157
-## 3 41005… Census Tra…         327         103           0          17        1867
-## 4 41005… Census Tra…         468         132           0          17        1880
-## 5 41005… Census Tra…          35          48           0          17        3088
-## 6 41005… Census Tra…          18          29           0          17        2824
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1874
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+3014
+</td>
+<td style="text-align:right;">
+123
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1804
+</td>
+<td style="text-align:right;">
+70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+2824
+</td>
+<td style="text-align:right;">
+118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+2289
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B25024_010
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+2308
+</td>
+<td style="text-align:right;">
+50
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="persons-in-povertytotal-population" class="section level3">
 <h3>Persons in poverty/Total population</h3>
-<pre class="r"><code>pov_vars &lt;- c(&quot;B17020_001&quot;, &quot;B17020_002&quot;, 
-                &quot;C17002_001&quot;,&quot;C17002_002&quot;,&quot;C17002_003&quot;)
+<pre class="r"><code>pov_vars &lt;- c(&quot;B17020_001&quot;, &quot;B17020_002&quot;,   
+              &quot;B17001_001&quot;,&quot;B17001_002&quot;,
+              &quot;C17002_001&quot;,&quot;C17002_002&quot;,&quot;C17002_003&quot;)
 vars %&gt;% filter(name %in% pov_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
@@ -1143,6 +3511,28 @@ concept
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+B17001_001
+</td>
+<td style="text-align:left;">
+Estimate!!Total:
+</td>
+<td style="text-align:left;">
+POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B17001_002
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Income in the past 12 months below poverty level:
+</td>
+<td style="text-align:left;">
+POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 B17020_001
@@ -1200,24 +3590,182 @@ RATIO OF INCOME TO POVERTY LEVEL IN THE PAST 12 MONTHS
 </tr>
 </tbody>
 </table>
+<p>“B17001_001” (county level)= “B17020_002” = “C17002_002” + “C17002_003”</p>
 <pre class="r"><code>(pov_tract &lt;- get_acs(
   state = &quot;41&quot;,
   county = tri_cou,
   geography = &quot;tract&quot;,
-  variables = c(&quot;B17020_002&quot;,&quot;C17002_002&quot;,&quot;C17002_003&quot;), output = &quot;wide&quot;,
+  variables = &quot;B17020_002&quot;, # c(&quot;B17020_002&quot;,&quot;C17002_002&quot;,&quot;C17002_003&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B17020_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 10
-##   GEOID  NAME        B17020_002E B17020_002M C17002_002E C17002_002M C17002_003E
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…         343         146         169         142         174
-## 2 41005… Census Tra…         648         240         299         156         349
-## 3 41005… Census Tra…         630         316         155          99         475
-## 4 41005… Census Tra…         536         331          83          50         453
-## 5 41005… Census Tra…         327         163         151         100         176
-## 6 41005… Census Tra…         147          90          79          70          68
-## # … with 3 more variables: C17002_003M &lt;dbl&gt;, summary_est &lt;dbl&gt;,
-## #   summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+3973
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+348
+</td>
+<td style="text-align:right;">
+207
+</td>
+<td style="text-align:right;">
+6258
+</td>
+<td style="text-align:right;">
+332
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+4010
+</td>
+<td style="text-align:right;">
+283
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+147
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+6065
+</td>
+<td style="text-align:right;">
+338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+106
+</td>
+<td style="text-align:right;">
+5697
+</td>
+<td style="text-align:right;">
+256
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B17020_002
+</td>
+<td style="text-align:right;">
+201
+</td>
+<td style="text-align:right;">
+137
+</td>
+<td style="text-align:right;">
+5978
+</td>
+<td style="text-align:right;">
+285
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="civic-capacity-needs" class="section level2">
@@ -1283,17 +3831,196 @@ TENURE BY TELEPHONE SERVICE AVAILABLE BY AGE OF HOUSEHOLDER
   geography = &quot;tract&quot;,
   variables = c(&quot;B25043_007&quot;,&quot;B25043_016&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B25043_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        B25043_007E B25043_007M B25043_016E B25043_016M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…           9          15           0          12        1445
-## 2 41005… Census Tra…           8          16          12          20        3022
-## 3 41005… Census Tra…           0          17           0          17        1763
-## 4 41005… Census Tra…          45          55           0          17        1783
-## 5 41005… Census Tra…          35          40          23          36        3054
-## 6 41005… Census Tra…           0          17         122         114        2750
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B25043_007E
+</th>
+<th style="text-align:right;">
+B25043_007M
+</th>
+<th style="text-align:right;">
+B25043_016E
+</th>
+<th style="text-align:right;">
+B25043_016M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1445
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+3022
+</td>
+<td style="text-align:right;">
+163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+1763
+</td>
+<td style="text-align:right;">
+105
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+1783
+</td>
+<td style="text-align:right;">
+120
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+3054
+</td>
+<td style="text-align:right;">
+131
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+122
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+2750
+</td>
+<td style="text-align:right;">
+139
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-above-25-with-less-than-high-schooltotal-pop-above-25" class="section level3">
 <h3>Population above 25 with less than high school/Total pop above 25</h3>
@@ -1378,17 +4105,196 @@ VETERAN STATUS BY EDUCATIONAL ATTAINMENT FOR THE CIVILIAN POPULATION 25 YEARS AN
   geography = &quot;tract&quot;,
   variables = c(&quot;B21003_003&quot;,&quot;B21003_008&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B21003_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        B21003_003E B21003_003M B21003_008E B21003_008M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…           0          12         134          87        2734
-## 2 41005… Census Tra…         101         104         528         219        5714
-## 3 41005… Census Tra…          34          31         518         162        3655
-## 4 41005… Census Tra…           0          17         197          76        3564
-## 5 41005… Census Tra…           0          17         208         136        5769
-## 6 41005… Census Tra…           0          17          87          75        4521
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B21003_003E
+</th>
+<th style="text-align:right;">
+B21003_003M
+</th>
+<th style="text-align:right;">
+B21003_008E
+</th>
+<th style="text-align:right;">
+B21003_008M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+2734
+</td>
+<td style="text-align:right;">
+186
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+101
+</td>
+<td style="text-align:right;">
+104
+</td>
+<td style="text-align:right;">
+528
+</td>
+<td style="text-align:right;">
+219
+</td>
+<td style="text-align:right;">
+5714
+</td>
+<td style="text-align:right;">
+324
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+518
+</td>
+<td style="text-align:right;">
+162
+</td>
+<td style="text-align:right;">
+3655
+</td>
+<td style="text-align:right;">
+231
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+197
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+3564
+</td>
+<td style="text-align:right;">
+292
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+208
+</td>
+<td style="text-align:right;">
+136
+</td>
+<td style="text-align:right;">
+5769
+</td>
+<td style="text-align:right;">
+333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+4521
+</td>
+<td style="text-align:right;">
+273
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-16-in-labor-force-and-unemployedpop-in-labor-force-16" class="section level3">
 <h3>Population 16+ in labor force and unemployed/Pop in Labor force 16+</h3>
@@ -1484,21 +4390,180 @@ EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER
   geography = &quot;tract&quot;,
   variables = c(&quot;B23025_005&quot;),
  summary_var = &quot;B23025_002&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 7
-##   GEOID    NAME                  variable estimate   moe summary_est summary_moe
-##   &lt;chr&gt;    &lt;chr&gt;                 &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 4100502… Census Tract 201, Cl… B23025_…       35    44        1982         195
-## 2 4100502… Census Tract 202, Cl… B23025_…       78    59        3332         276
-## 3 4100502… Census Tract 203.02,… B23025_…      168    78        2428         206
-## 4 4100502… Census Tract 203.03,… B23025_…       43    48        3324         322
-## 5 4100502… Census Tract 203.04,… B23025_…      212    90        3007         282
-## 6 4100502… Census Tract 204.01,… B23025_…      152    70        3130         274</code></pre>
+)) %&gt;% head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:left;">
+variable
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+moe
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020100
+</td>
+<td style="text-align:left;">
+Census Tract 201, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+1982
+</td>
+<td style="text-align:right;">
+195
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020200
+</td>
+<td style="text-align:left;">
+Census Tract 202, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+3332
+</td>
+<td style="text-align:right;">
+276
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020302
+</td>
+<td style="text-align:left;">
+Census Tract 203.02, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+168
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+2428
+</td>
+<td style="text-align:right;">
+206
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+3324
+</td>
+<td style="text-align:right;">
+322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020304
+</td>
+<td style="text-align:left;">
+Census Tract 203.04, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+212
+</td>
+<td style="text-align:right;">
+90
+</td>
+<td style="text-align:right;">
+3007
+</td>
+<td style="text-align:right;">
+282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020401
+</td>
+<td style="text-align:left;">
+Census Tract 204.01, Clackamas County, Oregon
+</td>
+<td style="text-align:left;">
+B23025_005
+</td>
+<td style="text-align:right;">
+152
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+3130
+</td>
+<td style="text-align:right;">
+274
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="population-above-5-that-speak-english-not-well-or-not-at-allpop5" class="section level3">
 <h3>Population above 5 that speak English not well or not at all/Pop&gt;5</h3>
-<pre class="r"><code>g5.nonE_vars &lt;- paste0(&quot;B06007_00&quot;,1:9)
-vars %&gt;% filter(name %in% g5.nonE_vars) %&gt;% kbl() %&gt;% 
+<pre class="r"><code>nonE_vars &lt;- paste0(&quot;B06007_00&quot;,1:9)
+vars %&gt;% filter(name %in% nonE_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
 <thead>
@@ -1616,23 +4681,516 @@ PLACE OF BIRTH BY LANGUAGE SPOKEN AT HOME AND ABILITY TO SPEAK ENGLISH IN THE UN
 </tr>
 </tbody>
 </table>
-<pre class="r"><code>(g5.nonE_tract &lt;- get_acs(
+<pre class="r"><code>(nonE_tract &lt;- get_acs(
   state = &quot;41&quot;,
   county = tri_cou,
   geography = &quot;tract&quot;,
   variables = c(&quot;B06007_005&quot;,&quot;B06007_008&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B06007_001&quot; , cache_table = T
-)) %&gt;% head()</code></pre>
-<pre><code>## # A tibble: 6 x 8
-##   GEOID  NAME        B06007_005E B06007_005M B06007_008E B06007_008M summary_est
-##   &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
-## 1 41005… Census Tra…          16          18         125         134        3824
-## 2 41005… Census Tra…          68          85          18          28        7213
-## 3 41005… Census Tra…         292         164          93         117        4678
-## 4 41005… Census Tra…          23          38           0          17        4852
-## 5 41005… Census Tra…           0          17         333         161        8090
-## 6 41005… Census Tra…          74          74         214         165        5862
-## # … with 1 more variable: summary_moe &lt;dbl&gt;</code></pre>
+)) %&gt;% mutate(Sum = B06007_005E+B06007_008E) %&gt;%
+       head() %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+B06007_005E
+</th>
+<th style="text-align:right;">
+B06007_005M
+</th>
+<th style="text-align:right;">
+B06007_008E
+</th>
+<th style="text-align:right;">
+B06007_008M
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+<th style="text-align:right;">
+Sum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+125
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+3824
+</td>
+<td style="text-align:right;">
+234
+</td>
+<td style="text-align:right;">
+141
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+7213
+</td>
+<td style="text-align:right;">
+413
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+292
+</td>
+<td style="text-align:right;">
+164
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+117
+</td>
+<td style="text-align:right;">
+4678
+</td>
+<td style="text-align:right;">
+326
+</td>
+<td style="text-align:right;">
+385
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+38
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+4852
+</td>
+<td style="text-align:right;">
+429
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+333
+</td>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+8090
+</td>
+<td style="text-align:right;">
+420
+</td>
+<td style="text-align:right;">
+333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+214
+</td>
+<td style="text-align:right;">
+165
+</td>
+<td style="text-align:right;">
+5862
+</td>
+<td style="text-align:right;">
+347
+</td>
+<td style="text-align:right;">
+288
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># g5.nonE_vars &lt;- (vars %&gt;% filter(grepl(&quot;B16001_&quot;,name),grepl(&quot;Speak English less than \&quot;very well\&quot;&quot;,label)))$name
+# g5.nonE_vars &lt;- (vars %&gt;% filter(grepl(&quot;B16008_&quot;,name),grepl(&quot;Speak English less than \&quot;very well\&quot;&quot;,label)))$name
+g5.nonE_vars &lt;- (vars %&gt;% filter(grepl(&quot;C16001_&quot;,name),grepl(&quot;Speak English less than \&quot;very well\&quot;&quot;,label)))$name
+vars %&gt;% filter(name %in% g5.nonE_vars) %&gt;% kbl() %&gt;% 
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+label
+</th>
+<th style="text-align:left;">
+concept
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+C16001_005
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Spanish:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_008
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!French, Haitian, or Cajun:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_011
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!German or other West Germanic languages:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_014
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Russian, Polish, or other Slavic languages:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_017
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Other Indo-European languages:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_020
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Korean:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_023
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Chinese (incl. Mandarin, Cantonese):!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_026
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Vietnamese:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_029
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Tagalog (incl. Filipino):!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_032
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Other Asian and Pacific Island languages:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_035
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Arabic:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C16001_038
+</td>
+<td style="text-align:left;">
+Estimate!!Total:!!Other and unspecified languages:!!Speak English less than “very well”
+</td>
+<td style="text-align:left;">
+LANGUAGE SPOKEN AT HOME FOR THE POPULATION 5 YEARS AND OVER
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>g5.nonE_tract &lt;- get_acs(
+  state = &quot;41&quot;,
+  county = tri_cou,
+  geography = &quot;tract&quot;,
+  variables = g5.nonE_vars, output = &quot;wide&quot;,
+ summary_var = &quot;C16001_001&quot; , cache_table = T
+)
+
+g5.nonE_tract%&gt;% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,&quot;E&quot;)), na.rm = TRUE)) %&gt;% # rowSums(g5.nonE_tract[,paste0(g5.nonE_vars,&quot;E&quot;)])
+        dplyr::select(-starts_with(&quot;C&quot;)) %&gt;% head() %&gt;% kbl() %&gt;% # c(starts_with(&quot;B&quot;)&amp;ends_with(&quot;E&quot;)
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+GEOID
+</th>
+<th style="text-align:left;">
+NAME
+</th>
+<th style="text-align:right;">
+summary_est
+</th>
+<th style="text-align:right;">
+summary_moe
+</th>
+<th style="text-align:right;">
+Sum
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+41005020700
+</td>
+<td style="text-align:left;">
+Census Tract 207, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+3824
+</td>
+<td style="text-align:right;">
+234
+</td>
+<td style="text-align:right;">
+141
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005022500
+</td>
+<td style="text-align:left;">
+Census Tract 225, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+7213
+</td>
+<td style="text-align:right;">
+413
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005023401
+</td>
+<td style="text-align:left;">
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+4678
+</td>
+<td style="text-align:right;">
+326
+</td>
+<td style="text-align:right;">
+385
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
+</td>
+<td style="text-align:left;">
+Census Tract 241, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+4852
+</td>
+<td style="text-align:right;">
+429
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+8090
+</td>
+<td style="text-align:right;">
+420
+</td>
+<td style="text-align:right;">
+333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020303
+</td>
+<td style="text-align:left;">
+Census Tract 203.03, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+5862
+</td>
+<td style="text-align:right;">
+347
+</td>
+<td style="text-align:right;">
+288
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
+# https://github.com/tidyverse/dplyr/issues/4544</code></pre>
 </div>
 </div>
 </div>

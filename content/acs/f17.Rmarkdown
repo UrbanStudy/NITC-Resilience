@@ -65,7 +65,8 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
   geography = "tract",
   variables = "B09002_008",
  summary_var = "B09002_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Population 5 or below/Total Population 
@@ -77,7 +78,8 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
   geography = "tract",
   variables = l5_vars, output = "wide",
  summary_var = "B01001_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ## Elder Care Needs
@@ -100,7 +102,8 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
   geography = "tract",
   variables = "C18130_016",
  summary_var = "C18130_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Population 65 or above & below poverty/Pop. 65 or above
@@ -112,7 +115,8 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
   geography = "tract",
   variables = g65.pov_vars, output = "wide",
  summary_var = "C18130_016" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ## Disability
@@ -132,7 +136,8 @@ vars %>% filter(name %in% dis_vars) %>% kbl() %>%
   geography = "tract",
   variables = dis_vars, output = 'wide',
  summary_var = "C18130_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ## Transportation needs
@@ -155,7 +160,8 @@ vars %>% filter(name %in% g16.tran_vars) %>% kbl() %>%
   geography = "tract",
   variables = "B08301_010", # c("C24010_001"),output = "wide",
  summary_var = "B23025_004" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Occupied housing units without a vehicle/Occupied housing units
@@ -174,7 +180,8 @@ vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B08201_002", "B25044_003", "B25044_010"), output = "wide",
  summary_var = "B25044_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ## Temporary Shelter and housing recovery needs
@@ -194,7 +201,8 @@ vars %>% filter(name %in% vac_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B25002_003"),
  summary_var = "B25002_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Persons in renter occupied housing units/Total occupied housing units
@@ -212,7 +220,8 @@ vars %>% filter(name %in% rent_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B25008_003"),
  summary_var = "B25008_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Non-white population/Total population
@@ -230,7 +239,8 @@ vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B02001_002"),
  summary_var = "B02001_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Population in group quarters/Total population
@@ -248,7 +258,8 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B26001_001"),
  summary_var = "B01003_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Housing units built 20 years ago/Total housing Units
@@ -266,7 +277,8 @@ vars %>% filter(name %in% H.g20_vars) %>% kbl() %>%
   geography = "tract",
   variables = H.g20_vars, output = "wide",
  summary_var = "B25034_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Mobile Homes/Total housing units
@@ -285,7 +297,8 @@ vars %>% filter(name %in% mob.H_vars) %>% kbl() %>%
   geography = "tract",
   variables = "B25024_010", # c("B25024_011"), output = "wide",
  summary_var = "B25024_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Persons in poverty/Total population
@@ -308,7 +321,8 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
   geography = "tract",
   variables = "B17020_002", # c("B17020_002","C17002_002","C17002_003"), output = "wide",
  summary_var = "B17020_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ## Civic Capacity needs
@@ -328,7 +342,8 @@ vars %>% filter(name %in% occ.tel_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B25043_007","B25043_016"), output = "wide",
  summary_var = "B25043_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
@@ -347,7 +362,8 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B21003_003","B21003_008"), output = "wide",
  summary_var = "B21003_001" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Population 16+ in labor force and unemployed/Pop in Labor force 16+
@@ -365,7 +381,8 @@ vars %>% filter(name %in% g16.unem_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B23025_005"),
  summary_var = "B23025_002" , cache_table = T
-)) %>% head()
+)) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ### Population above 5 that speak English not well or not at all/Pop>5
@@ -383,7 +400,9 @@ vars %>% filter(name %in% nonE_vars) %>% kbl() %>%
   geography = "tract",
   variables = c("B06007_005","B06007_008"), output = "wide",
  summary_var = "B06007_001" , cache_table = T
-)) %>% head()
+)) %>% mutate(Sum = B06007_005E+B06007_008E) %>%
+       head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ```{r}
@@ -395,14 +414,17 @@ vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>%
 ```
 
 ```{r}
-(g5.nonE_tract <- get_acs(
+g5.nonE_tract <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "tract",
   variables = g5.nonE_vars, output = "wide",
  summary_var = "C16001_001" , cache_table = T
-))  %>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE)) %>% # rowSums(g5.nonE_tract[,paste0(g5.nonE_vars,"E")])
-        select(-starts_with("B")) %>% head() # c(starts_with("B")&ends_with("E")
+)
+
+g5.nonE_tract%>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE)) %>% # rowSums(g5.nonE_tract[,paste0(g5.nonE_vars,"E")])
+        dplyr::select(-starts_with("C")) %>% head() %>% kbl() %>% # c(starts_with("B")&ends_with("E")
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 # https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
 # https://github.com/tidyverse/dplyr/issues/4544
 ```
