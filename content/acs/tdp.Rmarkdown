@@ -65,24 +65,26 @@ length(unique(vars$concept))
 )) %>% str()
 ```
 
-There is not driver information.
+**There is not driver information.**
 
+### Five Variables about Vehicle Available
 
-#### Vehicle Households
 
 ```{r}
 vars %>% dplyr::filter(grepl("Total:!!No vehicle available",label)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+### Vehicle Available by Workers
+
 - SEX OF WORKERS BY VEHICLES AVAILABLE
+
+- MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
 
 ```{r}
 vars %>% filter(name %in% c(paste0("B08014_00", 2:9),paste0("B08141_00", 2:9))) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
-
-
 
 
 ```{r}
@@ -97,16 +99,18 @@ vars %>% filter(name %in% c(paste0("B08014_00", 2:9),paste0("B08141_00", 2:9))) 
   select(GEOID,B08014_002E, B08141_002E,summary_est, noveh.per)) %>% head()
 ```
 
-*B08014_002* same to *B08141_002* MEANS OF TRANSPORTATION TO WORK BY VEHICLES AVAILABLE
+**B08014_002 = B08141_002** 
+
+### Vehicle Available by Household
 
 - HOUSEHOLD SIZE BY VEHICLES AVAILABLE
+
+- NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
 
 ```{r}
 vars %>% filter(name %in% c(paste0("B08201_00", 2:9),paste0("B08203_00", 2:9))) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
-
-
 
 
 ```{r}
@@ -121,11 +125,9 @@ vars %>% filter(name %in% c(paste0("B08201_00", 2:9),paste0("B08203_00", 2:9))) 
   select(GEOID,B08201_002E, B08203_002E, summary_est, noveh.per)) %>% head()
 ```
 
-*B08201_002* same to *B08203_002* NUMBER OF WORKERS IN HOUSEHOLD BY VEHICLES AVAILABLE
+**B08201_002 = B08203_002** 
 
 - TENURE BY VEHICLES AVAILABLE
-
-
 
 ```{r}
 vars %>% filter((grepl("occupied:!!No vehicle available",label))) %>% kbl() %>% 
@@ -142,10 +144,12 @@ get_acs(
   summary_var = "B25044_001", cache_table = T
   ) %>% 
   mutate(noveh.per= 100 * (B25044_003E + B25044_010E)/summary_est) %>% 
-  select(GEOID,noveh.per) %>% head()
+  select(GEOID,B25044_003E,B25044_010E,summary_est,noveh.per) %>% head()
 ```
 
-Sum of Owner and Renter same to "B08201_002"
+**B08201_002 = B08203_002 = B25044_003 + B25044_010** 
+
+### Spatial Distributions
 
 ```{r}
 pdx_tr1 <- pdx_tr %>% left_join(noveh1,by="GEOID")
@@ -160,6 +164,8 @@ mapview(pdx_tr1, zcol = "B08014_002E") +
 mapview(pdx_tr2, zcol = "noveh.per") + 
 mapview(pdx_tr2, zcol = "B08201_002E")
 ```
+
+### Detailed household size and vehicle number
 
 - HOUSEHOLD SIZE BY VEHICLES AVAILABLE
 
