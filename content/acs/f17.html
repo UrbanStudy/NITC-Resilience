@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-08-16" />
+<meta name="date" content="2021-08-23" />
 
 <title>Social Vulnerability Index</title>
 
@@ -167,7 +167,7 @@ pre code {
 
 
 <h1 class="title toc-ignore">Social Vulnerability Index</h1>
-<h4 class="date">2021-08-16</h4>
+<h4 class="date">2021-08-23</h4>
 
 </div>
 
@@ -180,7 +180,7 @@ pre code {
 <div id="child-care-needs" class="section level2">
 <h2>Child care Needs</h2>
 <div id="single-parent-households-with-childrentotal-households" class="section level3">
-<h3>Single parent households with children/Total Households</h3>
+<h3>1 Single parent households with children/Total Households</h3>
 <pre class="r"><code>Fami.Cild_vars &lt;- paste0(&quot;B09002_00&quot;, 2:9)
 l5_vars &lt;- c(&quot;B01001_003&quot;, &quot;B01001_027&quot;)
 vars %&gt;% filter(name %in% c(Fami.Cild_vars,l5_vars)) %&gt;% kbl() %&gt;% 
@@ -489,7 +489,7 @@ B09002_008
 </table>
 </div>
 <div id="population-5-or-belowtotal-population" class="section level3">
-<h3>Population 5 or below/Total Population</h3>
+<h3>2 Population 5 or below/Total Population</h3>
 <pre class="r"><code>(l5_tract &lt;- get_acs(
   state = &quot;41&quot;,
   county = tri_cou,
@@ -691,7 +691,7 @@ Census Tract 203.03, Clackamas County, Oregon
 <div id="elder-care-needs" class="section level2">
 <h2>Elder Care Needs</h2>
 <div id="population-65-or-abovetotal-population" class="section level3">
-<h3>Population 65 or above/Total Population</h3>
+<h3>3 Population 65 or above/Total Population</h3>
 <pre class="r"><code>g65_vars &lt;- c(&quot;C18130_001&quot;,&quot;C18130_016&quot;)
 g65.pov_vars &lt;- c(&quot;C18130_018&quot;, &quot;C18130_021&quot;) # C18130_016
 vars %&gt;% filter(name %in% c(g65_vars, g65.pov_vars)) %&gt;% kbl() %&gt;% 
@@ -934,7 +934,7 @@ C18130_016
 </table>
 </div>
 <div id="population-65-or-above-below-povertypop.-65-or-above" class="section level3">
-<h3>Population 65 or above &amp; below poverty/Pop. 65 or above</h3>
+<h3>4 Population 65 or above &amp; below poverty/Pop. 65 or above</h3>
 <pre class="r"><code>(g65.pov_tract &lt;- get_acs(
   state = &quot;41&quot;,
   county = tri_cou,
@@ -1433,7 +1433,7 @@ Census Tract 203.03, Clackamas County, Oregon
 <div id="transportation-needs" class="section level2">
 <h2>Transportation needs</h2>
 <div id="workers-using-public-transportationcivilian-pop.-16-and-employed" class="section level3">
-<h3>Workers using public transportation/Civilian pop. 16+ and employed</h3>
+<h3>5 Workers using public transportation/Civilian pop. 16+ and employed</h3>
 <pre class="r"><code>g16.tran_vars &lt;- c(&quot;B08301_010&quot;, &quot;B23025_004&quot;)
 vars %&gt;% filter(name %in% g16.tran_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -1654,7 +1654,7 @@ B08301_010
 </table>
 </div>
 <div id="occupied-housing-units-without-a-vehicleoccupied-housing-units" class="section level3">
-<h3>Occupied housing units without a vehicle/Occupied housing units</h3>
+<h3>6 Occupied housing units without a vehicle/Occupied housing units</h3>
 <pre class="r"><code>occ.0veh_vars &lt;- c(&quot;B25044_001&quot;,&quot;B25044_002&quot;,&quot;B25044_003&quot;,&quot;B25044_009&quot;, &quot;B25044_010&quot;,
                    &quot;B08201_001&quot;,&quot;B08201_002&quot;)
 vars %&gt;% filter(name %in% occ.0veh_vars) %&gt;% kbl() %&gt;% 
@@ -1996,7 +1996,7 @@ Census Tract 203.03, Clackamas County, Oregon
 <div id="temporary-shelter-and-housing-recovery-needs" class="section level2">
 <h2>Temporary Shelter and housing recovery needs</h2>
 <div id="vacant-housing-unitstotal-housing-units" class="section level3">
-<h3>Vacant Housing units/Total housing units</h3>
+<h3>7 Vacant Housing units/Total housing units</h3>
 <pre class="r"><code>vac_vars &lt;- c(&quot;B25002_001&quot;,&quot;B25002_002&quot;,&quot;B25002_003&quot;)
 vars %&gt;% filter(name %in% vac_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -2227,7 +2227,7 @@ B25002_003
 </table>
 </div>
 <div id="persons-in-renter-occupied-housing-unitstotal-occupied-housing-units" class="section level3">
-<h3>Persons in renter occupied housing units/Total occupied housing units</h3>
+<h3>8 Persons in renter occupied housing units/Total occupied housing units</h3>
 <pre class="r"><code>rent_vars &lt;- c(&quot;B25008_001&quot;,&quot;B25008_002&quot;,&quot;B25008_003&quot;)
 vars %&gt;% filter(name %in% rent_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -2285,7 +2285,7 @@ TOTAL POPULATION IN OCCUPIED HOUSING UNITS BY TENURE
   state = &quot;41&quot;,
   county = tri_cou,
   geography = &quot;tract&quot;,
-  variables = c(&quot;B25008_003&quot;),
+  variables = c(&quot;B25002_002&quot;,&quot;B25008_002&quot;,&quot;B25008_003&quot;), output = &quot;wide&quot;,
  summary_var = &quot;B25008_001&quot; , cache_table = T
 )) %&gt;% head() %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -2298,14 +2298,23 @@ GEOID
 <th style="text-align:left;">
 NAME
 </th>
-<th style="text-align:left;">
-variable
+<th style="text-align:right;">
+B25002_002E
 </th>
 <th style="text-align:right;">
-estimate
+B25002_002M
 </th>
 <th style="text-align:right;">
-moe
+B25008_002E
+</th>
+<th style="text-align:right;">
+B25008_002M
+</th>
+<th style="text-align:right;">
+B25008_003E
+</th>
+<th style="text-align:right;">
+B25008_003M
 </th>
 <th style="text-align:right;">
 summary_est
@@ -2318,71 +2327,162 @@ summary_moe
 <tbody>
 <tr>
 <td style="text-align:left;">
-41005020100
+41005020700
 </td>
 <td style="text-align:left;">
-Census Tract 201, Clackamas County, Oregon
-</td>
-<td style="text-align:left;">
-B25008_003
+Census Tract 207, Clackamas County, Oregon
 </td>
 <td style="text-align:right;">
-587
+1445
 </td>
 <td style="text-align:right;">
-211
+88
 </td>
 <td style="text-align:right;">
-3984
+3490
 </td>
 <td style="text-align:right;">
-255
+235
+</td>
+<td style="text-align:right;">
+558
+</td>
+<td style="text-align:right;">
+193
+</td>
+<td style="text-align:right;">
+4048
+</td>
+<td style="text-align:right;">
+245
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-41005020200
+41005022500
 </td>
 <td style="text-align:left;">
-Census Tract 202, Clackamas County, Oregon
-</td>
-<td style="text-align:left;">
-B25008_003
+Census Tract 225, Clackamas County, Oregon
 </td>
 <td style="text-align:right;">
-1661
+3022
 </td>
 <td style="text-align:right;">
-406
+163
 </td>
 <td style="text-align:right;">
-6258
+4527
 </td>
 <td style="text-align:right;">
-332
+636
+</td>
+<td style="text-align:right;">
+2999
+</td>
+<td style="text-align:right;">
+621
+</td>
+<td style="text-align:right;">
+7526
+</td>
+<td style="text-align:right;">
+466
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-41005020302
+41005023401
 </td>
 <td style="text-align:left;">
-Census Tract 203.02, Clackamas County, Oregon
+Census Tract 234.01, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+1763
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:right;">
+4336
+</td>
+<td style="text-align:right;">
+420
+</td>
+<td style="text-align:right;">
+699
+</td>
+<td style="text-align:right;">
+299
+</td>
+<td style="text-align:right;">
+5035
+</td>
+<td style="text-align:right;">
+347
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005024100
 </td>
 <td style="text-align:left;">
-B25008_003
+Census Tract 241, Clackamas County, Oregon
 </td>
 <td style="text-align:right;">
-1083
+1783
 </td>
 <td style="text-align:right;">
-205
+120
 </td>
 <td style="text-align:right;">
-4003
+4586
 </td>
 <td style="text-align:right;">
-283
+498
+</td>
+<td style="text-align:right;">
+497
+</td>
+<td style="text-align:right;">
+341
+</td>
+<td style="text-align:right;">
+5083
+</td>
+<td style="text-align:right;">
+455
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41005020600
+</td>
+<td style="text-align:left;">
+Census Tract 206, Clackamas County, Oregon
+</td>
+<td style="text-align:right;">
+3054
+</td>
+<td style="text-align:right;">
+131
+</td>
+<td style="text-align:right;">
+7180
+</td>
+<td style="text-align:right;">
+514
+</td>
+<td style="text-align:right;">
+1330
+</td>
+<td style="text-align:right;">
+376
+</td>
+<td style="text-align:right;">
+8510
+</td>
+<td style="text-align:right;">
+421
 </td>
 </tr>
 <tr>
@@ -2392,8 +2492,17 @@ B25008_003
 <td style="text-align:left;">
 Census Tract 203.03, Clackamas County, Oregon
 </td>
-<td style="text-align:left;">
-B25008_003
+<td style="text-align:right;">
+2750
+</td>
+<td style="text-align:right;">
+139
+</td>
+<td style="text-align:right;">
+4150
+</td>
+<td style="text-align:right;">
+400
 </td>
 <td style="text-align:right;">
 1915
@@ -2408,57 +2517,11 @@ B25008_003
 338
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-41005020304
-</td>
-<td style="text-align:left;">
-Census Tract 203.04, Clackamas County, Oregon
-</td>
-<td style="text-align:left;">
-B25008_003
-</td>
-<td style="text-align:right;">
-1600
-</td>
-<td style="text-align:right;">
-342
-</td>
-<td style="text-align:right;">
-5697
-</td>
-<td style="text-align:right;">
-256
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-41005020401
-</td>
-<td style="text-align:left;">
-Census Tract 204.01, Clackamas County, Oregon
-</td>
-<td style="text-align:left;">
-B25008_003
-</td>
-<td style="text-align:right;">
-789
-</td>
-<td style="text-align:right;">
-296
-</td>
-<td style="text-align:right;">
-5996
-</td>
-<td style="text-align:right;">
-281
-</td>
-</tr>
 </tbody>
 </table>
 </div>
 <div id="non-white-populationtotal-population" class="section level3">
-<h3>Non-white population/Total population</h3>
+<h3>9 Non-white population/Total population</h3>
 <pre class="r"><code>nonWhi_vars &lt;- c(&quot;B02001_001&quot;,&quot;B02001_002&quot;)
 vars %&gt;% filter(name %in% nonWhi_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -2678,7 +2741,7 @@ B02001_002
 </table>
 </div>
 <div id="population-in-group-quarterstotal-population" class="section level3">
-<h3>Population in group quarters/Total population</h3>
+<h3>10 Population in group quarters/Total population</h3>
 <pre class="r"><code>group_vars &lt;- c(&quot;B01003_001&quot;,&quot;B26001_001&quot;)
 vars %&gt;% filter(name %in% group_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -2898,7 +2961,7 @@ B26001_001
 </table>
 </div>
 <div id="housing-units-built-20-years-agototal-housing-units" class="section level3">
-<h3>Housing units built 20 years ago/Total housing Units</h3>
+<h3>11 Housing units built 20 years ago/Total housing Units</h3>
 <pre class="r"><code>H.g20_vars &lt;- c(&quot;B25034_002&quot;,&quot;B25034_003&quot;,&quot;B25034_004&quot;)
 vars %&gt;% filter(name %in% H.g20_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -3192,7 +3255,7 @@ Census Tract 203.03, Clackamas County, Oregon
 </table>
 </div>
 <div id="mobile-homestotal-housing-units" class="section level3">
-<h3>Mobile Homes/Total housing units</h3>
+<h3>12 Mobile Homes/Total housing units</h3>
 <pre class="r"><code>mob.H_vars &lt;- c(&quot;B11011_002&quot;, &quot;B11011_003&quot;, &quot;B11011_006&quot;, &quot;B11011_011&quot;, &quot;B11011_015&quot;, &quot;B11011_019&quot;,
                 &quot;B25024_001&quot;,&quot;B25024_010&quot;,&quot;B25024_011&quot;)
 vars %&gt;% filter(name %in% mob.H_vars) %&gt;% kbl() %&gt;% 
@@ -3490,7 +3553,7 @@ B25024_010
 </table>
 </div>
 <div id="persons-in-povertytotal-population" class="section level3">
-<h3>Persons in poverty/Total population</h3>
+<h3>13 Persons in poverty/Total population</h3>
 <pre class="r"><code>pov_vars &lt;- c(&quot;B17020_001&quot;, &quot;B17020_002&quot;,   
               &quot;B17001_001&quot;,&quot;B17001_002&quot;,
               &quot;C17002_001&quot;,&quot;C17002_002&quot;,&quot;C17002_003&quot;)
@@ -3771,7 +3834,7 @@ B17020_002
 <div id="civic-capacity-needs" class="section level2">
 <h2>Civic Capacity needs</h2>
 <div id="occupied-housing-units-without-a-telephonetotal-occupied-hus" class="section level3">
-<h3>Occupied housing units without a telephone/Total occupied Hus</h3>
+<h3>14 Occupied housing units without a telephone/Total occupied Hus</h3>
 <pre class="r"><code>occ.tel_vars &lt;- c(&quot;B25043_001&quot;,&quot;B25043_007&quot;,&quot;B25043_016&quot;)
 vars %&gt;% filter(name %in% occ.tel_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -4023,7 +4086,7 @@ Census Tract 203.03, Clackamas County, Oregon
 </table>
 </div>
 <div id="population-above-25-with-less-than-high-schooltotal-pop-above-25" class="section level3">
-<h3>Population above 25 with less than high school/Total pop above 25</h3>
+<h3>15 Population above 25 with less than high school/Total pop above 25</h3>
 <pre class="r"><code>g25.HS_vars &lt;- c(&quot;B21003_001&quot;,&quot;B21003_002&quot;,&quot;B21003_003&quot;,&quot;B21003_007&quot;,&quot;B21003_008&quot;)
 vars %&gt;% filter(name %in% g25.HS_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -4297,7 +4360,7 @@ Census Tract 203.03, Clackamas County, Oregon
 </table>
 </div>
 <div id="population-16-in-labor-force-and-unemployedpop-in-labor-force-16" class="section level3">
-<h3>Population 16+ in labor force and unemployed/Pop in Labor force 16+</h3>
+<h3>16 Population 16+ in labor force and unemployed/Pop in Labor force 16+</h3>
 <pre class="r"><code>g16.unem_vars &lt;- c(&quot;B23025_002&quot;,&quot;B23025_003&quot;,&quot;B23025_004&quot;,&quot;B23025_005&quot;,&quot;B23025_006&quot;,&quot;B23025_007&quot;)
 vars %&gt;% filter(name %in% g16.unem_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>
@@ -4561,7 +4624,7 @@ B23025_005
 </table>
 </div>
 <div id="population-above-5-that-speak-english-not-well-or-not-at-allpop5" class="section level3">
-<h3>Population above 5 that speak English not well or not at all/Pop&gt;5</h3>
+<h3>17 Population above 5 that speak English not well or not at all/Pop&gt;5</h3>
 <pre class="r"><code>nonE_vars &lt;- paste0(&quot;B06007_00&quot;,1:9)
 vars %&gt;% filter(name %in% nonE_vars) %&gt;% kbl() %&gt;% 
   kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;), font_size = 7)</code></pre>

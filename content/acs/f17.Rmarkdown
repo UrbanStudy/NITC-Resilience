@@ -46,7 +46,7 @@ vars <- load_variables(2019, "acs5")
 
 ## Child care Needs
 
-### Single parent households with children/Total Households
+### 1 Single parent households with children/Total Households
 
 
 ```{r}
@@ -69,7 +69,7 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Population 5 or below/Total Population 
+### 2 Population 5 or below/Total Population 
 
 ```{r}
 (l5_tract <- get_acs(
@@ -84,7 +84,7 @@ vars %>% filter(name %in% c(Fami.Cild_vars,l5_vars)) %>% kbl() %>%
 
 ## Elder Care Needs
 
-### Population 65 or above/Total Population
+### 3 Population 65 or above/Total Population
 
 ```{r}
 g65_vars <- c("C18130_001","C18130_016")
@@ -106,7 +106,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Population 65 or above & below poverty/Pop. 65 or above
+### 4 Population 65 or above & below poverty/Pop. 65 or above
 
 ```{r}
 (g65.pov_tract <- get_acs(
@@ -142,7 +142,7 @@ vars %>% filter(name %in% dis_vars) %>% kbl() %>%
 
 ## Transportation needs
 
-### Workers using public transportation/Civilian pop. 16+ and employed
+### 5 Workers using public transportation/Civilian pop. 16+ and employed
 
 ```{r}
 g16.tran_vars <- c("B08301_010", "B23025_004")
@@ -164,7 +164,7 @@ vars %>% filter(name %in% g16.tran_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Occupied housing units without a vehicle/Occupied housing units
+### 6 Occupied housing units without a vehicle/Occupied housing units
 
 ```{r}
 occ.0veh_vars <- c("B25044_001","B25044_002","B25044_003","B25044_009", "B25044_010",
@@ -186,7 +186,7 @@ vars %>% filter(name %in% occ.0veh_vars) %>% kbl() %>%
 
 ## Temporary Shelter and housing recovery needs
 
-### Vacant Housing units/Total housing units
+### 7 Vacant Housing units/Total housing units
 
 ```{r}
 vac_vars <- c("B25002_001","B25002_002","B25002_003")
@@ -205,7 +205,7 @@ vars %>% filter(name %in% vac_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Persons in renter occupied housing units/Total occupied housing units
+### 8 Persons in renter occupied housing units/Total occupied housing units
 
 ```{r}
 rent_vars <- c("B25008_001","B25008_002","B25008_003")
@@ -218,13 +218,13 @@ vars %>% filter(name %in% rent_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "tract",
-  variables = c("B25008_003"),
+  variables = c("B25002_002","B25008_002","B25008_003"), output = "wide",
  summary_var = "B25008_001" , cache_table = T
 )) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Non-white population/Total population
+### 9 Non-white population/Total population
 
 ```{r}
 nonWhi_vars <- c("B02001_001","B02001_002")
@@ -243,7 +243,7 @@ vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Population in group quarters/Total population
+### 10 Population in group quarters/Total population
 
 ```{r}
 group_vars <- c("B01003_001","B26001_001")
@@ -262,7 +262,7 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Housing units built 20 years ago/Total housing Units
+### 11 Housing units built 20 years ago/Total housing Units
 
 ```{r}
 H.g20_vars <- c("B25034_002","B25034_003","B25034_004")
@@ -281,7 +281,7 @@ vars %>% filter(name %in% H.g20_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Mobile Homes/Total housing units
+### 12 Mobile Homes/Total housing units
 
 ```{r}
 mob.H_vars <- c("B11011_002", "B11011_003", "B11011_006", "B11011_011", "B11011_015", "B11011_019",
@@ -301,7 +301,7 @@ vars %>% filter(name %in% mob.H_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Persons in poverty/Total population
+### 13 Persons in poverty/Total population
 
 ```{r}
 pov_vars <- c("B17020_001", "B17020_002", 	
@@ -327,7 +327,7 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
 
 ## Civic Capacity needs
 
-### Occupied housing units without a telephone/Total occupied Hus
+### 14 Occupied housing units without a telephone/Total occupied Hus
 
 ```{r}
 occ.tel_vars <- c("B25043_001","B25043_007","B25043_016")
@@ -347,7 +347,7 @@ vars %>% filter(name %in% occ.tel_vars) %>% kbl() %>%
 ```
 
 
-### Population above 25 with less than high school/Total pop above 25
+### 15 Population above 25 with less than high school/Total pop above 25
 
 ```{r}
 g25.HS_vars <- c("B21003_001","B21003_002","B21003_003","B21003_007","B21003_008")
@@ -366,7 +366,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Population 16+ in labor force and unemployed/Pop in Labor force 16+
+### 16 Population 16+ in labor force and unemployed/Pop in Labor force 16+
 
 ```{r}
 g16.unem_vars <- c("B23025_002","B23025_003","B23025_004","B23025_005","B23025_006","B23025_007")
@@ -385,7 +385,7 @@ vars %>% filter(name %in% g16.unem_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-### Population above 5 that speak English not well or not at all/Pop>5
+### 17 Population above 5 that speak English not well or not at all/Pop>5
 
 ```{r}
 nonE_vars <- paste0("B06007_00",1:9)
