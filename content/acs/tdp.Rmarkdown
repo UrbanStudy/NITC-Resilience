@@ -27,6 +27,8 @@ new_site(theme = "wowchemy/starter-hugo-project-documentation")
 blogdown::build_site(build_rmd = TRUE)
 blogdown::serve_site()
 blogdown::stop_server()
+blogdown::check_gitignore()
+blogdown::check_content()
 ```
 
 
