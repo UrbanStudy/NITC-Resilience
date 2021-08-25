@@ -29,6 +29,10 @@ blogdown::serve_site()
 blogdown::stop_server()
 blogdown::check_gitignore()
 blogdown::check_content()
+blogdown::config_netlify()
+blogdown::check_hugo()
+blogdown::check_netlify()
+blogdown::remove_hugo()
 ```
 
 

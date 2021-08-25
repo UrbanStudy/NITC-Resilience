@@ -1,6 +1,6 @@
 ---
 title: "3 Social Vulnerability Index (Tr)"
-date: "2021-08-24"
+date: "2021-08-25"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---

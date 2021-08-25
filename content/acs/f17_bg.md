@@ -1,6 +1,6 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-08-24"
+date: "2021-08-25"
 categories: R
 tags:
 - R Markdown
