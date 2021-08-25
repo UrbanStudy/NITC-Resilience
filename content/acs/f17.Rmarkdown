@@ -1,12 +1,12 @@
 ---
-title: "Social Vulnerability Index"
+title: "3 Social Vulnerability Index (Tr)"
 date: "`r Sys.Date()`"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = F)
 if (!require(pacman)) {install.packages("pacman"); library(pacman)}
 p_load(tidyverse, tidycensus, tigris, kableExtra )
 # mapview, crsuggest,
@@ -17,11 +17,14 @@ options(tigris_use_cache = TRUE)
 rappdirs::user_cache_dir('tigris')
 ```
 
-Social vulnerability (SV) is defined by Blaikie et al. (1994, 9) as "the characteristics of a person or group in terms of their capacity to anticipate, cope with, resist and recover from the impacts of a natural hazard."
-
-
+Census Tract Level
 
 The 17 Factors (Zandt et al., 2012)
+
+
+
+
+Social vulnerability (SV) is defined by Blaikie et al. (1994, 9) as "the characteristics of a person or group in terms of their capacity to anticipate, cope with, resist and recover from the impacts of a natural hazard."
 
 
 

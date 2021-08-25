@@ -15,11 +15,13 @@ options(
   blogdown.serve_site.startup = FALSE,
   # to disable knitting Rmd files on save, set this option to FALSE
   blogdown.knit.on_save = FALSE,
-  blogdown.author = "S.Q.",
-  blogdown.ext = ".Rmarkdown",
-  blogdown.subdir = "courses",
   # build .Rmd to .html (via Pandoc); to build to Markdown, set this option to 'markdown'
-  blogdown.method = 'html'
+  blogdown.method = 'markdown',  
+  # https://alison.rbind.io/blog/2020-12-new-year-new-blogdown/
+  # blogdown::config_Rprofile(),
+  blogdown.author = "qs",
+  blogdown.ext = ".Rmarkdown",
+  blogdown.subdir = "docs"
 )
 
 # fix Hugo version

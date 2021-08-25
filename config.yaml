@@ -3,8 +3,8 @@
 # Hugo Documentation: https://gohugo.io/getting-started/configuration/#all-configuration-settings
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
-title: 'NITC-Resiliencet' # Website name
-baseurl: 'https://nitc-resilience.netlify.app' # Website URL
+title: 'NITC Resilience' # Website name
+baseurl: '' # Website URL
 copyright: '' # Footer text, e.g. '© {year} Me'
 
 ############################
@@ -24,9 +24,6 @@ module:
   imports:
     - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms
     - path: github.com/wowchemy/wowchemy-hugo-modules/wowchemy
-    
-    # github.com/wowchemy/wowchemy-hugo-modules/wowchemy-cms
-    # github.com/wowchemy/wowchemy-hugo-modules/wowchemy
 
 ############################
 ## ADVANCED

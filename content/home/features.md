@@ -2,19 +2,19 @@
 widget: featurette
 headless: true
 weight: 20
-title: title1
-subtitle: subtitile1
+title: Features
+subtitle: Document _anything_ ✨
 feature:
   - icon: book-open
     icon_pack: fas
-    name: Mission1
-    description: For
+    name: Project Documentation
+    description: For users
   - icon: question
     icon_pack: fas
-    name: Mission2
-    description: For
+    name: Knowledge Base
+    description: For teams
   - icon: list-alt
     icon_pack: fas
-    name: Mission3
-    description: For
+    name: Personal Notebook
+    description: For yourself
 ---

@@ -7,9 +7,9 @@ main:
   - name: Home
     url: /
     weight: 10
-  - name: Documents
-    url: docs/
-    weight: 20
   - name: ACS
     url: acs/
+    weight: 20
+  - name: Doc
+    url: docs/
     weight: 20

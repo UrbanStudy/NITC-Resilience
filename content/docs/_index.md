@@ -1,14 +1,9 @@
 ---
-title: Concepts
-type: book  # Do not modify.
-toc: true
+title: Docs
+toc: false
+type: book
 ---
 
+Welcome to the _Project Docs_ template!
 
-
-
-
-{{< cta cta_text="Get Started with TDP" cta_link="tdp" >}}
-
-
-{{< cta cta_text="Get Started with SVI" cta_link="svi" >}}
+{{< cta cta_text="👉 Get Started with Chapter 1" cta_link="chapter1" >}}

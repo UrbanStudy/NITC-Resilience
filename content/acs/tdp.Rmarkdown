@@ -1,5 +1,5 @@
 ---
-title: "Transit Dependent Population"
+title: "1 Transit Dependent Population (Tr)"
 date: "`r Sys.Date()`"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
@@ -17,21 +17,21 @@ options(tigris_use_cache = TRUE)
 rappdirs::user_cache_dir('tigris')
 ```
 
-
+Census Tract Level      
 
 <!-- #  {.tabset .tabset-fade .tabset-pills} -->
+```{r,eval=F,echo=F}
+# https://alison.rbind.io/blog/2020-12-new-year-new-blogdown/
+library(blogdown)
+new_site(theme = "wowchemy/starter-hugo-project-documentation")
+blogdown::build_site(build_rmd = TRUE)
+blogdown::serve_site()
+blogdown::stop_server()
+```
 
-# Geographic Boudary
-
-## Three Counties
-
-Source: TIGER data base, calculated for use with Census 2010
-
-Land area measurements are originally recorded as whole square meters 
-sq.m = sq.km\* 1,000,000; sq.km = sq.mi\* 2.58999; sq.m = sq.mi\* 2,589,988).
 
 
-```{r}
+```{r,echo=F}
 portland_city_place <- places("41", cb = FALSE, year = 2019) %>% filter(NAME=="Portland")
 # pdx_md<- metro_divisions(year=2019)  no protland #CBSAFP=="38900", CSAFP=="440", NAME %in% grepl("Portland", NAME)
 # ua <-  urban_areas(year=2019) 
@@ -43,13 +43,26 @@ pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
 # pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
 ```
 
+```{r,echo=F}
+vars <- load_variables(2019, "acs5")
+# View(vars)
+```
+
+
+# Geographic Boudary
+
+## Three Counties
+
+Source: TIGER data base, calculated for use with Census 2010
+
+Land area measurements are originally recorded as whole square meters 
+sq.m = sq.km\* 1,000,000; sq.km = sq.mi\* 2.58999; sq.m = sq.mi\* 2,589,988).
+
 
 # ACS Variables
 
 
 ```{r,eval=T}
-vars <- load_variables(2019, "acs5")
-# View(vars)
 str(vars)
 length(unique(vars$concept))
 ```
