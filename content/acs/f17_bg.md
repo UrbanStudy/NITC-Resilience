@@ -1,6 +1,6 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-08-25"
+date: "2021-08-28"
 categories: R
 tags:
 - R Markdown
@@ -140,7 +140,7 @@ vars %>% filter(name %in% c("B09002_001","B09002_008")) %>% kbl() %>%
  summary_var = "B09002_001" , cache_table = T
 ) %>%  mutate(per= 100 * B09002_008E / summary_est) %>% 
   select(GEOID,B09002_008E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -155,40 +155,40 @@ vars %>% filter(name %in% c("B09002_001","B09002_008")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 186 </td>
-   <td style="text-align:right;"> 516 </td>
-   <td style="text-align:right;"> 36.04651 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 537 </td>
+   <td style="text-align:right;"> 8.379888 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 97 </td>
-   <td style="text-align:right;"> 97 </td>
-   <td style="text-align:right;"> 100.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 114 </td>
-   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 170 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 81 </td>
-   <td style="text-align:right;"> 83.95062 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 115 </td>
+   <td style="text-align:right;"> 16.521739 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 34 </td>
-   <td style="text-align:right;"> 148 </td>
-   <td style="text-align:right;"> 22.97297 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 180 </td>
+   <td style="text-align:right;"> 12.222222 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 237 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 69.879518 </td>
   </tr>
 </tbody>
 </table>
@@ -236,7 +236,7 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
 ) %>%  mutate(sum = B01001_003E + B01001_027E ,
               per= 100 * sum / summary_est) %>% 
   select(GEOID,B01001_003E, B01001_027E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -253,52 +253,52 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 138 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 155 </td>
-   <td style="text-align:right;"> 2983 </td>
-   <td style="text-align:right;"> 5.196111 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 2.751886 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 60 </td>
-   <td style="text-align:right;"> 35 </td>
-   <td style="text-align:right;"> 95 </td>
-   <td style="text-align:right;"> 538 </td>
-   <td style="text-align:right;"> 17.657993 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 43 </td>
+   <td style="text-align:right;"> 61 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 6.740331 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> 1.815981 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 2.300242 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 1.485148 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 2.061069 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1090 </td>
+   <td style="text-align:right;"> 641 </td>
    <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1471 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 55 </td>
-   <td style="text-align:right;"> 48 </td>
-   <td style="text-align:right;"> 103 </td>
-   <td style="text-align:right;"> 1475 </td>
-   <td style="text-align:right;"> 6.983051 </td>
   </tr>
 </tbody>
 </table>
@@ -359,7 +359,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
  summary_var = "C18130_001" , cache_table = T
 ) %>%  mutate(per= 100 * C18130_016E / summary_est) %>% 
   select(GEOID, C18130_016E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -374,37 +374,37 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -425,7 +425,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
 ) %>%  mutate(sum= C18130_018E + C18130_021E,
               per= 100 * sum / summary_est) %>% 
   select(GEOID, C18130_018E, C18130_021E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -442,7 +442,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -450,7 +450,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -458,7 +458,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -466,7 +466,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -474,7 +474,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -482,7 +482,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -540,7 +540,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
 ) %>%  mutate(sum= C18130_003E + C18130_010E + C18130_017E,
               per= 100 * sum / summary_est) %>% 
   select(GEOID, C18130_003E, C18130_010E, C18130_017E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -558,7 +558,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -567,7 +567,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -576,7 +576,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -585,7 +585,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -594,7 +594,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -603,7 +603,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -659,7 +659,7 @@ vars %>% filter(name %in% c("B08301_010", "B23025_004")) %>% kbl() %>%
  summary_var = "B23025_004" , cache_table = T
 ) %>%  mutate(per= 100 * B08301_010E / summary_est) %>% 
   select(GEOID, B08301_010E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -674,40 +674,40 @@ vars %>% filter(name %in% c("B08301_010", "B23025_004")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 1248 </td>
-   <td style="text-align:right;"> 5.1282051 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 34 </td>
+   <td style="text-align:right;"> 1036 </td>
+   <td style="text-align:right;"> 3.281853 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 227 </td>
-   <td style="text-align:right;"> 7.4889868 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1020 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 420 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 491 </td>
+   <td style="text-align:right;"> 14.052953 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 706 </td>
+   <td style="text-align:right;"> 2.124646 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 796 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 664 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 580 </td>
-   <td style="text-align:right;"> 0.5172414 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 854 </td>
-   <td style="text-align:right;"> 1.8735363 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 197 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
 </tbody>
 </table>
@@ -761,7 +761,7 @@ vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl()
 ) %>% mutate(sum = B25044_003E + B25044_010E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B25044_003E, B25044_010E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -778,52 +778,52 @@ vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl()
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 425 </td>
-   <td style="text-align:right;"> 447 </td>
-   <td style="text-align:right;"> 1582 </td>
-   <td style="text-align:right;"> 28.255373 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 922 </td>
+   <td style="text-align:right;"> 2.494577 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 4.950495 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 369 </td>
+   <td style="text-align:right;"> 4.065041 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 405 </td>
+   <td style="text-align:right;"> 15.802469 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 534 </td>
+   <td style="text-align:right;"> 579 </td>
    <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 373 </td>
+   <td style="text-align:right;"> 508 </td>
    <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 463 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 17.866667 </td>
   </tr>
 </tbody>
 </table>
@@ -876,7 +876,7 @@ vars %>% filter(name %in% vac_vars) %>% kbl() %>%
  summary_var = "B25002_001" , cache_table = T
 ) %>%  mutate(per= 100 * B25002_003E / summary_est) %>% 
   select(GEOID, B25002_003E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -891,39 +891,39 @@ vars %>% filter(name %in% vac_vars) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 56 </td>
-   <td style="text-align:right;"> 1638 </td>
-   <td style="text-align:right;"> 3.418803 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 81 </td>
+   <td style="text-align:right;"> 1003 </td>
+   <td style="text-align:right;"> 8.075773 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 427 </td>
+   <td style="text-align:right;"> 13.583138 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 8.783784 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 202 </td>
+   <td style="text-align:right;"> 579 </td>
    <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 74 </td>
-   <td style="text-align:right;"> 608 </td>
-   <td style="text-align:right;"> 12.171053 </td>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 62 </td>
+   <td style="text-align:right;"> 570 </td>
+   <td style="text-align:right;"> 10.877193 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 373 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 463 </td>
+   <td style="text-align:right;"> 375 </td>
    <td style="text-align:right;"> 0.000000 </td>
   </tr>
 </tbody>
@@ -973,7 +973,7 @@ vars %>% filter(name %in% c("B25008_001","B25008_002","B25008_003")) %>% kbl() %
   variables = c("B25002_002","B25008_002","B25008_003"), output = "wide",
  summary_var = "B25008_001" , cache_table = T
 )) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -994,76 +994,76 @@ vars %>% filter(name %in% c("B25008_001","B25008_002","B25008_003")) %>% kbl() %
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:left;"> Block Group 2, Census Tract 222.01, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 1582 </td>
-   <td style="text-align:right;"> 178 </td>
-   <td style="text-align:right;"> 427 </td>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 2502 </td>
-   <td style="text-align:right;"> 465 </td>
-   <td style="text-align:right;"> 2929 </td>
-   <td style="text-align:right;"> 473 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 222.01, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 84 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:left;"> Block Group 1, Census Tract 201, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 922 </td>
+   <td style="text-align:right;"> 87 </td>
+   <td style="text-align:right;"> 2196 </td>
    <td style="text-align:right;"> 208 </td>
-   <td style="text-align:right;"> 125 </td>
-   <td style="text-align:right;"> 330 </td>
-   <td style="text-align:right;"> 317 </td>
-   <td style="text-align:right;"> 538 </td>
-   <td style="text-align:right;"> 322 </td>
+   <td style="text-align:right;"> 57 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 209 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:left;"> Block Group 2, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 534 </td>
-   <td style="text-align:right;"> 126 </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> 514 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> 514 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:left;"> Block Group 2, Census Tract 201, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 369 </td>
+   <td style="text-align:right;"> 65 </td>
+   <td style="text-align:right;"> 797 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 88 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 204 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:left;"> Block Group 5, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 373 </td>
-   <td style="text-align:right;"> 147 </td>
-   <td style="text-align:right;"> 920 </td>
-   <td style="text-align:right;"> 410 </td>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 219 </td>
-   <td style="text-align:right;"> 1090 </td>
-   <td style="text-align:right;"> 466 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:left;"> Block Group 3, Census Tract 201, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 405 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 404 </td>
+   <td style="text-align:right;"> 115 </td>
+   <td style="text-align:right;"> 422 </td>
+   <td style="text-align:right;"> 175 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 182 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 145 </td>
-   <td style="text-align:right;"> 1301 </td>
-   <td style="text-align:right;"> 425 </td>
-   <td style="text-align:right;"> 164 </td>
-   <td style="text-align:right;"> 198 </td>
-   <td style="text-align:right;"> 1465 </td>
-   <td style="text-align:right;"> 456 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:left;"> Block Group 1, Census Tract 202, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 579 </td>
+   <td style="text-align:right;"> 96 </td>
+   <td style="text-align:right;"> 887 </td>
+   <td style="text-align:right;"> 217 </td>
+   <td style="text-align:right;"> 325 </td>
+   <td style="text-align:right;"> 197 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 238 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 238, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> 463 </td>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:left;"> Block Group 2, Census Tract 202, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 508 </td>
    <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 1134 </td>
-   <td style="text-align:right;"> 346 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 448 </td>
-   <td style="text-align:right;"> 1475 </td>
-   <td style="text-align:right;"> 502 </td>
+   <td style="text-align:right;"> 1199 </td>
+   <td style="text-align:right;"> 281 </td>
+   <td style="text-align:right;"> 111 </td>
+   <td style="text-align:right;"> 173 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 297 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:left;"> Block Group 3, Census Tract 202, Clackamas County, Oregon </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 112 </td>
+   <td style="text-align:right;"> 464 </td>
+   <td style="text-align:right;"> 197 </td>
+   <td style="text-align:right;"> 177 </td>
+   <td style="text-align:right;"> 124 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 187 </td>
   </tr>
 </tbody>
 </table>
@@ -1109,7 +1109,7 @@ vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>%
  summary_var = "B02001_001" , cache_table = T
 ) %>%  mutate(per= 100 * (1 - B02001_002E / summary_est)) %>% 
   select(GEOID, B02001_002E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1124,40 +1124,40 @@ vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 1893 </td>
-   <td style="text-align:right;"> 2983 </td>
-   <td style="text-align:right;"> 36.5403956 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 1878 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 16.644474 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 471 </td>
-   <td style="text-align:right;"> 538 </td>
-   <td style="text-align:right;"> 12.4535316 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 810 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 10.497238 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 1595 </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> 3.4503632 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 628 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 23.970944 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> 1090 </td>
-   <td style="text-align:right;"> 1090 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 1148 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 5.280528 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 1419 </td>
-   <td style="text-align:right;"> 1471 </td>
-   <td style="text-align:right;"> 3.5350102 </td>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 1202 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 8.244275 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 1461 </td>
-   <td style="text-align:right;"> 1475 </td>
-   <td style="text-align:right;"> 0.9491525 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
 </tbody>
 </table>
@@ -1203,7 +1203,7 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
  summary_var = "B01003_001" , cache_table = T
 ) %>%  mutate(per= 100 * B26001_001E / summary_est) %>% 
   select(GEOID, B26001_001E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1218,39 +1218,39 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 2983 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 538 </td>
+   <td style="text-align:right;"> 2253 </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1090 </td>
+   <td style="text-align:right;"> 905 </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1471 </td>
+   <td style="text-align:right;"> 826 </td>
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1475 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 641 </td>
    <td style="text-align:right;"> NA </td>
   </tr>
 </tbody>
@@ -1302,7 +1302,7 @@ vars %>% filter(name %in% c("B25034_002","B25034_003","B25034_004")) %>% kbl() %
 ) %>% mutate(sum = B25034_002E + B25034_003E + B25034_004E,
              per = 100 * (1 - sum /summary_est)) %>% 
   select(GEOID, B25034_002E, B25034_003E, B25034_004E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1320,58 +1320,58 @@ vars %>% filter(name %in% c("B25034_002","B25034_003","B25034_004")) %>% kbl() %
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 285 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 370 </td>
-   <td style="text-align:right;"> 1638 </td>
-   <td style="text-align:right;"> 77.41148 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 89.10891 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 56 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 121 </td>
-   <td style="text-align:right;"> 177 </td>
-   <td style="text-align:right;"> 608 </td>
-   <td style="text-align:right;"> 70.88816 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 20 </td>
-   <td style="text-align:right;"> 20 </td>
-   <td style="text-align:right;"> 373 </td>
-   <td style="text-align:right;"> 94.63807 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> 87 </td>
-   <td style="text-align:right;"> 101 </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 81.05066 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 115 </td>
+   <td style="text-align:right;"> 247 </td>
+   <td style="text-align:right;"> 1003 </td>
+   <td style="text-align:right;"> 75.37388 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 134 </td>
+   <td style="text-align:right;"> 427 </td>
+   <td style="text-align:right;"> 68.61827 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> 123 </td>
+   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 72.29730 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 97 </td>
+   <td style="text-align:right;"> 114 </td>
+   <td style="text-align:right;"> 579 </td>
+   <td style="text-align:right;"> 80.31088 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 48 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 570 </td>
+   <td style="text-align:right;"> 86.14035 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 463 </td>
-   <td style="text-align:right;"> 92.87257 </td>
+   <td style="text-align:right;"> 107 </td>
+   <td style="text-align:right;"> 107 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 71.46667 </td>
   </tr>
 </tbody>
 </table>
@@ -1411,7 +1411,7 @@ vars %>% filter(name %in% "B25024_010") %>% kbl() %>%
  summary_var = "B25024_001" , cache_table = T
 ) %>%  mutate(per= 100 * B25024_010E / summary_est) %>% 
   select(GEOID, B25024_010E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1426,40 +1426,40 @@ vars %>% filter(name %in% "B25024_010") %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 63 </td>
-   <td style="text-align:right;"> 1638 </td>
-   <td style="text-align:right;"> 3.846154 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1003 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 33.663366 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 427 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 117 </td>
-   <td style="text-align:right;"> 608 </td>
-   <td style="text-align:right;"> 19.243421 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 444 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 373 </td>
-   <td style="text-align:right;"> 26.273458 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 579 </td>
+   <td style="text-align:right;"> 2.590674 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 196 </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 36.772983 </td>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 570 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 123 </td>
-   <td style="text-align:right;"> 463 </td>
-   <td style="text-align:right;"> 26.565875 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
 </tbody>
 </table>
@@ -1508,7 +1508,7 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
 ) %>% mutate(sum = C17002_002E + C17002_003E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, C17002_002E, C17002_003E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1525,52 +1525,52 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 319 </td>
-   <td style="text-align:right;"> 369 </td>
-   <td style="text-align:right;"> 2866 </td>
-   <td style="text-align:right;"> 12.875087 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:right;"> 49 </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 79 </td>
-   <td style="text-align:right;"> 525 </td>
-   <td style="text-align:right;"> 15.047619 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 201 </td>
-   <td style="text-align:right;"> 201 </td>
-   <td style="text-align:right;"> 1652 </td>
-   <td style="text-align:right;"> 12.167070 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 1.1984021 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 136 </td>
-   <td style="text-align:right;"> 136 </td>
-   <td style="text-align:right;"> 1090 </td>
-   <td style="text-align:right;"> 12.477064 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 0.9944751 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050201003 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 815 </td>
+   <td style="text-align:right;"> 2.3312883 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 60 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 101 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 8.3333333 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 26 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 1471 </td>
-   <td style="text-align:right;"> 2.855201 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 1.9847328 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 39 </td>
-   <td style="text-align:right;"> 66 </td>
-   <td style="text-align:right;"> 105 </td>
-   <td style="text-align:right;"> 1475 </td>
-   <td style="text-align:right;"> 7.118644 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 86 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 13.4165367 </td>
   </tr>
 </tbody>
 </table>
@@ -1623,7 +1623,7 @@ vars %>% filter(name %in% c("B25043_001","B25043_007","B25043_016")) %>% kbl() %
 ) %>% mutate(sum = B25043_007E + B25043_016E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B25043_007E, B25043_016E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1640,52 +1640,52 @@ vars %>% filter(name %in% c("B25043_001","B25043_007","B25043_016")) %>% kbl() %
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 7 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 1582 </td>
-   <td style="text-align:right;"> 1.074589 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 922 </td>
+   <td style="text-align:right;"> 0.7592191 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 7 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 369 </td>
+   <td style="text-align:right;"> 1.8970190 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 534 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 405 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 373 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 579 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 40 </td>
-   <td style="text-align:right;"> 533 </td>
-   <td style="text-align:right;"> 7.504690 </td>
+   <td style="text-align:left;"> 410050202002 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 508 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 463 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
 </tbody>
 </table>
@@ -1738,7 +1738,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
 ) %>% mutate(sum = B21003_003E + B21003_008E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B21003_003E, B21003_008E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1755,7 +1755,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1763,7 +1763,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1771,7 +1771,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1779,7 +1779,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1787,7 +1787,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1795,7 +1795,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1845,7 +1845,7 @@ vars %>% filter(name %in% c("B23025_002","B23025_005")) %>% kbl() %>%
  summary_var = "B23025_002" , cache_table = T
 ) %>%  mutate(per= 100 * B23025_005E / summary_est) %>% 
   select(GEOID, B23025_005E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1860,40 +1860,40 @@ vars %>% filter(name %in% c("B23025_002","B23025_005")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 1062 </td>
+   <td style="text-align:right;"> 2.448211 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 429 </td>
+   <td style="text-align:right;"> 2.097902 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 1248 </td>
+   <td style="text-align:right;"> 491 </td>
    <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050202001 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 725 </td>
+   <td style="text-align:right;"> 2.620690 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 257 </td>
-   <td style="text-align:right;"> 11.673152 </td>
+   <td style="text-align:right;"> 694 </td>
+   <td style="text-align:right;"> 4.322767 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:right;"> 62 </td>
-   <td style="text-align:right;"> 1082 </td>
-   <td style="text-align:right;"> 5.730129 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 796 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 602 </td>
-   <td style="text-align:right;"> 3.654485 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 854 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:left;"> 410050202003 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 208 </td>
+   <td style="text-align:right;"> 5.288462 </td>
   </tr>
 </tbody>
 </table>
@@ -1939,7 +1939,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
 ) %>% mutate(sum = B06007_005E+B06007_008E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B06007_005E, B06007_008E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1956,7 +1956,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
+   <td style="text-align:left;"> 410050201001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1964,7 +1964,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
+   <td style="text-align:left;"> 410050201002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1972,7 +1972,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1980,7 +1980,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1988,7 +1988,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
@@ -1996,7 +1996,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>

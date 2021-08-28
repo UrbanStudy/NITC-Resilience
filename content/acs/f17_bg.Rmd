@@ -60,7 +60,7 @@ vars %>% filter(name %in% c("B09002_001","B09002_008")) %>% kbl() %>%
  summary_var = "B09002_001" , cache_table = T
 ) %>%  mutate(per= 100 * B09002_008E / summary_est) %>% 
   select(GEOID,B09002_008E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -83,7 +83,7 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
 ) %>%  mutate(sum = B01001_003E + B01001_027E ,
               per= 100 * sum / summary_est) %>% 
   select(GEOID,B01001_003E, B01001_027E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -109,7 +109,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
  summary_var = "C18130_001" , cache_table = T
 ) %>%  mutate(per= 100 * C18130_016E / summary_est) %>% 
   select(GEOID, C18130_016E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -125,7 +125,7 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
 ) %>%  mutate(sum= C18130_018E + C18130_021E,
               per= 100 * sum / summary_est) %>% 
   select(GEOID, C18130_018E, C18130_021E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -148,7 +148,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
 ) %>%  mutate(sum= C18130_003E + C18130_010E + C18130_017E,
               per= 100 * sum / summary_est) %>% 
   select(GEOID, C18130_003E, C18130_010E, C18130_017E, sum, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -173,7 +173,7 @@ vars %>% filter(name %in% c("B08301_010", "B23025_004")) %>% kbl() %>%
  summary_var = "B23025_004" , cache_table = T
 ) %>%  mutate(per= 100 * B08301_010E / summary_est) %>% 
   select(GEOID, B08301_010E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -197,7 +197,7 @@ vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl()
 ) %>% mutate(sum = B25044_003E + B25044_010E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B25044_003E, B25044_010E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -220,7 +220,7 @@ vars %>% filter(name %in% vac_vars) %>% kbl() %>%
  summary_var = "B25002_001" , cache_table = T
 ) %>%  mutate(per= 100 * B25002_003E / summary_est) %>% 
   select(GEOID, B25002_003E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -239,7 +239,7 @@ vars %>% filter(name %in% c("B25008_001","B25008_002","B25008_003")) %>% kbl() %
   variables = c("B25002_002","B25008_002","B25008_003"), output = "wide",
  summary_var = "B25008_001" , cache_table = T
 )) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -260,7 +260,7 @@ vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>%
  summary_var = "B02001_001" , cache_table = T
 ) %>%  mutate(per= 100 * (1 - B02001_002E / summary_est)) %>% 
   select(GEOID, B02001_002E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -281,7 +281,7 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
  summary_var = "B01003_001" , cache_table = T
 ) %>%  mutate(per= 100 * B26001_001E / summary_est) %>% 
   select(GEOID, B26001_001E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -302,7 +302,7 @@ vars %>% filter(name %in% c("B25034_002","B25034_003","B25034_004")) %>% kbl() %
 ) %>% mutate(sum = B25034_002E + B25034_003E + B25034_004E,
              per = 100 * (1 - sum /summary_est)) %>% 
   select(GEOID, B25034_002E, B25034_003E, B25034_004E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -322,7 +322,7 @@ vars %>% filter(name %in% "B25024_010") %>% kbl() %>%
  summary_var = "B25024_001" , cache_table = T
 ) %>%  mutate(per= 100 * B25024_010E / summary_est) %>% 
   select(GEOID, B25024_010E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -346,7 +346,7 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
 ) %>% mutate(sum = C17002_002E + C17002_003E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, C17002_002E, C17002_003E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -369,7 +369,7 @@ vars %>% filter(name %in% c("B25043_001","B25043_007","B25043_016")) %>% kbl() %
 ) %>% mutate(sum = B25043_007E + B25043_016E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B25043_007E, B25043_016E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -392,7 +392,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
 ) %>% mutate(sum = B21003_003E + B21003_008E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B21003_003E, B21003_008E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -412,7 +412,7 @@ vars %>% filter(name %in% c("B23025_002","B23025_005")) %>% kbl() %>%
  summary_var = "B23025_002" , cache_table = T
 ) %>%  mutate(per= 100 * B23025_005E / summary_est) %>% 
   select(GEOID, B23025_005E, summary_est, per)) %>% 
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -433,7 +433,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
 ) %>% mutate(sum = B06007_005E+B06007_008E,
              per = 100 * sum /summary_est) %>% 
   select(GEOID, B06007_005E, B06007_008E, sum, summary_est, per)) %>%
-  head() %>% kbl() %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 

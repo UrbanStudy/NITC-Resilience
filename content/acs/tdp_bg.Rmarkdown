@@ -61,7 +61,7 @@ get_acs(
   geography = "block group",
   variables = c("B08014_002","B08141_002"), output = "wide", 
   cache_table = T
-  ) %>% 
+  ) %>% arrange(GEOID) %>% 
   select(GEOID,B08014_002E,B08141_002E) %>% str()
 ```
 
@@ -85,7 +85,7 @@ get_acs(
   geography = "block group",
   variables = c("B08201_002","B08203_002"), output = "wide", # same to "B08141_002"
   cache_table = T
-  ) %>% 
+  ) %>% arrange(GEOID) %>% 
   select(GEOID,B08201_002E, B08203_002E) %>% str()
 ```
 
