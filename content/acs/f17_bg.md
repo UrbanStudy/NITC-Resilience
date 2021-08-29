@@ -81,6 +81,14 @@ tags:
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
 
@@ -308,10 +316,9 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
 ### 3 Population 65 or above/Total Population
 
 
+
 ```r
-g65_vars <- c("C18130_001","C18130_016")
-g65.pov_vars <- c("C18130_018", "C18130_021") # C18130_016
-vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>% 
+vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -408,6 +415,412 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+```r
+vars %>% filter(grepl("65 years and over",label),grepl("POVERTY",concept)) %>% nest(-concept)# select(concept) %>% distinct() # "65 YEARS AND OVER"
+```
+
+```
+## # A tibble: 6 x 2
+##   concept                                                         data          
+##   <chr>                                                           <list>        
+## 1 POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE … <tibble [10 ×…
+## 2 AGE BY DISABILITY STATUS BY POVERTY STATUS                      <tibble [7 × …
+## 3 AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS … <tibble [15 ×…
+## 4 HEALTH INSURANCE COVERAGE STATUS BY RATIO OF INCOME TO POVERTY… <tibble [15 ×…
+## 5 PRIVATE HEALTH INSURANCE BY RATIO OF INCOME TO POVERTY LEVEL I… <tibble [15 ×…
+## 6 PUBLIC HEALTH INSURANCE BY RATIO OF INCOME TO POVERTY LEVEL IN… <tibble [15 ×…
+```
+
+
+```r
+get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = c("B17017_008","C18130_016","C21007_017","C27016_009","C27017_009","C27018_009"), output = "wide",
+ summary_var = "B17017_001" , cache_table = T
+) %>% dplyr::select(ends_with("E"))
+```
+
+```
+## # A tibble: 1,041 x 8
+##    NAME  B17017_008E C18130_016E C21007_017E C27016_009E C27017_009E C27018_009E
+##    <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+##  1 Bloc…          17          NA         850          NA          NA          NA
+##  2 Bloc…           0          NA          78          NA          NA          NA
+##  3 Bloc…           0          NA         279          NA          NA          NA
+##  4 Bloc…           0          NA          67          NA          NA          NA
+##  5 Bloc…           0          NA         309          NA          NA          NA
+##  6 Bloc…           0          NA         258          NA          NA          NA
+##  7 Bloc…           0          NA         148          NA          NA          NA
+##  8 Bloc…           0          NA         280          NA          NA          NA
+##  9 Bloc…           0          NA         431          NA          NA          NA
+## 10 Bloc…           0          NA         131          NA          NA          NA
+## # … with 1,031 more rows, and 1 more variable: summary_moe <dbl>
+```
+
+
+```r
+(age_vet_pov <- vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> C21007_019 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Veteran:!!Income in the past 12 months below poverty level: </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C21007_020 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Veteran:!!Income in the past 12 months below poverty level:!!With a disability </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C21007_021 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Veteran:!!Income in the past 12 months below poverty level:!!No disability </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C21007_026 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Nonveteran:!!Income in the past 12 months below poverty level: </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C21007_027 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Nonveteran:!!Income in the past 12 months below poverty level:!!With a disability </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> C21007_028 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Nonveteran:!!Income in the past 12 months below poverty level:!!No disability </td>
+   <td style="text-align:left;"> AGE BY VETERAN STATUS BY POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS FOR THE CIVILIAN POPULATION 18 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g65_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = age_vet_pov$name, output = "wide",
+ summary_var = "B01003_001" , cache_table = T
+) %>%  mutate(sum =  rowSums(across(paste0(age_vet_pov$name,"E")), na.rm = TRUE),
+              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
+  select(starts_with("C"), sum, summary_est, per)) %>% 
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> C21007_019E </th>
+   <th style="text-align:right;"> C21007_019M </th>
+   <th style="text-align:right;"> C21007_020E </th>
+   <th style="text-align:right;"> C21007_020M </th>
+   <th style="text-align:right;"> C21007_021E </th>
+   <th style="text-align:right;"> C21007_021M </th>
+   <th style="text-align:right;"> C21007_026E </th>
+   <th style="text-align:right;"> C21007_026M </th>
+   <th style="text-align:right;"> C21007_027E </th>
+   <th style="text-align:right;"> C21007_027M </th>
+   <th style="text-align:right;"> C21007_028E </th>
+   <th style="text-align:right;"> C21007_028M </th>
+   <th style="text-align:right;"> sum </th>
+   <th style="text-align:right;"> summary_est </th>
+   <th style="text-align:right;"> per </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 2.396804 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 38 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 4.600484 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 4.368175 </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+```r
+(pov_age_householder <- vars %>% filter(str_detect(name, "B17017"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B17017_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!Family households:!!Married-couple family:!!Householder 65 years and over </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B17017_014 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!Family households:!!Other family:!!Male householder, no spouse present:!!Householder 65 years and over </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B17017_019 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!Family households:!!Other family:!!Female householder, no spouse present:!!Householder 65 years and over </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B17017_025 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!Nonfamily households:!!Male householder:!!Householder 65 years and over </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B17017_030 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!Nonfamily households:!!Female householder:!!Householder 65 years and over </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g65_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = pov_age_householder$name, output = "wide",
+ summary_var = "B01003_001" , cache_table = T
+) %>%  mutate(sum =  rowSums(across(paste0(pov_age_householder$name,"E")), na.rm = TRUE),
+              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
+  select(starts_with("B"), sum, summary_est, per)) %>% 
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> B17017_008E </th>
+   <th style="text-align:right;"> B17017_008M </th>
+   <th style="text-align:right;"> B17017_014E </th>
+   <th style="text-align:right;"> B17017_014M </th>
+   <th style="text-align:right;"> B17017_019E </th>
+   <th style="text-align:right;"> B17017_019M </th>
+   <th style="text-align:right;"> B17017_025E </th>
+   <th style="text-align:right;"> B17017_025M </th>
+   <th style="text-align:right;"> B17017_030E </th>
+   <th style="text-align:right;"> B17017_030M </th>
+   <th style="text-align:right;"> sum </th>
+   <th style="text-align:right;"> summary_est </th>
+   <th style="text-align:right;"> per </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 1.198402 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 2.300242 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 23 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 2.184087 </td>
   </tr>
 </tbody>
 </table>

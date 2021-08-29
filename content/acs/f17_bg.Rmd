@@ -91,10 +91,9 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
 
 ### 3 Population 65 or above/Total Population
 
+
 ```{r}
-g65_vars <- c("C18130_001","C18130_016")
-g65.pov_vars <- c("C18130_018", "C18130_021") # C18130_016
-vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>% 
+vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -110,6 +109,60 @@ vars %>% filter(name %in% c(g65_vars, g65.pov_vars)) %>% kbl() %>%
 ) %>%  mutate(per= 100 * C18130_016E / summary_est) %>% 
   select(GEOID, C18130_016E, summary_est, per)) %>% 
   arrange(GEOID) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r}
+vars %>% filter(grepl("65 years and over",label),grepl("POVERTY",concept)) %>% nest(-concept)# select(concept) %>% distinct() # "65 YEARS AND OVER"
+```
+
+```{r}
+get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = c("B17017_008","C18130_016","C21007_017","C27016_009","C27017_009","C27018_009"), output = "wide",
+ summary_var = "B17017_001" , cache_table = T
+) %>% dplyr::select(ends_with("E"))
+```
+
+```{r}
+(age_vet_pov <- vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(g65_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = age_vet_pov$name, output = "wide",
+ summary_var = "B01003_001" , cache_table = T
+) %>%  mutate(sum =  rowSums(across(paste0(age_vet_pov$name,"E")), na.rm = TRUE),
+              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
+  select(starts_with("C"), sum, summary_est, per)) %>% 
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r}
+(pov_age_householder <- vars %>% filter(str_detect(name, "B17017"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(g65_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = pov_age_householder$name, output = "wide",
+ summary_var = "B01003_001" , cache_table = T
+) %>%  mutate(sum =  rowSums(across(paste0(pov_age_householder$name,"E")), na.rm = TRUE),
+              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
+  select(starts_with("B"), sum, summary_est, per)) %>% 
+   head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
