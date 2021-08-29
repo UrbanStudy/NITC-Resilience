@@ -98,6 +98,8 @@ tags: ["R Markdown", "ACS", "Census data"]
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
 
@@ -669,6 +671,8 @@ get_acs(
    head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+*B17017* is by **Householder**
 
 ### 4 Population 65 or above & below poverty/Pop. 65 or above
 
@@ -1404,24 +1408,43 @@ get_acs(
 
 
 ```r
-vars %>% filter(name %in% c("B23024_003","B23024_018","B23024_001"))
+vars %>% filter(name %in% c("B23024_001","B23024_003","B23024_018")) %>% 
+kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```
-## # A tibble: 3 x 3
-##   name    label                              concept                            
-##   <chr>   <chr>                              <chr>                              
-## 1 B23024… Estimate!!Total:                   POVERTY STATUS IN THE PAST 12 MONT…
-## 2 B23024… Estimate!!Total:!!Income in the p… POVERTY STATUS IN THE PAST 12 MONT…
-## 3 B23024… Estimate!!Total:!!Income in the p… POVERTY STATUS IN THE PAST 12 MONT…
-```
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B23024_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS BY EMPLOYMENT STATUS FOR THE POPULATION 20 TO 64 YEARS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23024_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months below poverty level:!!With a disability: </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS BY EMPLOYMENT STATUS FOR THE POPULATION 20 TO 64 YEARS </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B23024_018 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Income in the past 12 months at or above poverty level:!!With a disability: </td>
+   <td style="text-align:left;"> POVERTY STATUS IN THE PAST 12 MONTHS BY DISABILITY STATUS BY EMPLOYMENT STATUS FOR THE POPULATION 20 TO 64 YEARS </td>
+  </tr>
+</tbody>
+</table>
 
 
 
 
 
 ```r
-(g65_bg <- get_acs(
+(dis_bg <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",

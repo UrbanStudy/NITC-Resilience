@@ -267,7 +267,7 @@ get_acs(
 ```
 
 ```{r}
-vars %>% filter(name %in% c("B23024_003","B23024_018","B23024_001")) %>% 
+vars %>% filter(name %in% c("B23024_001","B23024_003","B23024_018")) %>% 
 kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -275,7 +275,7 @@ kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
 
 
 ```{r}
-(g65_bg <- get_acs(
+(dis_bg <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
