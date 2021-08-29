@@ -6,7 +6,7 @@ tags: ["R Markdown", "ACS", "Census data"]
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = F)
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
 if (!require(pacman)) {install.packages("pacman"); library(pacman)}
 p_load(tidyverse, tidycensus, tigris, kableExtra )
 # mapview, crsuggest,
