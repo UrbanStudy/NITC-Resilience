@@ -1,6 +1,6 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-08-28"
+date: "2021-08-30"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
@@ -672,7 +672,7 @@ get_acs(
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-*B17017* is by **Householder**
+
 
 ### 4 Population 65 or above & below poverty/Pop. 65 or above
 
@@ -966,6 +966,8 @@ get_acs(
   </tr>
 </tbody>
 </table>
+
+*B17017* is by **Householder**
 
 
 ```r
@@ -1685,9 +1687,11 @@ vars %>% filter(name %in% c("B08301_010", "B23025_004")) %>% kbl() %>%
 
 ### 6 Occupied housing units without a vehicle/Occupied housing units
 
+*B08201_002* has no data at block group level
+
 
 ```r
-vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl() %>% 
+vars %>% filter(name %in% c("B25044_001", "B25044_002", "B25044_003", "B25044_009", "B25044_010")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1701,13 +1705,23 @@ vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl()
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> B08201_002 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!No vehicle available </td>
-   <td style="text-align:left;"> HOUSEHOLD SIZE BY VEHICLES AVAILABLE </td>
+   <td style="text-align:left;"> B25044_001 </td>
+   <td style="text-align:left;"> Estimate!!Total: </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Owner occupied: </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
   </tr>
   <tr>
    <td style="text-align:left;"> B25044_003 </td>
    <td style="text-align:left;"> Estimate!!Total:!!Owner occupied:!!No vehicle available </td>
+   <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B25044_009 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Renter occupied: </td>
    <td style="text-align:left;"> TENURE BY VEHICLES AVAILABLE </td>
   </tr>
   <tr>
@@ -1718,7 +1732,6 @@ vars %>% filter(name %in% c("B08201_002", "B25044_003", "B25044_010")) %>% kbl()
 </tbody>
 </table>
 
-*B08201_002* no data at block group level
 
 
 
