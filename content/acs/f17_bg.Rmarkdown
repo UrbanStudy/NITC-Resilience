@@ -96,7 +96,7 @@ vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021
 
 
 
-```{r}
+```{r,eval=F}
 (g65_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -109,6 +109,7 @@ vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+**C18130_016 has no data at block group level**
 
 ```{r}
 vars %>% filter(grepl("POVERTY",concept),grepl("65 years and over",label)) %>% select(concept) %>% distinct() %>% # nest(-concept) # "65 YEARS AND OVER"
@@ -168,7 +169,7 @@ get_acs(
 
 ### 4 Population 65 or above & below poverty/Pop. 65 or above
 
-```{r}
+```{r,eval=F}
 (g65.pov_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -181,6 +182,8 @@ get_acs(
   arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+**C18130_018, C18130_021 have no data at block group level**
 
 ```{r}
 (age_vet_pov <- vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
@@ -232,7 +235,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F}
 (dis_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -246,7 +249,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-
+**C18130_003, C18130_010, C18130_017 have no data at block group level**
 
 ```{r,eval=F}
 (dis_var <- vars %>% filter(grepl("With a disability",label))) 
@@ -411,7 +414,7 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F}
 (group_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -423,6 +426,11 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+**B26--- has no data at block group level**
+
+
+
 
 ### 11 Housing units built 20 years ago/Total housing Units
 
@@ -491,7 +499,7 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
 
 ## Civic Capacity needs
 
-### 14 Occupied housing units without a telephone/Total occupied Hus
+### 14 Occupied housing units without a telephone/Total occupied Husing
 
 ```{r}
 vars %>% filter(name %in% c("B25043_001","B25043_007","B25043_016")) %>% kbl() %>% 
@@ -521,12 +529,12 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F}
 (g25.HS_bg <- get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
-  variables = c("B21003_003","B21003_008"), output = "wide",
+  variables = c("B21003_003","B21003_008","B16010_002"), output = "wide",
  summary_var = "B21003_001" , cache_table = T
 ) %>% mutate(sum = B21003_003E + B21003_008E,
              per = 100 * sum /summary_est) %>% 
@@ -534,6 +542,29 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   arrange(GEOID) %>% head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+**B160, B200, B210, C150 have no data at block group level**
+
+```{r}
+g25.HS_vars <- c(paste0("B15003_00",2:9),paste0("B15003_01",0:6))
+vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(g25.HS_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = g25.HS_vars, output = "wide",
+ summary_var = "B15003_001" , cache_table = T
+) %>% mutate(sum = rowSums(across(paste0(g25.HS_vars,"E")), na.rm = TRUE),
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, paste0(g25.HS_vars,"E"), sum, summary_est, per)) %>%
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
 
 ### 16 Population 16+ in labor force and unemployed/Pop in Labor force 16+
 
@@ -562,7 +593,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F}
 (nonE_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -584,7 +615,7 @@ vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F}
 g5.nonE_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -598,4 +629,26 @@ g5.nonE_bg%>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRU
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 # https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
 # https://github.com/tidyverse/dplyr/issues/4544
+```
+
+**B06007, C16001 have no data at block group level**
+
+```{r}
+g5.nonE_vars <- (vars %>% filter(grepl("B16004_",name),grepl("Speak English \"not well\"|Speak English \"not at all\"",label)))$name
+vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+(g5.nonE_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = g5.nonE_vars, output = "wide",
+ summary_var = "B16004_001" , cache_table = T
+) %>% mutate(sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE),
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, paste0(g5.nonE_vars,"E"), sum, summary_est, per)) %>%
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```

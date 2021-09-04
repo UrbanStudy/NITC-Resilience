@@ -330,7 +330,7 @@ vars %>% filter(name %in% pov_vars) %>% kbl() %>%
 
 ## Civic Capacity needs
 
-### 14 Occupied housing units without a telephone/Total occupied Hus
+### 14 Occupied housing units without a telephone/Total occupied Husing
 
 ```{r}
 occ.tel_vars <- c("B25043_001","B25043_007","B25043_016")

@@ -1,15 +1,9 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-08-30"
+date: "2021-09-03"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
-<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
-<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
-<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
-<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
@@ -381,55 +375,7 @@ vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> C18130_016E </th>
-   <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> per </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-
+**C18130_016 has no data at block group level**
 
 
 ```r
@@ -691,68 +637,7 @@ get_acs(
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> C18130_018E </th>
-   <th style="text-align:right;"> C18130_021E </th>
-   <th style="text-align:right;"> sum </th>
-   <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> per </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
+**C18130_018, C18130_021 have no data at block group level**
 
 
 ```r
@@ -1208,77 +1093,7 @@ vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> C18130_003E </th>
-   <th style="text-align:right;"> C18130_010E </th>
-   <th style="text-align:right;"> C18130_017E </th>
-   <th style="text-align:right;"> sum </th>
-   <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> per </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-
-
+**C18130_003, C18130_010, C18130_017 have no data at block group level**
 
 
 ```r
@@ -2191,54 +2006,10 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> B26001_001E </th>
-   <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> per </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 2253 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 905 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 826 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1212 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 1310 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 641 </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
+**B26--- has no data at block group level**
+
+
+
 
 ### 11 Housing units built 20 years ago/Total housing Units
 
@@ -2561,7 +2332,7 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
 
 ## Civic Capacity needs
 
-### 14 Occupied housing units without a telephone/Total occupied Hus
+### 14 Occupied housing units without a telephone/Total occupied Husing
 
 
 ```r
@@ -2717,7 +2488,7 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   state = "41",
   county = tri_cou,
   geography = "block group",
-  variables = c("B21003_003","B21003_008"), output = "wide",
+  variables = c("B21003_003","B21003_008","B16010_002"), output = "wide",
  summary_var = "B21003_001" , cache_table = T
 ) %>% mutate(sum = B21003_003E + B21003_008E,
              per = 100 * sum /summary_est) %>% 
@@ -2726,12 +2497,136 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+**B160, B200, B210, C150 have no data at block group level**
+
+
+```r
+g25.HS_vars <- c(paste0("B15003_00",2:9),paste0("B15003_01",0:6))
+vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B15003_002 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!No schooling completed </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Nursery school </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Kindergarten </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_005 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!1st grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!2nd grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!3rd grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!4th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_009 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_010 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!6th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_011 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!7th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_012 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!8th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_013 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!9th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_014 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!10th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_015 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!11th grade </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B15003_016 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!12th grade, no diploma </td>
+   <td style="text-align:left;"> EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g25.HS_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = g25.HS_vars, output = "wide",
+ summary_var = "B15003_001" , cache_table = T
+) %>% mutate(sum = rowSums(across(paste0(g25.HS_vars,"E")), na.rm = TRUE),
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, paste0(g25.HS_vars,"E"), sum, summary_est, per)) %>%
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> B21003_003E </th>
-   <th style="text-align:right;"> B21003_008E </th>
+   <th style="text-align:right;"> B15003_002E </th>
+   <th style="text-align:right;"> B15003_003E </th>
+   <th style="text-align:right;"> B15003_004E </th>
+   <th style="text-align:right;"> B15003_005E </th>
+   <th style="text-align:right;"> B15003_006E </th>
+   <th style="text-align:right;"> B15003_007E </th>
+   <th style="text-align:right;"> B15003_008E </th>
+   <th style="text-align:right;"> B15003_009E </th>
+   <th style="text-align:right;"> B15003_010E </th>
+   <th style="text-align:right;"> B15003_011E </th>
+   <th style="text-align:right;"> B15003_012E </th>
+   <th style="text-align:right;"> B15003_013E </th>
+   <th style="text-align:right;"> B15003_014E </th>
+   <th style="text-align:right;"> B15003_015E </th>
+   <th style="text-align:right;"> B15003_016E </th>
    <th style="text-align:right;"> sum </th>
    <th style="text-align:right;"> summary_est </th>
    <th style="text-align:right;"> per </th>
@@ -2740,54 +2635,133 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:right;"> 1655 </td>
+   <td style="text-align:right;"> 1.450151 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 675 </td>
+   <td style="text-align:right;"> 1.777778 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 690 </td>
+   <td style="text-align:right;"> 10.434783 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 955 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 977 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 558 </td>
+   <td style="text-align:right;"> 0.000000 </td>
   </tr>
 </tbody>
 </table>
+
 
 ### 16 Population 16+ in labor force and unemployed/Pop in Labor force 16+
 
@@ -2927,69 +2901,6 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:right;"> B06007_005E </th>
-   <th style="text-align:right;"> B06007_008E </th>
-   <th style="text-align:right;"> sum </th>
-   <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> per </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 410050201001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050201003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202001 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202002 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 410050202003 </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
-  </tr>
-</tbody>
-</table>
-
 
 ```r
 # g5.nonE_vars <- (vars %>% filter(grepl("B16001_",name),grepl("Speak English less than \"very well\"",label)))$name
@@ -3084,65 +2995,379 @@ g5.nonE_bg <- get_acs(
 g5.nonE_bg%>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE)) %>% # rowSums(g5.nonE_tract[,paste0(g5.nonE_vars,"E")])
         dplyr::select(-starts_with("C")) %>% head() %>% kbl() %>% # c(starts_with("B")&ends_with("E")
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+# https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
+# https://github.com/tidyverse/dplyr/issues/4544
+```
+
+**B06007, C16001 have no data at block group level**
+
+
+```r
+g5.nonE_vars <- (vars %>% filter(grepl("B16004_",name),grepl("Speak English \"not well\"|Speak English \"not at all\"",label)))$name
+vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> name </th>
+   <th style="text-align:left;"> label </th>
+   <th style="text-align:left;"> concept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> B16004_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak Spanish:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak Spanish:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_012 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak other Indo-European languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_013 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak other Indo-European languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_017 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak Asian and Pacific Island languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_018 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak Asian and Pacific Island languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_022 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak other languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_023 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!5 to 17 years:!!Speak other languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_029 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak Spanish:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_030 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak Spanish:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_034 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak other Indo-European languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_035 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak other Indo-European languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_039 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak Asian and Pacific Island languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_040 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak Asian and Pacific Island languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_044 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak other languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_045 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!18 to 64 years:!!Speak other languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_051 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak Spanish:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_052 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak Spanish:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_056 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak other Indo-European languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_057 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak other Indo-European languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_061 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak Asian and Pacific Island languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_062 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak Asian and Pacific Island languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_066 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak other languages:!!Speak English "not well" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B16004_067 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!65 years and over:!!Speak other languages:!!Speak English "not at all" </td>
+   <td style="text-align:left;"> AGE BY LANGUAGE SPOKEN AT HOME BY ABILITY TO SPEAK ENGLISH FOR THE POPULATION 5 YEARS AND OVER </td>
+  </tr>
+</tbody>
+</table>
+
+
+```r
+(g5.nonE_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = g5.nonE_vars, output = "wide",
+ summary_var = "B16004_001" , cache_table = T
+) %>% mutate(sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE),
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, paste0(g5.nonE_vars,"E"), sum, summary_est, per)) %>%
+   head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
    <th style="text-align:left;"> GEOID </th>
-   <th style="text-align:left;"> NAME </th>
+   <th style="text-align:right;"> B16004_007E </th>
+   <th style="text-align:right;"> B16004_008E </th>
+   <th style="text-align:right;"> B16004_012E </th>
+   <th style="text-align:right;"> B16004_013E </th>
+   <th style="text-align:right;"> B16004_017E </th>
+   <th style="text-align:right;"> B16004_018E </th>
+   <th style="text-align:right;"> B16004_022E </th>
+   <th style="text-align:right;"> B16004_023E </th>
+   <th style="text-align:right;"> B16004_029E </th>
+   <th style="text-align:right;"> B16004_030E </th>
+   <th style="text-align:right;"> B16004_034E </th>
+   <th style="text-align:right;"> B16004_035E </th>
+   <th style="text-align:right;"> B16004_039E </th>
+   <th style="text-align:right;"> B16004_040E </th>
+   <th style="text-align:right;"> B16004_044E </th>
+   <th style="text-align:right;"> B16004_045E </th>
+   <th style="text-align:right;"> B16004_051E </th>
+   <th style="text-align:right;"> B16004_052E </th>
+   <th style="text-align:right;"> B16004_056E </th>
+   <th style="text-align:right;"> B16004_057E </th>
+   <th style="text-align:right;"> B16004_061E </th>
+   <th style="text-align:right;"> B16004_062E </th>
+   <th style="text-align:right;"> B16004_066E </th>
+   <th style="text-align:right;"> B16004_067E </th>
+   <th style="text-align:right;"> sum </th>
    <th style="text-align:right;"> summary_est </th>
-   <th style="text-align:right;"> summary_moe </th>
-   <th style="text-align:right;"> Sum </th>
+   <th style="text-align:right;"> per </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> 410050222012 </td>
-   <td style="text-align:left;"> Block Group 2, Census Tract 222.01, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050201001 </td>
+   <td style="text-align:right;"> 10 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 2191 </td>
+   <td style="text-align:right;"> 0.4564126 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050222011 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 222.01, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050201002 </td>
+   <td style="text-align:right;"> 6 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 844 </td>
+   <td style="text-align:right;"> 0.7109005 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235002 </td>
-   <td style="text-align:left;"> Block Group 2, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050201003 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 807 </td>
+   <td style="text-align:right;"> 6.9392813 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235005 </td>
-   <td style="text-align:left;"> Block Group 5, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050202001 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1194 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050235001 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 235, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050202002 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 1283 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> 410050238001 </td>
-   <td style="text-align:left;"> Block Group 1, Census Tract 238, Clackamas County, Oregon </td>
-   <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> NA </td>
+   <td style="text-align:left;"> 410050202003 </td>
    <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 0.0000000 </td>
   </tr>
 </tbody>
 </table>
-
-```r
-# https://www.tidyverse.org/blog/2020/04/dplyr-1-0-0-colwise/
-# https://github.com/tidyverse/dplyr/issues/4544
-```
