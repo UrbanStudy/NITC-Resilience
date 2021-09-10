@@ -22,15 +22,58 @@ Block Group Level
 <!-- #  {.tabset .tabset-fade .tabset-pills} -->
 
 ```{r,echo=F}
+# tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
 tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+SVI <- lst()
+```
+
+
+```{r,eval=F}
 pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
 # pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+saveRDS(pdx_bg,file = "pdx_bg.RDS")
 ```
 
 ```{r,echo=F}
 vars <- load_variables(2019, "acs5")
 # View(vars)
 # str(vars)
+```
+
+```{r fun,echo=F}
+sum_col <- function(...){
+    # x <- list(...) # THIS WILL BE A LIST STORING EVERYTHING:
+    rowSums(across(all_of(...)), na.rm = TRUE)       # Example of inbuilt function
+}
+
+sum_moe <- function(...){
+    sqrt(rowSums((across(all_of(...)))^2, na.rm = TRUE) )
+}
+
+Perc <- function(sum,total){
+   100 * sum /total
+}
+
+per_moe <- function(sum_moe,total_moe,sum,total){
+    100*sqrt(sum_moe^2-total_moe^2*(sum /total)^2)/total
+}
+
+comb <- function(var_list,summary_list){
+var_e <- paste0(var_list,"E")
+var_m <- paste0(var_list,"M")
+
+get_acs(
+  state = "41",
+  county = c('051','067','005'), # tri_cou,
+  geography = "block group",
+  variables = var_list, output = "wide",
+  summary_var = summary_list, cache_table = T
+  ) %>% arrange(GEOID) %>% 
+  mutate(sum =sum_col(var_e),
+         sumMOE = sum_moe(var_m),
+         per = Perc(sum,summary_est),
+         perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
+}
 ```
 
 
@@ -42,35 +85,66 @@ vars <- load_variables(2019, "acs5")
 
 
 ```{r}
-vars %>% filter(name %in% c("B09002_001","B09002_008")) %>% kbl() %>% 
+child_var <- c("B09002_008")
+child_tot <- c("B09002_001")
+
+vars %>% filter(name %in% c(child_tot,child_var)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F}
+SVI[[1]] <- svi1_child <- comb(child_var,child_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
+```{r}
+svi1_child <- readRDS("SVI.RDS")[[1]]
+svi1_child %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
 
-```{r}
-(Fami.Cild_bg <- get_acs(
+```{r,eval=F,echo=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = "B09002_008", output = "wide", 
  summary_var = "B09002_001" , cache_table = T
-) %>%  mutate(per= 100 * B09002_008E / summary_est) %>% 
-  select(GEOID,B09002_008E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * B09002_008E / summary_est) %>% arrange(GEOID) %>%
+  select(GEOID,B09002_008E, summary_est, per)
 ```
 
 ### 2 Population 5 or below/Total Population 
 
 
 ```{r}
-vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>% 
+l5_var <- c("B01001_003", "B01001_027")
+l5_tot <- c("B01001_001")
+
+vars %>% filter(name %in% c(l5_tot, l5_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F}
+SVI[[2]] <- svi2_l5 <- comb(l5_var,l5_tot)
+saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
 ```{r}
+svi2_l5 <- readRDS("SVI.RDS")[[2]]
+svi2_l5 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+```{r,eval=F,echo=F}
 (l5_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -78,9 +152,9 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
   variables = c("B01001_003", "B01001_027"), output = "wide",
  summary_var = "B01001_001" , cache_table = T
 ) %>%  mutate(sum = B01001_003E + B01001_027E ,
-              per= 100 * sum / summary_est) %>% 
+              per= 100 * sum / summary_est) %>% arrange(GEOID) %>%
   select(GEOID,B01001_003E, B01001_027E, sum, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
+   head() %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -89,14 +163,13 @@ vars %>% filter(name %in% c("B01001_003", "B01001_027")) %>% kbl() %>%
 ### 3 Population 65 or above/Total Population
 
 
-```{r}
+```{r,eval=F,echo=F}
 vars %>% filter(name %in% c("C18130_001","C18130_016", "C18130_018", "C18130_021")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
-
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (g65_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -116,7 +189,7 @@ vars %>% filter(grepl("POVERTY",concept),grepl("65 years and over",label)) %>% s
     kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,echo=F,eval=F}
 get_acs(
   state = "41",
   county = tri_cou,
@@ -127,12 +200,30 @@ get_acs(
   kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
-(age_vet_pov <- vars %>% filter(name=="C21007_017")) %>% 
-  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
 
 ```{r}
+g65_var <- c("C21007_017")
+g65_tot <- c("B01003_001")
+
+vars %>% filter(name %in% c(g65_tot, g65_var)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F}
+SVI[[3]] <- svi3_g65 <- comb(g65_var,g65_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
+```{r}
+svi3_g65 <- readRDS("SVI.RDS")[[3]]
+svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,echo=F,eval=F}
 (g65_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -146,12 +237,12 @@ get_acs(
 ```
 
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (pov_age_householder <- vars %>% filter(str_detect(name, "B17017"),grepl("65 years and over",label))) %>% 
   kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (g65_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -169,7 +260,7 @@ get_acs(
 
 ### 4 Population 65 or above & below poverty/Pop. 65 or above
 
-```{r,eval=F}
+```{r,echo=F,eval=F}
 (g65.pov_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -185,14 +276,34 @@ get_acs(
 
 **C18130_018, C18130_021 have no data at block group level**
 
-```{r}
-(age_vet_pov <- vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
+```{r,echo=F,eval=F}
+vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grepl("below poverty",label)) %>% 
   kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r}
+g65_pov_var <- c("C21007_019","C21007_026")
+g65_pov_tot <- c("C21007_017")
+
+vars %>% filter(name %in% c(g65_pov_tot, g65_pov_var)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F}
+SVI[[4]] <- svi4_g65_pov <- comb(g65_pov_var,g65_pov_tot)
+saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
 ```{r}
-(g65_bg <- get_acs(
+svi4_g65_pov <- readRDS("SVI.RDS")[[4]]
+svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
@@ -200,20 +311,19 @@ get_acs(
  summary_var = "C21007_017" , cache_table = T
 ) %>%  mutate(sum = C21007_019E + C21007_026E, # rowSums(across(paste0(age_vet_pov$name,"E")), na.rm = TRUE),
               per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
-  select(starts_with("C"), sum, summary_est, per)) %>% 
-   head(10) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+  select(starts_with("C"), sum, summary_est, per) 
 ```
 
-```{r}
+
+```{r,eval=F,echo=F}
 (pov_age_householder <- vars %>% filter(str_detect(name, "B17017"),grepl("65 years and over",label),grepl("below poverty",label))) %>% 
   kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-*B17017* is by **Householder**
+*B17017* is by **Householder** and gives same results.
 
-```{r}
-(g65_bg <- get_acs(
+```{r,eval=F,echo=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
@@ -221,189 +331,200 @@ get_acs(
  summary_var = "C21007_017" , cache_table = T
 ) %>%  mutate(sum =  rowSums(across(paste0(pov_age_householder$name,"E")), na.rm = TRUE),
               per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
-  select(starts_with("B"), sum, summary_est, per)) %>% 
-   head(10) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
-## Disability
-
-### Population with a disability/Total Population ( all age)
-
-```{r}
-vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
-```{r,eval=F}
-(dis_bg <- get_acs(
-  state = "41",
-  county = tri_cou,
-  geography = "block group",
-  variables = c("C18130_003","C18130_010","C18130_017"), output = 'wide',
- summary_var = "C18130_001" , cache_table = T
-) %>%  mutate(sum= C18130_003E + C18130_010E + C18130_017E,
-              per= 100 * sum / summary_est) %>% 
-  select(GEOID, C18130_003E, C18130_010E, C18130_017E, sum, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
-**C18130_003, C18130_010, C18130_017 have no data at block group level**
-
-```{r,eval=F}
-(dis_var <- vars %>% filter(grepl("With a disability",label))) 
+  select(starts_with("B"), sum, summary_est, per)
 ```
 
 
-
-
-```{r}
-get_acs(
-  state = "41",
-  county = tri_cou,
-  geography = "block group",
-  variables = c("B18140_003","B23024_003","B23024_018","B26108_002","B26208_002","B26208_005","C18131_003"), output = "wide", # age_vet_pov$name
-  cache_table = T
-) %>%  arrange(GEOID) %>%
-  select(ends_with("E")) %>% select(-NAME) %>% 
-   head(10) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
-```{r}
-vars %>% filter(name %in% c("B23024_001","B23024_003","B23024_018")) %>% 
-kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
-
-
-
-```{r}
-(dis_bg <- get_acs(
-  state = "41",
-  county = tri_cou,
-  geography = "block group",
-  variables = c("B23024_003","B23024_018","B23024_001"), output = "wide", 
- summary_var = "B01003_001" , cache_table = T
-) %>%  mutate(sum = B23024_003E + B23024_018E, 
-              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
-  select(starts_with("B"), sum, summary_est, per)) %>% 
-   head(10) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
 
 ## Transportation needs
 
 ### 5 Workers using public transportation/Civilian pop. 16+ and employed
 
+"B23025_004" = "C24010_001"
+
 ```{r}
-vars %>% filter(name %in% c("B08301_010", "B23025_004")) %>% kbl() %>% 
+g16_tran_var <- c("B08301_010")
+g16_tran_tot <- c("B23025_004")
+
+vars %>% filter(name %in% c(g16_tran_tot, g16_tran_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-"B23025_004" = "C24010_001"
+```{r,eval=F}
+SVI[[5]] <- svi5_g16_tran <- comb(g16_tran_var,g16_tran_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
 
 
 ```{r}
-(g16.tran_bg <- get_acs(
+svi5_g16_tran <- readRDS("SVI.RDS")[[5]]
+svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = "B08301_010", output = "wide",# c("C24010_001"),
  summary_var = "B23025_004" , cache_table = T
-) %>%  mutate(per= 100 * B08301_010E / summary_est) %>% 
-  select(GEOID, B08301_010E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * B08301_010E / summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, B08301_010E, summary_est, per) 
 ```
 
 ### 6 Occupied housing units without a vehicle/Occupied housing units
 
 *B08201_002* has no data at block group level
 
+
 ```{r}
-vars %>% filter(name %in% c("B25044_001", "B25044_002", "B25044_003", "B25044_009", "B25044_010")) %>% kbl() %>% 
+noveh_var <- c("B25044_003","B25044_010")
+noveh_tot <- c("B25044_001")
+vars %>% filter(name %in% c(noveh_tot,noveh_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[6]] <- svi6_noveh <- comb(noveh_var,noveh_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
 
 
 ```{r}
-(occ.0veh_bg <- get_acs(
+svi6_noveh<- readRDS("SVI.RDS")[[6]]
+svi6_noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B25044_003", "B25044_010"), output = "wide",
  summary_var = "B25044_001" , cache_table = T
 ) %>% mutate(sum = B25044_003E + B25044_010E,
-             per = 100 * sum /summary_est) %>% 
-  select(GEOID, B25044_003E, B25044_010E, sum, summary_est, per)) %>%
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, B25044_003E, B25044_010E, sum, summary_est, per)
 ```
 
 ## Temporary Shelter and housing recovery needs
 
 ### 7 Vacant Housing units/Total housing units
 
+
 ```{r}
-vac_vars <- c("B25002_001","B25002_002","B25002_003")
-vars %>% filter(name %in% vac_vars) %>% kbl() %>% 
+vac_var <- c("B25002_003")
+vac_tot <- c("B25002_001")
+vars %>% filter(name %in% c(noveh_tot,noveh_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[7]] <- svi7_vac <- comb(vac_var,vac_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(vac_tract <- get_acs(
+svi7_vac<- readRDS("SVI.RDS")[[7]]
+svi7_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B25002_003"), output = "wide",
  summary_var = "B25002_001" , cache_table = T
-) %>%  mutate(per= 100 * B25002_003E / summary_est) %>% 
-  select(GEOID, B25002_003E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * B25002_003E / summary_est) %>% arrange(GEOID) %>% 
+  select(GEOID, B25002_003E, summary_est, per)
+  
 ```
 
 ### 8 Persons in renter occupied housing units/Total occupied housing units
 
+
+**Change to 'renter occupied housing units/Total occupied housing units'**
+
 ```{r}
-vars %>% filter(name %in% c("B25008_001","B25008_002","B25008_003")) %>% kbl() %>% 
+rent_var <- c("B25003_003")
+rent_tot <- c("B25003_001")
+vars %>% filter(name %in% c(rent_tot,rent_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[8]] <- svi8_rent <- comb(rent_var,rent_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(vrent_bg <- get_acs(
+svi8_vac<- readRDS("SVI.RDS")[[8]]
+svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
-  variables = c("B25002_002","B25008_002","B25008_003"), output = "wide",
- summary_var = "B25008_001" , cache_table = T
-)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+  variables = c("B25003_003"), output = "wide",
+ summary_var = "B25003_001" , cache_table = T
+) %>% arrange(GEOID) 
 ```
 
 ### 9 Non-white population/Total population
 
+
 ```{r}
-nonWhi_vars <- c("B02001_001","B02001_002")
-vars %>% filter(name %in% nonWhi_vars) %>% kbl() %>% 
+white_var <- c("B02001_002")
+white_tot <- c("B02001_001")
+vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% mutate(sum=summary_est-sum,per=100-per)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(nonWhi_bg <- get_acs(
+svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
+svi9_nonwhite %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B02001_002"), output = "wide",
  summary_var = "B02001_001" , cache_table = T
-) %>%  mutate(per= 100 * (1 - B02001_002E / summary_est)) %>% 
-  select(GEOID, B02001_002E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * (1 - B02001_002E / summary_est)) %>%  arrange(GEOID) %>% 
+  select(GEOID, B02001_002E, summary_est, per)
 ```
 
 ### 10 Population in group quarters/Total population
@@ -414,7 +535,7 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (group_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -435,66 +556,109 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
 ### 11 Housing units built 20 years ago/Total housing Units
 
 ```{r}
-vars %>% filter(name %in% c("B25034_002","B25034_003","B25034_004")) %>% kbl() %>% 
+newhou_var <- c("B25034_002","B25034_003","B25034_004")
+newhou_tot <- c("B25034_001")
+vars %>% filter(name %in% c(newhou_tot,newhou_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[11]] <- svi11_oldhou <- comb(newhou_var,newhou_tot) %>% mutate(sum=summary_est-sum,per=100-per)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(H.g20_bg <- get_acs(
+svi11_oldhou<- readRDS("SVI.RDS")[[11]]
+svi11_oldhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B25034_002","B25034_003","B25034_004"), output = "wide",
  summary_var = "B25034_001" , cache_table = T
 ) %>% mutate(sum = B25034_002E + B25034_003E + B25034_004E,
-             per = 100 * (1 - sum /summary_est)) %>% 
-  select(GEOID, B25034_002E, B25034_003E, B25034_004E, sum, summary_est, per)) %>%
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+             per = 100 * (1 - sum /summary_est)) %>% arrange(GEOID)  %>%
+  select(B25034_002E, B25034_003E, B25034_004E, sum, summary_est, per)
 ```
 
 ### 12 Mobile Homes/Total housing units
 
 ```{r}
-vars %>% filter(name %in% "B25024_010") %>% kbl() %>% 
+mhou_var <- c("B25024_010")
+mhou_tot <- c("B25024_001")
+vars %>% filter(name %in% c(mhou_tot,mhou_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[12]] <- svi12_mhou <- comb(mhou_var,mhou_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(mob.H_bg <- get_acs(
+svi12_mhou<- readRDS("SVI.RDS")[[12]]
+svi12_mhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = "B25024_010", output = "wide",# c("B25024_011"), 
  summary_var = "B25024_001" , cache_table = T
-) %>%  mutate(per= 100 * B25024_010E / summary_est) %>% 
-  select(GEOID, B25024_010E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * B25024_010E / summary_est) %>% arrange(GEOID) %>%
+  select(GEOID, B25024_010E, summary_est, per)  
 ```
 
 ### 13 Persons in poverty/Total population
 
+"B17001_001" (county level)= "B17020_002" (tract level)= "C17002_002" + "C17002_003"
+
 ```{r}
-vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>% 
+pov_var <- c("C17002_002","C17002_003")
+pov_tot <- c("C17002_001")
+vars %>% filter(name %in% c(pov_tot,pov_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-"B17001_001" (county level)= "B17020_002" (tract level)= "C17002_002" + "C17002_003"
+```{r,eval=F}
+SVI[[13]] <- svi13_pov <- comb(pov_var,pov_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
 
 
 ```{r}
-(pov_bg <- get_acs(
+svi13_pov <- readRDS("SVI.RDS")[[13]]
+svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("C17002_002","C17002_003"), output = "wide",
  summary_var = "C17002_001" , cache_table = T
 ) %>% mutate(sum = C17002_002E + C17002_003E,
-             per = 100 * sum /summary_est) %>% 
-  select(GEOID, C17002_002E, C17002_003E, sum, summary_est, per)) %>%
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
+  select(C17002_002E, C17002_003E, sum, summary_est, per) 
 ```
 
 ## Civic Capacity needs
@@ -502,34 +666,48 @@ vars %>% filter(name %in% c("C17002_002","C17002_003")) %>% kbl() %>%
 ### 14 Occupied housing units without a telephone/Total occupied Husing
 
 ```{r}
-vars %>% filter(name %in% c("B25043_001","B25043_007","B25043_016")) %>% kbl() %>% 
+nophone_var <- c("B25043_007","B25043_016")
+nophone_tot <- c("B25043_001")
+vars %>% filter(name %in% c(nophone_tot,nophone_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[14]] <- svi14_pov <- comb(nophone_var,nophone_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(occ.tel_bg <- get_acs(
+svi14_nophone <- readRDS("SVI.RDS")[[14]]
+svi14_nophone %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,echo=F,eval=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B25043_007","B25043_016"), output = "wide",
  summary_var = "B25043_001" , cache_table = T
 ) %>% mutate(sum = B25043_007E + B25043_016E,
-             per = 100 * sum /summary_est) %>% 
-  select(GEOID, B25043_007E, B25043_016E, sum, summary_est, per)) %>%
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+             per = 100 * sum /summary_est) %>% arrange(GEOID) %>% 
+  select(GEOID, B25043_007E, B25043_016E, sum, summary_est, per)
 ```
 
 
 ### 15 Population above 25 with less than high school/Total pop above 25
 
-```{r}
+```{r,eval=F,echo=F}
 g25.HS_vars <- c("B21003_001","B21003_003","B21003_008")
 vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (g25.HS_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -545,55 +723,83 @@ vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>%
 
 **B160, B200, B210, C150 have no data at block group level**
 
+
 ```{r}
-g25.HS_vars <- c(paste0("B15003_00",2:9),paste0("B15003_01",0:6))
-vars %>% filter(name %in% g25.HS_vars) %>% kbl() %>% 
+noedu_var <- c(paste0("B15003_00",2:9),paste0("B15003_01",0:6))
+noedu_tot <- c("B15003_001")
+vars %>% filter(name %in% c(noedu_tot,noedu_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[15]] <- svi15_noedu <- comb(noedu_var,noedu_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(g25.HS_bg <- get_acs(
+svi15_noedu <- readRDS("SVI.RDS")[[15]]
+svi15_noedu %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F,echo=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
-  variables = g25.HS_vars, output = "wide",
+  variables = noedu_var, output = "wide",
  summary_var = "B15003_001" , cache_table = T
-) %>% mutate(sum = rowSums(across(paste0(g25.HS_vars,"E")), na.rm = TRUE),
+) %>% mutate(sum = rowSums(across(paste0(noedu_var,"E")), na.rm = TRUE),
              per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
-  select(GEOID, paste0(g25.HS_vars,"E"), sum, summary_est, per)) %>%
-   head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+  select(GEOID, paste0(noedu_var,"E"), sum, summary_est, per)
 ```
 
 
 ### 16 Population 16+ in labor force and unemployed/Pop in Labor force 16+
 
+
 ```{r}
-vars %>% filter(name %in% c("B23025_002","B23025_005")) %>% kbl() %>% 
+unemp_var <- c("B23025_005")
+unemp_tot <- c("B23025_002")
+vars %>% filter(name %in% c(unemp_tot,unemp_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[16]] <- svi16_unemp <- comb(unemp_var,unemp_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(g16.unem_bg <- get_acs(
+svi16_unemp <- readRDS("SVI.RDS")[[16]]
+svi16_unemp %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,eval=F,echo=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
   variables = c("B23025_005"), output = "wide",
  summary_var = "B23025_002" , cache_table = T
-) %>%  mutate(per= 100 * B23025_005E / summary_est) %>% 
-  select(GEOID, B23025_005E, summary_est, per)) %>% 
-  arrange(GEOID) %>% head() %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+) %>%  mutate(per= 100 * B23025_005E / summary_est) %>% arrange(GEOID) %>% 
+  select(GEOID, B23025_005E, summary_est, per) 
 ```
 
 ### 17 Population above 5 that speak English not well or not at all/Pop>5
 
-```{r}
+```{r,eval=F,echo=F}
 vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 (nonE_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -607,7 +813,7 @@ vars %>% filter(name %in% c("B06007_005","B06007_008")) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r}
+```{r,eval=F,echo=F}
 # g5.nonE_vars <- (vars %>% filter(grepl("B16001_",name),grepl("Speak English less than \"very well\"",label)))$name
 # g5.nonE_vars <- (vars %>% filter(grepl("B16008_",name),grepl("Speak English less than \"very well\"",label)))$name
 g5.nonE_vars <- (vars %>% filter(grepl("C16001_",name),grepl("Speak English less than \"very well\"",label)))$name
@@ -615,7 +821,7 @@ vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 g5.nonE_bg <- get_acs(
   state = "41",
   county = tri_cou,
@@ -633,22 +839,118 @@ g5.nonE_bg%>% mutate(Sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRU
 
 **B06007, C16001 have no data at block group level**
 
+
 ```{r}
-g5.nonE_vars <- (vars %>% filter(grepl("B16004_",name),grepl("Speak English \"not well\"|Speak English \"not at all\"",label)))$name
-vars %>% filter(name %in% g5.nonE_vars) %>% kbl() %>% 
+esl_var <- (vars %>% filter(grepl("B16004_",name),grepl("Speak English \"not well\"|Speak English \"not at all\"",label)))$name
+esl_tot <- c("B16004_001")
+vars %>% filter(name %in% c(esl_tot,esl_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+```{r,eval=F}
+SVI[[17]] <- svi17_esl <- comb(esl_var,esl_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
 ```{r}
-(g5.nonE_bg <- get_acs(
+svi17_esl <- readRDS("SVI.RDS")[[17]]
+svi17_esl %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,eval=F,echo=F}
+get_acs(
   state = "41",
   county = tri_cou,
   geography = "block group",
-  variables = g5.nonE_vars, output = "wide",
+  variables = esl_var, output = "wide",
  summary_var = "B16004_001" , cache_table = T
-) %>% mutate(sum = rowSums(across(paste0(g5.nonE_vars,"E")), na.rm = TRUE),
+) %>% mutate(sum = rowSums(across(paste0(esl_var,"E")), na.rm = TRUE),
              per = 100 * sum /summary_est) %>% arrange(GEOID) %>%
-  select(GEOID, paste0(g5.nonE_vars,"E"), sum, summary_est, per)) %>%
-   head() %>% kbl() %>% 
+  select(paste0(esl_var,"E"), sum, summary_est, per)
+```
+
+
+## Disability
+
+### Population with a disability/Total Population ( all age)
+
+```{r,eval=F,echo=F}
+vars %>% filter(name %in% c("C18130_003","C18130_010","C18130_017")) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
+```{r,eval=F,echo=F}
+(dis_bg <- get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = c("C18130_003","C18130_010","C18130_017"), output = 'wide',
+ summary_var = "C18130_001" , cache_table = T
+) %>%  mutate(sum= C18130_003E + C18130_010E + C18130_017E,
+              per= 100 * sum / summary_est) %>% 
+  select(GEOID, C18130_003E, C18130_010E, C18130_017E, sum, summary_est, per)) %>% 
+  arrange(GEOID) %>% head() %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+**C18130_003, C18130_010, C18130_017 have no data at block group level**
+
+```{r,eval=F,echo=F}
+(dis_var <- vars %>% filter(grepl("With a disability",label))) 
+```
+
+```{r,eval=F,echo=F}
+get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = c("B18140_003","B23024_003","B23024_018","B26108_002","B26208_002","B26208_005","C18131_003"), output = "wide", # age_vet_pov$name
+  cache_table = T
+) %>%  arrange(GEOID) %>%
+  select(ends_with("E")) %>% select(-NAME) %>% 
+   head(10) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+**Change to 'Population with a disability (20-64 years)/Total Population (20-64 years)'**
+
+
+```{r}
+dis_var <- c("B23024_003","B23024_018")
+dis_tot <- c("B23024_001")
+vars %>% filter(name %in% c(dis_tot,dis_var)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F}
+SVI[[18]] <- svi18_dis <- comb(dis_var,dis_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+
+```{r}
+svi18_dis <- readRDS("SVI.RDS")[[18]]
+svi18_dis %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+
+```{r,eval=F,echo=F}
+get_acs(
+  state = "41",
+  county = tri_cou,
+  geography = "block group",
+  variables = c("B23024_003","B23024_018","B23024_001"), output = "wide", 
+ summary_var = "B01003_001" , cache_table = T
+) %>%  mutate(sum = B23024_003E + B23024_018E, 
+              per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
+  select(starts_with("B"), sum, summary_est, per)
+```
+

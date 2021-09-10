@@ -26,8 +26,13 @@ Block Group Level
 ```{r,echo=F}
 # tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
 tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+```
+
+
+```{r,eval=F}
 pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
 # pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+saveRDS(pdx_bg,file = "pdx_bg.RDS")
 ```
 
 ```{r,echo=F}
@@ -36,9 +41,7 @@ vars <- load_variables(2019, "acs5")
 # str(vars)
 ```
 
-```{r,echo=F}
-nrow(pdx_bg)
-```
+
 
 #   Vehicle Available 
 
@@ -54,7 +57,7 @@ vars %>% filter(name %in% c("B08014_002","B08141_002")) %>% kbl() %>%
 ```
 
 
-```{r}
+```{r, eval=F,echo=F}
 get_acs(
   state = "41",
   county = tri_cou,
@@ -78,7 +81,7 @@ vars %>% filter(name %in% c("B08201_002","B08203_002")) %>% kbl() %>%
 ```
 
 
-```{r}
+```{r, eval=F,echo=F}
 get_acs(
   state = "41",
   county = tri_cou,
@@ -90,40 +93,85 @@ get_acs(
 ```
 
 
-- TENURE BY VEHICLES AVAILABLE
+- TENURE BY VEHICLES AVAILABLE (Only this one works)
 
-```{r}
-vars %>% filter(name %in% c("B25044_003","B25044_010")) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```{r,echo=F}
+sum_col <- function(...){
+    # x <- list(...) # THIS WILL BE A LIST STORING EVERYTHING:
+    rowSums(across(all_of(...)), na.rm = TRUE)       # Example of inbuilt function
+}
+
+sum_moe <- function(...){
+    sqrt(rowSums((across(all_of(...)))^2, na.rm = TRUE) )
+}
+
+Perc <- function(sum,total){
+   100 * sum /total
+}
+
+per_moe <- function(sum_moe,total_moe,sum,total){
+    100*sqrt(sum_moe^2-total_moe^2*(sum /total)^2)/total
+}
+
+comb <- function(var_list,summary_list){
+var_e <- paste0(var_list,"E")
+var_m <- paste0(var_list,"M")
+
+get_acs(
+  state = "41",
+  county = c('051','067','005'), # tri_cou,
+  geography = "block group",
+  variables = var_list, output = "wide",
+  summary_var = summary_list, cache_table = T
+  ) %>% arrange(GEOID) %>% 
+  mutate(sum =sum_col(var_e),
+         sumMOE = sum_moe(var_m),
+         per = Perc(sum,summary_est),
+         perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
+}
 ```
 
 
+
 ```{r}
-(noveh <- get_acs(
-  state = "41",
-  county = tri_cou,
-  geography = "block group",
-  variables = c("B25044_003","B25044_010"), output = "wide",
-  summary_var = "B25044_001", cache_table = T
-  ) %>% arrange(GEOID) %>% 
-  mutate(noveh = B25044_003E + B25044_010E,
-         noveh.per = 100 * noveh /summary_est) %>% 
-  select(GEOID,B25044_003E,B25044_010E,noveh,summary_est,noveh.per)) %>% head(20)
+noveh_var <- c("B25044_003","B25044_010")
+noveh_tot <- c("B25044_001")
+vars %>% filter(name %in% c(noveh_tot,noveh_var)) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 **B08201_002 = B08203_002 = B25044_003 + B25044_010** 
 
-## Spatial Distributions
+```{r,eval=F}
+noveh <- comb(noveh_var,noveh_tot)
+saveRDS(noveh,file = "noveh.RDS")
+```
+
 
 ```{r}
-pdx_bg_noveh <- pdx_bg %>% left_join(noveh,by="GEOID")
+noveh <- readRDS("noveh.RDS")
+noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
 
+## Spatial Distributions
+
+```{r}
+pdx_bg <- readRDS("pdx_bg.RDS")
+pdx_bg_noveh <- pdx_bg %>% left_join(noveh,by="GEOID")
+```
+
+```{r,echo=F}
+nrow(pdx_bg)
+```
+
+
 ```{r, eval=T}
-mapview(pdx_bg_noveh, zcol = "noveh.per") + 
-mapview(pdx_bg_noveh, zcol = "noveh")
+mapview(pdx_bg_noveh, zcol = "per") + 
+mapview(pdx_bg_noveh, zcol = "sum")
 ```
 
 
