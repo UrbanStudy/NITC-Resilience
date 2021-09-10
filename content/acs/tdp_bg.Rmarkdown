@@ -167,22 +167,18 @@ noveh.sig %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
 ```{r}
 pdx_bg <- readRDS("pdx_bg.RDS")
 pdx_bg_noveh <- pdx_bg %>% left_join(noveh,by="GEOID")
-pdx_bg_noveh.sig <- pdx_bg %>% left_join(noveh.sig,by="GEOID")
+pdx_bg_noveh.sig <- pdx_bg %>% inner_join(noveh.sig,by="GEOID")
 ```
 
-```{r,echo=F}
+```{r,echo=T}
 nrow(pdx_bg)
-nrow(pdx_bg_noveh.sig)
+nrow(pdx_bg_noveh.sig) 
 ```
 
 
-```{r, eval=T}
+```{r, eval=T,echo=F }
 library(leafsync)
 sync(mapview(pdx_bg_noveh, zcol = "sum"), mapview(pdx_bg_noveh.sig, zcol = "sum"))
-```
-
-
-```{r, eval=T}
 sync(mapview(pdx_bg_noveh, zcol = "per"), mapview(pdx_bg_noveh.sig, zcol = "per"))
 ```
 
