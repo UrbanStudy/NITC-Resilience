@@ -8,7 +8,7 @@ tags: ["R Markdown", "ACS", "Census data"]
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = F)
 if (!require(pacman)) {install.packages("pacman"); library(pacman)}
-p_load(tidyverse, tidycensus, tigris, mapview, kableExtra )
+p_load(tidyverse, tidycensus, tigris, mapview, leafsync, kableExtra )
 # crsuggest,
 # remotes::install_github("walkerke/crsuggest")
 # remotes::install_github("walkerke/tidycensus")
@@ -155,23 +155,35 @@ noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-
+```{r}
+noveh.sig <- noveh %>% filter(per>perMOE) 
+noveh.sig %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
 
 ## Spatial Distributions
 
 ```{r}
 pdx_bg <- readRDS("pdx_bg.RDS")
 pdx_bg_noveh <- pdx_bg %>% left_join(noveh,by="GEOID")
+pdx_bg_noveh.sig <- pdx_bg %>% left_join(noveh.sig,by="GEOID")
 ```
 
 ```{r,echo=F}
 nrow(pdx_bg)
+nrow(pdx_bg_noveh.sig)
 ```
 
 
 ```{r, eval=T}
-mapview(pdx_bg_noveh, zcol = "per") + 
-mapview(pdx_bg_noveh, zcol = "sum")
+library(leafsync)
+sync(mapview(pdx_bg_noveh, zcol = "sum"), mapview(pdx_bg_noveh.sig, zcol = "sum"))
+```
+
+
+```{r, eval=T}
+sync(mapview(pdx_bg_noveh, zcol = "per"), mapview(pdx_bg_noveh.sig, zcol = "per"))
 ```
 
 
