@@ -127,7 +127,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi1_child <- readRDS("SVI.RDS")[[1]]
 svi1_child %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -164,7 +164,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi2_l5 <- readRDS("SVI.RDS")[[2]]
 svi2_l5 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -244,7 +244,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi3_g65 <- readRDS("SVI.RDS")[[3]]
 svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -324,7 +324,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi4_g65_pov <- readRDS("SVI.RDS")[[4]]
 svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -385,7 +385,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi5_g16_tran <- readRDS("SVI.RDS")[[5]]
 svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -425,7 +425,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi6_noveh<- readRDS("SVI.RDS")[[6]]
 svi6_noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -462,7 +462,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi7_vac<- readRDS("SVI.RDS")[[7]]
 svi7_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -500,7 +500,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi8_vac<- readRDS("SVI.RDS")[[8]]
 svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -543,7 +543,7 @@ svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
 svi9_nonwhite %>% select(summary_est, summary_moe, 
                          sum,sumMOE,nonW.sum,nonW.sumMOE,
                          per,perMOE,nonW.per,nonW.perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -559,15 +559,15 @@ svi9_nonwhite %>% select(summary_est, summary_moe,
          nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
          nonW.per=100-per,
          nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
 ```{r}
-comb(paste0("B02001_00",2:8),white_tot) %>% 
-  select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+(comb(paste0("B02001_00",3:8),white_tot))[,3:20] %>% 
+  # select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -628,7 +628,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi11_oldhou<- readRDS("SVI.RDS")[[11]]
 svi11_oldhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -664,7 +664,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi12_mhou<- readRDS("SVI.RDS")[[12]]
 svi12_mhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -701,7 +701,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi13_pov <- readRDS("SVI.RDS")[[13]]
 svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -738,7 +738,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi14_nophone <- readRDS("SVI.RDS")[[14]]
 svi14_nophone %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -797,7 +797,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi15_noedu <- readRDS("SVI.RDS")[[15]]
 svi15_noedu %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -833,7 +833,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi16_unemp <- readRDS("SVI.RDS")[[16]]
 svi16_unemp %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -913,7 +913,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi17_esl <- readRDS("SVI.RDS")[[17]]
 svi17_esl %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -993,7 +993,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```{r}
 svi18_dis <- readRDS("SVI.RDS")[[18]]
 svi18_dis %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 

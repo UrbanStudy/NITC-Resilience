@@ -170,7 +170,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi1_child <- readRDS("SVI.RDS")[[1]]
 svi1_child %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -266,86 +266,6 @@ svi1_child %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 8.231173 </td>
    <td style="text-align:right;"> 6.098300 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 375 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 159 </td>
-   <td style="text-align:right;"> 104 </td>
-   <td style="text-align:right;"> 42.400000 </td>
-   <td style="text-align:right;"> 17.946911 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 43 </td>
-   <td style="text-align:right;"> 47 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 27.906977 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 659 </td>
-   <td style="text-align:right;"> 160 </td>
-   <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 10.166920 </td>
-   <td style="text-align:right;"> 10.331357 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 703 </td>
-   <td style="text-align:right;"> 173 </td>
-   <td style="text-align:right;"> 126 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 17.923186 </td>
-   <td style="text-align:right;"> 15.012713 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 288 </td>
-   <td style="text-align:right;"> 107 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 78 </td>
-   <td style="text-align:right;"> 34.375000 </td>
-   <td style="text-align:right;"> 23.883083 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 440 </td>
-   <td style="text-align:right;"> 139 </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 35 </td>
-   <td style="text-align:right;"> 6.818182 </td>
-   <td style="text-align:right;"> 7.657375 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 372 </td>
-   <td style="text-align:right;"> 170 </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 5.913978 </td>
-   <td style="text-align:right;"> 6.153048 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 200 </td>
-   <td style="text-align:right;"> 123 </td>
-   <td style="text-align:right;"> 55 </td>
-   <td style="text-align:right;"> 63 </td>
-   <td style="text-align:right;"> 27.500000 </td>
-   <td style="text-align:right;"> 26.574750 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 362 </td>
-   <td style="text-align:right;"> 131 </td>
-   <td style="text-align:right;"> 28 </td>
-   <td style="text-align:right;"> 43 </td>
-   <td style="text-align:right;"> 7.734807 </td>
-   <td style="text-align:right;"> 11.543956 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 418 </td>
-   <td style="text-align:right;"> 161 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 9 </td>
-   <td style="text-align:right;"> 1.913876 </td>
-   <td style="text-align:right;"> 2.022986 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -403,7 +323,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi2_l5 <- readRDS("SVI.RDS")[[2]]
 svi2_l5 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -498,86 +418,6 @@ svi2_l5 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 62.48200 </td>
    <td style="text-align:right;"> 5.661006 </td>
    <td style="text-align:right;"> 2.009080 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 49 </td>
-   <td style="text-align:right;"> 63.32456 </td>
-   <td style="text-align:right;"> 2.066638 </td>
-   <td style="text-align:right;"> 2.644118 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.709019 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2748 </td>
-   <td style="text-align:right;"> 340 </td>
-   <td style="text-align:right;"> 201 </td>
-   <td style="text-align:right;"> 129.54150 </td>
-   <td style="text-align:right;"> 7.314411 </td>
-   <td style="text-align:right;"> 4.626345 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 106.77547 </td>
-   <td style="text-align:right;"> 8.180228 </td>
-   <td style="text-align:right;"> 4.508636 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 86.03488 </td>
-   <td style="text-align:right;"> 8.183306 </td>
-   <td style="text-align:right;"> 6.891708 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 71.58911 </td>
-   <td style="text-align:right;"> 4.202832 </td>
-   <td style="text-align:right;"> 3.220305 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1495 </td>
-   <td style="text-align:right;"> 386 </td>
-   <td style="text-align:right;"> 56 </td>
-   <td style="text-align:right;"> 54.56189 </td>
-   <td style="text-align:right;"> 3.745819 </td>
-   <td style="text-align:right;"> 3.519146 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1001 </td>
-   <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 43.56604 </td>
-   <td style="text-align:right;"> 4.995005 </td>
-   <td style="text-align:right;"> 4.102867 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1739 </td>
-   <td style="text-align:right;"> 323 </td>
-   <td style="text-align:right;"> 117 </td>
-   <td style="text-align:right;"> 57.28001 </td>
-   <td style="text-align:right;"> 6.728005 </td>
-   <td style="text-align:right;"> 3.047590 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1818 </td>
-   <td style="text-align:right;"> 304 </td>
-   <td style="text-align:right;"> 128 </td>
-   <td style="text-align:right;"> 86.53901 </td>
-   <td style="text-align:right;"> 7.040704 </td>
-   <td style="text-align:right;"> 4.612230 </td>
   </tr>
 </tbody>
 </table>
@@ -677,7 +517,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi3_g65 <- readRDS("SVI.RDS")[[3]]
 svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -698,7 +538,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 209 </td>
    <td style="text-align:right;"> 389 </td>
    <td style="text-align:right;"> 133 </td>
-   <td style="text-align:right;"> 17.265868 </td>
+   <td style="text-align:right;"> 17.26587 </td>
    <td style="text-align:right;"> 5.681804 </td>
   </tr>
   <tr>
@@ -706,7 +546,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 204 </td>
    <td style="text-align:right;"> 244 </td>
    <td style="text-align:right;"> 78 </td>
-   <td style="text-align:right;"> 26.961326 </td>
+   <td style="text-align:right;"> 26.96133 </td>
    <td style="text-align:right;"> 6.111285 </td>
   </tr>
   <tr>
@@ -714,7 +554,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 182 </td>
    <td style="text-align:right;"> 190 </td>
    <td style="text-align:right;"> 61 </td>
-   <td style="text-align:right;"> 23.002421 </td>
+   <td style="text-align:right;"> 23.00242 </td>
    <td style="text-align:right;"> 5.371227 </td>
   </tr>
   <tr>
@@ -722,7 +562,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 238 </td>
    <td style="text-align:right;"> 170 </td>
    <td style="text-align:right;"> 75 </td>
-   <td style="text-align:right;"> 14.026403 </td>
+   <td style="text-align:right;"> 14.02640 </td>
    <td style="text-align:right;"> 5.541328 </td>
   </tr>
   <tr>
@@ -730,7 +570,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 297 </td>
    <td style="text-align:right;"> 320 </td>
    <td style="text-align:right;"> 106 </td>
-   <td style="text-align:right;"> 24.427481 </td>
+   <td style="text-align:right;"> 24.42748 </td>
    <td style="text-align:right;"> 5.899412 </td>
   </tr>
   <tr>
@@ -738,7 +578,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 187 </td>
    <td style="text-align:right;"> 298 </td>
    <td style="text-align:right;"> 178 </td>
-   <td style="text-align:right;"> 46.489860 </td>
+   <td style="text-align:right;"> 46.48986 </td>
    <td style="text-align:right;"> 24.231805 </td>
   </tr>
   <tr>
@@ -746,7 +586,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 308 </td>
    <td style="text-align:right;"> 334 </td>
    <td style="text-align:right;"> 118 </td>
-   <td style="text-align:right;"> 15.658697 </td>
+   <td style="text-align:right;"> 15.65870 </td>
    <td style="text-align:right;"> 5.048942 </td>
   </tr>
   <tr>
@@ -754,7 +594,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 208 </td>
    <td style="text-align:right;"> 469 </td>
    <td style="text-align:right;"> 123 </td>
-   <td style="text-align:right;"> 48.752599 </td>
+   <td style="text-align:right;"> 48.75260 </td>
    <td style="text-align:right;"> 7.236259 </td>
   </tr>
   <tr>
@@ -762,7 +602,7 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 166 </td>
    <td style="text-align:right;"> 183 </td>
    <td style="text-align:right;"> 62 </td>
-   <td style="text-align:right;"> 18.011811 </td>
+   <td style="text-align:right;"> 18.01181 </td>
    <td style="text-align:right;"> 5.345869 </td>
   </tr>
   <tr>
@@ -770,88 +610,8 @@ svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 287 </td>
    <td style="text-align:right;"> 406 </td>
    <td style="text-align:right;"> 74 </td>
-   <td style="text-align:right;"> 13.519813 </td>
+   <td style="text-align:right;"> 13.51981 </td>
    <td style="text-align:right;"> 2.098276 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 315 </td>
-   <td style="text-align:right;"> 132 </td>
-   <td style="text-align:right;"> 13.285533 </td>
-   <td style="text-align:right;"> 5.013480 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 352 </td>
-   <td style="text-align:right;"> 115 </td>
-   <td style="text-align:right;"> 35.448137 </td>
-   <td style="text-align:right;"> 6.256611 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2748 </td>
-   <td style="text-align:right;"> 340 </td>
-   <td style="text-align:right;"> 637 </td>
-   <td style="text-align:right;"> 171 </td>
-   <td style="text-align:right;"> 23.180495 </td>
-   <td style="text-align:right;"> 5.522359 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 261 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 11.417323 </td>
-   <td style="text-align:right;"> 3.981766 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 83 </td>
-   <td style="text-align:right;"> 17.675941 </td>
-   <td style="text-align:right;"> 6.038343 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 137 </td>
-   <td style="text-align:right;"> 9.227958 </td>
-   <td style="text-align:right;"> 6.132051 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1495 </td>
-   <td style="text-align:right;"> 386 </td>
-   <td style="text-align:right;"> 62 </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 4.147157 </td>
-   <td style="text-align:right;"> 3.449679 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1001 </td>
-   <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 147 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 14.685315 </td>
-   <td style="text-align:right;"> 5.788849 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1739 </td>
-   <td style="text-align:right;"> 323 </td>
-   <td style="text-align:right;"> 349 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 20.069005 </td>
-   <td style="text-align:right;"> 4.528622 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1818 </td>
-   <td style="text-align:right;"> 304 </td>
-   <td style="text-align:right;"> 468 </td>
-   <td style="text-align:right;"> 113 </td>
-   <td style="text-align:right;"> 25.742574 </td>
-   <td style="text-align:right;"> 4.483800 </td>
   </tr>
 </tbody>
 </table>
@@ -921,7 +681,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi4_g65_pov <- readRDS("SVI.RDS")[[4]]
 svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -942,7 +702,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 133 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 42.72002 </td>
-   <td style="text-align:right;"> 6.9408740 </td>
+   <td style="text-align:right;"> 6.940874 </td>
    <td style="text-align:right;"> 10.722543 </td>
   </tr>
   <tr>
@@ -950,7 +710,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 78 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
    <td style="text-align:right;"> 6.955149 </td>
   </tr>
   <tr>
@@ -958,7 +718,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 61 </td>
    <td style="text-align:right;"> 19 </td>
    <td style="text-align:right;"> 22.47221 </td>
-   <td style="text-align:right;"> 10.0000000 </td>
+   <td style="text-align:right;"> 10.000000 </td>
    <td style="text-align:right;"> 11.383397 </td>
   </tr>
   <tr>
@@ -966,7 +726,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 75 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
    <td style="text-align:right;"> 9.982684 </td>
   </tr>
   <tr>
@@ -974,7 +734,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 106 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
    <td style="text-align:right;"> 5.303301 </td>
   </tr>
   <tr>
@@ -982,7 +742,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 178 </td>
    <td style="text-align:right;"> 14 </td>
    <td style="text-align:right;"> 25.94224 </td>
-   <td style="text-align:right;"> 4.6979866 </td>
+   <td style="text-align:right;"> 4.697987 </td>
    <td style="text-align:right;"> 8.240766 </td>
   </tr>
   <tr>
@@ -990,7 +750,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 118 </td>
    <td style="text-align:right;"> 15 </td>
    <td style="text-align:right;"> 26.83282 </td>
-   <td style="text-align:right;"> 4.4910180 </td>
+   <td style="text-align:right;"> 4.491018 </td>
    <td style="text-align:right;"> 7.875540 </td>
   </tr>
   <tr>
@@ -998,7 +758,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 123 </td>
    <td style="text-align:right;"> 16 </td>
    <td style="text-align:right;"> 27.73085 </td>
-   <td style="text-align:right;"> 3.4115139 </td>
+   <td style="text-align:right;"> 3.411514 </td>
    <td style="text-align:right;"> 5.844677 </td>
   </tr>
   <tr>
@@ -1006,7 +766,7 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 62 </td>
    <td style="text-align:right;"> 9 </td>
    <td style="text-align:right;"> 18.43909 </td>
-   <td style="text-align:right;"> 4.9180328 </td>
+   <td style="text-align:right;"> 4.918033 </td>
    <td style="text-align:right;"> 9.937283 </td>
   </tr>
   <tr>
@@ -1014,88 +774,8 @@ svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 74 </td>
    <td style="text-align:right;"> 23 </td>
    <td style="text-align:right;"> 37.00000 </td>
-   <td style="text-align:right;"> 5.6650246 </td>
+   <td style="text-align:right;"> 5.665025 </td>
    <td style="text-align:right;"> 9.054618 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 315 </td>
-   <td style="text-align:right;"> 132 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 5.387480 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 352 </td>
-   <td style="text-align:right;"> 115 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 27.73085 </td>
-   <td style="text-align:right;"> 4.5454545 </td>
-   <td style="text-align:right;"> 7.736853 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 637 </td>
-   <td style="text-align:right;"> 171 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.664139 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 261 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 6.502131 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 83 </td>
-   <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 41.76123 </td>
-   <td style="text-align:right;"> 20.3703704 </td>
-   <td style="text-align:right;"> 17.678516 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 137 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 21.63331 </td>
-   <td style="text-align:right;"> 5.4455446 </td>
-   <td style="text-align:right;"> 10.052583 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 62 </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 27.371875 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 147 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 13.89244 </td>
-   <td style="text-align:right;"> 2.0408163 </td>
-   <td style="text-align:right;"> 9.397631 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 349 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 58.69412 </td>
-   <td style="text-align:right;"> 19.1977077 </td>
-   <td style="text-align:right;"> 15.854256 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 468 </td>
-   <td style="text-align:right;"> 113 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 13.89244 </td>
-   <td style="text-align:right;"> 0.6410256 </td>
-   <td style="text-align:right;"> 2.964433 </td>
   </tr>
 </tbody>
 </table>
@@ -1159,7 +839,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi5_g16_tran <- readRDS("SVI.RDS")[[5]]
 svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1181,7 +861,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 34 </td>
    <td style="text-align:right;"> 36 </td>
    <td style="text-align:right;"> 3.281853 </td>
-   <td style="text-align:right;"> 3.4500352 </td>
+   <td style="text-align:right;"> 3.450035 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 420 </td>
@@ -1189,7 +869,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 2.8571429 </td>
+   <td style="text-align:right;"> 2.857143 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 491 </td>
@@ -1197,7 +877,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 69 </td>
    <td style="text-align:right;"> 40 </td>
    <td style="text-align:right;"> 14.052953 </td>
-   <td style="text-align:right;"> 7.1565656 </td>
+   <td style="text-align:right;"> 7.156566 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 706 </td>
@@ -1205,7 +885,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 15 </td>
    <td style="text-align:right;"> 23 </td>
    <td style="text-align:right;"> 2.124646 </td>
-   <td style="text-align:right;"> 3.2088158 </td>
+   <td style="text-align:right;"> 3.208816 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 664 </td>
@@ -1213,7 +893,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.8072289 </td>
+   <td style="text-align:right;"> 1.807229 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 197 </td>
@@ -1221,7 +901,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 6.0913706 </td>
+   <td style="text-align:right;"> 6.091371 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1194 </td>
@@ -1229,7 +909,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 16 </td>
    <td style="text-align:right;"> 25 </td>
    <td style="text-align:right;"> 1.340034 </td>
-   <td style="text-align:right;"> 2.0715946 </td>
+   <td style="text-align:right;"> 2.071595 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 493 </td>
@@ -1237,7 +917,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 41 </td>
    <td style="text-align:right;"> 49 </td>
    <td style="text-align:right;"> 8.316430 </td>
-   <td style="text-align:right;"> 9.5560748 </td>
+   <td style="text-align:right;"> 9.556075 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 634 </td>
@@ -1245,7 +925,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 10 </td>
    <td style="text-align:right;"> 16 </td>
    <td style="text-align:right;"> 1.577287 </td>
-   <td style="text-align:right;"> 2.4955427 </td>
+   <td style="text-align:right;"> 2.495543 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1612 </td>
@@ -1253,87 +933,7 @@ svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 19 </td>
    <td style="text-align:right;"> 21 </td>
    <td style="text-align:right;"> 1.178660 </td>
-   <td style="text-align:right;"> 1.2973998 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1467 </td>
-   <td style="text-align:right;"> 288 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 0.8179959 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 526 </td>
-   <td style="text-align:right;"> 182 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 3.041825 </td>
-   <td style="text-align:right;"> 4.6348522 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1288 </td>
-   <td style="text-align:right;"> 263 </td>
-   <td style="text-align:right;"> 45 </td>
-   <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 3.493789 </td>
-   <td style="text-align:right;"> 3.3408273 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1062 </td>
-   <td style="text-align:right;"> 227 </td>
-   <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 4.143126 </td>
-   <td style="text-align:right;"> 4.6240597 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 611 </td>
-   <td style="text-align:right;"> 151 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.9639935 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1122 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.0695187 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 728 </td>
-   <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 14 </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 1.923077 </td>
-   <td style="text-align:right;"> 2.8338330 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 594 </td>
-   <td style="text-align:right;"> 220 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 5.555556 </td>
-   <td style="text-align:right;"> 6.7646971 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 845 </td>
-   <td style="text-align:right;"> 205 </td>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 2.130177 </td>
-   <td style="text-align:right;"> 3.5124821 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 811 </td>
-   <td style="text-align:right;"> 164 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 1.356350 </td>
-   <td style="text-align:right;"> 1.2021530 </td>
+   <td style="text-align:right;"> 1.297400 </td>
   </tr>
 </tbody>
 </table>
@@ -1395,7 +995,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi6_noveh<- readRDS("SVI.RDS")[[6]]
 svi6_noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1415,161 +1015,81 @@ svi6_noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 922 </td>
    <td style="text-align:right;"> 87 </td>
    <td style="text-align:right;"> 23 </td>
-   <td style="text-align:right;"> 28.635642 </td>
-   <td style="text-align:right;"> 2.4945770 </td>
-   <td style="text-align:right;"> 3.0968852 </td>
+   <td style="text-align:right;"> 28.63564 </td>
+   <td style="text-align:right;"> 2.494577 </td>
+   <td style="text-align:right;"> 3.096885 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 369 </td>
    <td style="text-align:right;"> 65 </td>
    <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 4.0650407 </td>
-   <td style="text-align:right;"> 4.5429818 </td>
+   <td style="text-align:right;"> 16.97056 </td>
+   <td style="text-align:right;"> 4.065041 </td>
+   <td style="text-align:right;"> 4.542982 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 405 </td>
    <td style="text-align:right;"> 78 </td>
    <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 63.150614 </td>
-   <td style="text-align:right;"> 15.8024691 </td>
-   <td style="text-align:right;"> 15.2928464 </td>
+   <td style="text-align:right;"> 63.15061 </td>
+   <td style="text-align:right;"> 15.802469 </td>
+   <td style="text-align:right;"> 15.292846 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 579 </td>
    <td style="text-align:right;"> 96 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.9310126 </td>
+   <td style="text-align:right;"> 16.97056 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 2.931013 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 508 </td>
    <td style="text-align:right;"> 100 </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 3.3406620 </td>
+   <td style="text-align:right;"> 16.97056 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 3.340662 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 375 </td>
    <td style="text-align:right;"> 112 </td>
    <td style="text-align:right;"> 67 </td>
-   <td style="text-align:right;"> 82.861330 </td>
-   <td style="text-align:right;"> 17.8666667 </td>
-   <td style="text-align:right;"> 21.4423435 </td>
+   <td style="text-align:right;"> 82.86133 </td>
+   <td style="text-align:right;"> 17.866667 </td>
+   <td style="text-align:right;"> 21.442343 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 878 </td>
    <td style="text-align:right;"> 121 </td>
    <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 27.730849 </td>
-   <td style="text-align:right;"> 1.8223235 </td>
-   <td style="text-align:right;"> 3.1484106 </td>
+   <td style="text-align:right;"> 27.73085 </td>
+   <td style="text-align:right;"> 1.822323 </td>
+   <td style="text-align:right;"> 3.148411 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 574 </td>
    <td style="text-align:right;"> 95 </td>
    <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 42.011903 </td>
-   <td style="text-align:right;"> 7.6655052 </td>
-   <td style="text-align:right;"> 7.2083534 </td>
+   <td style="text-align:right;"> 42.01190 </td>
+   <td style="text-align:right;"> 7.665505 </td>
+   <td style="text-align:right;"> 7.208353 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 536 </td>
    <td style="text-align:right;"> 81 </td>
    <td style="text-align:right;"> 53 </td>
-   <td style="text-align:right;"> 48.507731 </td>
-   <td style="text-align:right;"> 9.8880597 </td>
-   <td style="text-align:right;"> 8.9257340 </td>
+   <td style="text-align:right;"> 48.50773 </td>
+   <td style="text-align:right;"> 9.888060 </td>
+   <td style="text-align:right;"> 8.925734 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1177 </td>
    <td style="text-align:right;"> 88 </td>
    <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 37.336309 </td>
-   <td style="text-align:right;"> 2.5488530 </td>
-   <td style="text-align:right;"> 3.1664294 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1038 </td>
-   <td style="text-align:right;"> 151 </td>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 29.546573 </td>
-   <td style="text-align:right;"> 1.7341040 </td>
-   <td style="text-align:right;"> 2.8352905 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 74.966659 </td>
-   <td style="text-align:right;"> 12.4113475 </td>
-   <td style="text-align:right;"> 13.0180060 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 81 </td>
-   <td style="text-align:right;"> 74.966659 </td>
-   <td style="text-align:right;"> 7.0557491 </td>
-   <td style="text-align:right;"> 6.4780541 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 31.384710 </td>
-   <td style="text-align:right;"> 2.6722925 </td>
-   <td style="text-align:right;"> 4.3987702 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 574 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.9565440 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 30.463092 </td>
-   <td style="text-align:right;"> 1.8123667 </td>
-   <td style="text-align:right;"> 3.2407024 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 3.2573057 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 364 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 14 </td>
-   <td style="text-align:right;"> 26.832816 </td>
-   <td style="text-align:right;"> 3.8461538 </td>
-   <td style="text-align:right;"> 7.2970543 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.970563 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.7684442 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 721 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 4.242641 </td>
-   <td style="text-align:right;"> 0.4160888 </td>
-   <td style="text-align:right;"> 0.5860383 </td>
+   <td style="text-align:right;"> 37.33631 </td>
+   <td style="text-align:right;"> 2.548853 </td>
+   <td style="text-align:right;"> 3.166429 </td>
   </tr>
 </tbody>
 </table>
@@ -1627,7 +1147,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi7_vac<- readRDS("SVI.RDS")[[7]]
 svi7_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1648,160 +1168,80 @@ svi7_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 100 </td>
    <td style="text-align:right;"> 81 </td>
    <td style="text-align:right;"> 75 </td>
-   <td style="text-align:right;"> 8.0757727 </td>
-   <td style="text-align:right;"> 7.4340922 </td>
+   <td style="text-align:right;"> 8.075773 </td>
+   <td style="text-align:right;"> 7.434092 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 427 </td>
    <td style="text-align:right;"> 70 </td>
    <td style="text-align:right;"> 58 </td>
    <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 13.5831382 </td>
-   <td style="text-align:right;"> 12.4487865 </td>
+   <td style="text-align:right;"> 13.583138 </td>
+   <td style="text-align:right;"> 12.448787 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 444 </td>
    <td style="text-align:right;"> 84 </td>
    <td style="text-align:right;"> 39 </td>
    <td style="text-align:right;"> 59 </td>
-   <td style="text-align:right;"> 8.7837838 </td>
-   <td style="text-align:right;"> 13.1839689 </td>
+   <td style="text-align:right;"> 8.783784 </td>
+   <td style="text-align:right;"> 13.183969 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 579 </td>
    <td style="text-align:right;"> 96 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.0725389 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 2.072539 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 570 </td>
    <td style="text-align:right;"> 106 </td>
    <td style="text-align:right;"> 62 </td>
    <td style="text-align:right;"> 74 </td>
-   <td style="text-align:right;"> 10.8771930 </td>
-   <td style="text-align:right;"> 12.8239052 </td>
+   <td style="text-align:right;"> 10.877193 </td>
+   <td style="text-align:right;"> 12.823905 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 375 </td>
    <td style="text-align:right;"> 112 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 3.2000000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 3.200000 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 916 </td>
    <td style="text-align:right;"> 128 </td>
    <td style="text-align:right;"> 38 </td>
    <td style="text-align:right;"> 58 </td>
-   <td style="text-align:right;"> 4.1484716 </td>
-   <td style="text-align:right;"> 6.3052854 </td>
+   <td style="text-align:right;"> 4.148472 </td>
+   <td style="text-align:right;"> 6.305285 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 574 </td>
    <td style="text-align:right;"> 95 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.0905923 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 2.090592 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 596 </td>
    <td style="text-align:right;"> 80 </td>
    <td style="text-align:right;"> 60 </td>
    <td style="text-align:right;"> 61 </td>
-   <td style="text-align:right;"> 10.0671141 </td>
-   <td style="text-align:right;"> 10.1453033 </td>
+   <td style="text-align:right;"> 10.067114 </td>
+   <td style="text-align:right;"> 10.145303 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1208 </td>
    <td style="text-align:right;"> 92 </td>
    <td style="text-align:right;"> 31 </td>
    <td style="text-align:right;"> 48 </td>
-   <td style="text-align:right;"> 2.5662252 </td>
-   <td style="text-align:right;"> 3.9687005 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1112 </td>
-   <td style="text-align:right;"> 129 </td>
-   <td style="text-align:right;"> 74 </td>
-   <td style="text-align:right;"> 107 </td>
-   <td style="text-align:right;"> 6.6546763 </td>
-   <td style="text-align:right;"> 9.5912841 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.1276596 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.0452962 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.6877637 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 640 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 66 </td>
-   <td style="text-align:right;"> 62 </td>
-   <td style="text-align:right;"> 10.3125000 </td>
-   <td style="text-align:right;"> 9.5525535 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.2793177 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.3032630 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 448 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 84 </td>
-   <td style="text-align:right;"> 84 </td>
-   <td style="text-align:right;"> 18.7500000 </td>
-   <td style="text-align:right;"> 18.2958926 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.9575856 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 726 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 0.6887052 </td>
-   <td style="text-align:right;"> 0.8218252 </td>
+   <td style="text-align:right;"> 2.566225 </td>
+   <td style="text-align:right;"> 3.968701 </td>
   </tr>
 </tbody>
 </table>
@@ -1855,7 +1295,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi8_vac<- readRDS("SVI.RDS")[[8]]
 svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1951,86 +1391,6 @@ svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 23.109601 </td>
    <td style="text-align:right;"> 6.397812 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 1038 </td>
-   <td style="text-align:right;"> 151 </td>
-   <td style="text-align:right;"> 647 </td>
-   <td style="text-align:right;"> 152 </td>
-   <td style="text-align:right;"> 62.331407 </td>
-   <td style="text-align:right;"> 11.498446 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 236 </td>
-   <td style="text-align:right;"> 84 </td>
-   <td style="text-align:right;"> 41.843972 </td>
-   <td style="text-align:right;"> 11.827628 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 261 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 22.735192 </td>
-   <td style="text-align:right;"> 8.113621 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 27 </td>
-   <td style="text-align:right;"> 2.390999 </td>
-   <td style="text-align:right;"> 3.783141 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 574 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 138 </td>
-   <td style="text-align:right;"> 74 </td>
-   <td style="text-align:right;"> 24.041812 </td>
-   <td style="text-align:right;"> 12.221078 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 590 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 62.899787 </td>
-   <td style="text-align:right;"> 9.116713 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 32 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 6.142035 </td>
-   <td style="text-align:right;"> 6.223297 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 364 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 116 </td>
-   <td style="text-align:right;"> 57 </td>
-   <td style="text-align:right;"> 31.868132 </td>
-   <td style="text-align:right;"> 13.041878 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 114 </td>
-   <td style="text-align:right;"> 59 </td>
-   <td style="text-align:right;"> 18.597064 </td>
-   <td style="text-align:right;"> 9.297745 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 721 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 47 </td>
-   <td style="text-align:right;"> 51 </td>
-   <td style="text-align:right;"> 6.518724 </td>
-   <td style="text-align:right;"> 7.024432 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -2090,7 +1450,7 @@ svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
 svi9_nonwhite %>% select(summary_est, summary_moe, 
                          sum,sumMOE,nonW.sum,nonW.sumMOE,
                          per,perMOE,nonW.per,nonW.perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -2230,126 +1590,6 @@ svi9_nonwhite %>% select(summary_est, summary_moe,
    <td style="text-align:right;"> 16.050616 </td>
    <td style="text-align:right;"> NaN </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 1810 </td>
-   <td style="text-align:right;"> 379 </td>
-   <td style="text-align:right;"> 561 </td>
-   <td style="text-align:right;"> 207.32342 </td>
-   <td style="text-align:right;"> 76.33910 </td>
-   <td style="text-align:right;"> 7.877254 </td>
-   <td style="text-align:right;"> 23.660903 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 891 </td>
-   <td style="text-align:right;"> 269 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 46.56179 </td>
-   <td style="text-align:right;"> 89.72810 </td>
-   <td style="text-align:right;"> 11.194441 </td>
-   <td style="text-align:right;"> 10.271903 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2748 </td>
-   <td style="text-align:right;"> 340 </td>
-   <td style="text-align:right;"> 2256 </td>
-   <td style="text-align:right;"> 348 </td>
-   <td style="text-align:right;"> 492 </td>
-   <td style="text-align:right;"> NaN </td>
-   <td style="text-align:right;"> 82.09607 </td>
-   <td style="text-align:right;"> 7.562868 </td>
-   <td style="text-align:right;"> 17.903930 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 1761 </td>
-   <td style="text-align:right;"> 334 </td>
-   <td style="text-align:right;"> 525 </td>
-   <td style="text-align:right;"> 68.73864 </td>
-   <td style="text-align:right;"> 77.03412 </td>
-   <td style="text-align:right;"> 9.023669 </td>
-   <td style="text-align:right;"> 22.965879 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 1066 </td>
-   <td style="text-align:right;"> 198 </td>
-   <td style="text-align:right;"> 156 </td>
-   <td style="text-align:right;"> 83.79141 </td>
-   <td style="text-align:right;"> 87.23404 </td>
-   <td style="text-align:right;"> 5.193531 </td>
-   <td style="text-align:right;"> 12.765957 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 1688 </td>
-   <td style="text-align:right;"> 246 </td>
-   <td style="text-align:right;"> 501 </td>
-   <td style="text-align:right;"> 166.41214 </td>
-   <td style="text-align:right;"> 77.11284 </td>
-   <td style="text-align:right;"> 4.102190 </td>
-   <td style="text-align:right;"> 22.887163 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1495 </td>
-   <td style="text-align:right;"> 386 </td>
-   <td style="text-align:right;"> 1063 </td>
-   <td style="text-align:right;"> 281 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 264.64127 </td>
-   <td style="text-align:right;"> 71.10368 </td>
-   <td style="text-align:right;"> 4.031508 </td>
-   <td style="text-align:right;"> 28.896321 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1001 </td>
-   <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 876 </td>
-   <td style="text-align:right;"> 295 </td>
-   <td style="text-align:right;"> 125 </td>
-   <td style="text-align:right;"> NaN </td>
-   <td style="text-align:right;"> 87.51249 </td>
-   <td style="text-align:right;"> 14.875592 </td>
-   <td style="text-align:right;"> 12.487512 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1739 </td>
-   <td style="text-align:right;"> 323 </td>
-   <td style="text-align:right;"> 1657 </td>
-   <td style="text-align:right;"> 317 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 61.96773 </td>
-   <td style="text-align:right;"> 95.28465 </td>
-   <td style="text-align:right;"> 4.366918 </td>
-   <td style="text-align:right;"> 4.715354 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1818 </td>
-   <td style="text-align:right;"> 304 </td>
-   <td style="text-align:right;"> 1541 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 125.24775 </td>
-   <td style="text-align:right;"> 84.76348 </td>
-   <td style="text-align:right;"> 5.590442 </td>
-   <td style="text-align:right;"> 15.236524 </td>
-   <td style="text-align:right;"> NaN </td>
-  </tr>
 </tbody>
 </table>
 
@@ -2358,15 +1598,27 @@ svi9_nonwhite %>% select(summary_est, summary_moe,
 
 
 ```r
-comb(paste0("B02001_00",2:8),white_tot) %>% 
-  select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+(comb(paste0("B02001_00",3:8),white_tot))[,3:20] %>% 
+  # select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
+   <th style="text-align:right;"> B02001_003E </th>
+   <th style="text-align:right;"> B02001_003M </th>
+   <th style="text-align:right;"> B02001_004E </th>
+   <th style="text-align:right;"> B02001_004M </th>
+   <th style="text-align:right;"> B02001_005E </th>
+   <th style="text-align:right;"> B02001_005M </th>
+   <th style="text-align:right;"> B02001_006E </th>
+   <th style="text-align:right;"> B02001_006M </th>
+   <th style="text-align:right;"> B02001_007E </th>
+   <th style="text-align:right;"> B02001_007M </th>
+   <th style="text-align:right;"> B02001_008E </th>
+   <th style="text-align:right;"> B02001_008M </th>
    <th style="text-align:right;"> summary_est </th>
    <th style="text-align:right;"> summary_moe </th>
    <th style="text-align:right;"> sum </th>
@@ -2377,164 +1629,204 @@ comb(paste0("B02001_00",2:8),white_tot) %>%
  </thead>
 <tbody>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 147 </td>
+   <td style="text-align:right;"> 98 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 99 </td>
+   <td style="text-align:right;"> 156 </td>
+   <td style="text-align:right;"> 103 </td>
    <td style="text-align:right;"> 2253 </td>
    <td style="text-align:right;"> 209 </td>
-   <td style="text-align:right;"> 2253 </td>
-   <td style="text-align:right;"> 270.7305 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 7.6381353 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 174.48782 </td>
+   <td style="text-align:right;"> 16.644474 </td>
+   <td style="text-align:right;"> 7.589214 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 54 </td>
    <td style="text-align:right;"> 905 </td>
    <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 905 </td>
-   <td style="text-align:right;"> 199.0754 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 62.52999 </td>
+   <td style="text-align:right;"> 10.497238 </td>
+   <td style="text-align:right;"> 6.491583 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 140 </td>
+   <td style="text-align:right;"> 174 </td>
+   <td style="text-align:right;"> 16 </td>
+   <td style="text-align:right;"> 24 </td>
    <td style="text-align:right;"> 826 </td>
    <td style="text-align:right;"> 182 </td>
-   <td style="text-align:right;"> 826 </td>
-   <td style="text-align:right;"> 231.9138 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 17.4014369 </td>
+   <td style="text-align:right;"> 198 </td>
+   <td style="text-align:right;"> 181.79109 </td>
+   <td style="text-align:right;"> 23.970944 </td>
+   <td style="text-align:right;"> 21.365440 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 1212 </td>
    <td style="text-align:right;"> 238 </td>
-   <td style="text-align:right;"> 1212 </td>
-   <td style="text-align:right;"> 241.8305 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 3.5372857 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 77.72387 </td>
+   <td style="text-align:right;"> 5.280528 </td>
+   <td style="text-align:right;"> 6.328471 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 89 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 50 </td>
    <td style="text-align:right;"> 1310 </td>
    <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 1310 </td>
-   <td style="text-align:right;"> 297.1212 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0.6477314 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 104.86658 </td>
+   <td style="text-align:right;"> 8.244275 </td>
+   <td style="text-align:right;"> 7.783812 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 641 </td>
    <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 641 </td>
-   <td style="text-align:right;"> 189.2961 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 4.5856282 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 29.39388 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 4.585628 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:right;"> 28 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 96 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 66 </td>
    <td style="text-align:right;"> 2133 </td>
    <td style="text-align:right;"> 308 </td>
-   <td style="text-align:right;"> 2133 </td>
-   <td style="text-align:right;"> 330.6312 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 5.6362227 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 106.52699 </td>
+   <td style="text-align:right;"> 8.766995 </td>
+   <td style="text-align:right;"> 4.831126 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
    <td style="text-align:right;"> 962 </td>
    <td style="text-align:right;"> 208 </td>
-   <td style="text-align:right;"> 962 </td>
-   <td style="text-align:right;"> 211.7971 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 4.1502006 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 87.22958 </td>
+   <td style="text-align:right;"> 5.405405 </td>
+   <td style="text-align:right;"> 8.991888 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 83 </td>
+   <td style="text-align:right;"> 65 </td>
    <td style="text-align:right;"> 1016 </td>
    <td style="text-align:right;"> 166 </td>
-   <td style="text-align:right;"> 1016 </td>
-   <td style="text-align:right;"> 196.6367 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 10.3744079 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> 97.08244 </td>
+   <td style="text-align:right;"> 15.255906 </td>
+   <td style="text-align:right;"> 9.224523 </td>
   </tr>
   <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 324 </td>
+   <td style="text-align:right;"> 145 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 31 </td>
+   <td style="text-align:right;"> 36 </td>
+   <td style="text-align:right;"> 120 </td>
+   <td style="text-align:right;"> 69 </td>
    <td style="text-align:right;"> 3003 </td>
    <td style="text-align:right;"> 287 </td>
-   <td style="text-align:right;"> 3003 </td>
-   <td style="text-align:right;"> 318.5514 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 4.6028790 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 521.9598 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 12.3554236 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 281.7925 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 7.0335026 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2748 </td>
-   <td style="text-align:right;"> 340 </td>
-   <td style="text-align:right;"> 2748 </td>
-   <td style="text-align:right;"> 401.1795 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 7.7490413 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 408.3650 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 9.8285115 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 230.4192 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 6.7817837 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 354.8394 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 8.8702617 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1495 </td>
-   <td style="text-align:right;"> 386 </td>
-   <td style="text-align:right;"> 1495 </td>
-   <td style="text-align:right;"> 398.6164 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 6.6550982 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1001 </td>
-   <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 1001 </td>
-   <td style="text-align:right;"> 307.0163 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 9.7769488 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1739 </td>
-   <td style="text-align:right;"> 323 </td>
-   <td style="text-align:right;"> 1739 </td>
-   <td style="text-align:right;"> 327.6248 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 3.1543619 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1818 </td>
-   <td style="text-align:right;"> 304 </td>
-   <td style="text-align:right;"> 1818 </td>
-   <td style="text-align:right;"> 320.1406 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 5.5208646 </td>
+   <td style="text-align:right;"> 482 </td>
+   <td style="text-align:right;"> 165.80410 </td>
+   <td style="text-align:right;"> 16.050616 </td>
+   <td style="text-align:right;"> 5.303911 </td>
   </tr>
 </tbody>
 </table>
@@ -2634,7 +1926,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi11_oldhou<- readRDS("SVI.RDS")[[11]]
 svi11_oldhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -2730,86 +2022,6 @@ svi11_oldhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 88.49338 </td>
    <td style="text-align:right;"> 4.645312 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 1112 </td>
-   <td style="text-align:right;"> 129 </td>
-   <td style="text-align:right;"> 965 </td>
-   <td style="text-align:right;"> 105.37552 </td>
-   <td style="text-align:right;"> 86.78058 </td>
-   <td style="text-align:right;"> 9.351304 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 20.78461 </td>
-   <td style="text-align:right;"> 100.00000 </td>
-   <td style="text-align:right;"> 3.685214 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 20.78461 </td>
-   <td style="text-align:right;"> 100.00000 </td>
-   <td style="text-align:right;"> 1.810506 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 695 </td>
-   <td style="text-align:right;"> 31.04835 </td>
-   <td style="text-align:right;"> 97.74965 </td>
-   <td style="text-align:right;"> 4.355827 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 640 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 629 </td>
-   <td style="text-align:right;"> 24.02082 </td>
-   <td style="text-align:right;"> 98.28125 </td>
-   <td style="text-align:right;"> 3.743634 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 891 </td>
-   <td style="text-align:right;"> 42.94182 </td>
-   <td style="text-align:right;"> 94.98934 </td>
-   <td style="text-align:right;"> 4.540152 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 430 </td>
-   <td style="text-align:right;"> 63.00000 </td>
-   <td style="text-align:right;"> 82.53359 </td>
-   <td style="text-align:right;"> 11.618111 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 448 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 420 </td>
-   <td style="text-align:right;"> 32.15587 </td>
-   <td style="text-align:right;"> 93.75000 </td>
-   <td style="text-align:right;"> 7.046237 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 571 </td>
-   <td style="text-align:right;"> 48.13523 </td>
-   <td style="text-align:right;"> 93.14845 </td>
-   <td style="text-align:right;"> 7.798731 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 726 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 643 </td>
-   <td style="text-align:right;"> 31.24100 </td>
-   <td style="text-align:right;"> 88.56749 </td>
-   <td style="text-align:right;"> 4.051961 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -2860,7 +2072,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi12_mhou<- readRDS("SVI.RDS")[[12]]
 svi12_mhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -2956,86 +2168,6 @@ svi12_mhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 0.000000 </td>
    <td style="text-align:right;"> 0.9933775 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 1112 </td>
-   <td style="text-align:right;"> 129 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.0791367 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 2.1276596 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 1.567944 </td>
-   <td style="text-align:right;"> 2.5194939 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.6877637 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 640 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.8750000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.2793177 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 2.3032630 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 448 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 2.6785714 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.9575856 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 726 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.6528926 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -3093,7 +2225,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi13_pov <- readRDS("SVI.RDS")[[13]]
 svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -3115,7 +2247,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 42.72002 </td>
    <td style="text-align:right;"> 1.1984021 </td>
-   <td style="text-align:right;"> 1.8928776 </td>
+   <td style="text-align:right;"> 1.892878 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 905 </td>
@@ -3123,7 +2255,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 9 </td>
    <td style="text-align:right;"> 18.43909 </td>
    <td style="text-align:right;"> 0.9944751 </td>
-   <td style="text-align:right;"> 2.0250989 </td>
+   <td style="text-align:right;"> 2.025099 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 815 </td>
@@ -3131,7 +2263,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 19 </td>
    <td style="text-align:right;"> 17.69181 </td>
    <td style="text-align:right;"> 2.3312883 </td>
-   <td style="text-align:right;"> 2.1074220 </td>
+   <td style="text-align:right;"> 2.107422 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1212 </td>
@@ -3139,7 +2271,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 101 </td>
    <td style="text-align:right;"> 97.67292 </td>
    <td style="text-align:right;"> 8.3333333 </td>
-   <td style="text-align:right;"> 7.8909292 </td>
+   <td style="text-align:right;"> 7.890929 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1310 </td>
@@ -3147,7 +2279,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 26 </td>
    <td style="text-align:right;"> 40.80441 </td>
    <td style="text-align:right;"> 1.9847328 </td>
-   <td style="text-align:right;"> 3.0821673 </td>
+   <td style="text-align:right;"> 3.082167 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 641 </td>
@@ -3155,7 +2287,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 86 </td>
    <td style="text-align:right;"> 115.31695 </td>
    <td style="text-align:right;"> 13.4165367 </td>
-   <td style="text-align:right;"> 17.5592255 </td>
+   <td style="text-align:right;"> 17.559226 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2133 </td>
@@ -3163,7 +2295,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 44 </td>
    <td style="text-align:right;"> 40.00000 </td>
    <td style="text-align:right;"> 2.0628223 </td>
-   <td style="text-align:right;"> 1.8514857 </td>
+   <td style="text-align:right;"> 1.851486 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 962 </td>
@@ -3171,7 +2303,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 91 </td>
    <td style="text-align:right;"> 85.14693 </td>
    <td style="text-align:right;"> 9.4594595 </td>
-   <td style="text-align:right;"> 8.6114789 </td>
+   <td style="text-align:right;"> 8.611479 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1016 </td>
@@ -3179,7 +2311,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 40 </td>
    <td style="text-align:right;"> 29.54657 </td>
    <td style="text-align:right;"> 3.9370079 </td>
-   <td style="text-align:right;"> 2.8360945 </td>
+   <td style="text-align:right;"> 2.836095 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2994 </td>
@@ -3187,87 +2319,7 @@ svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 228 </td>
    <td style="text-align:right;"> 134.33168 </td>
    <td style="text-align:right;"> 7.6152305 </td>
-   <td style="text-align:right;"> 4.4264936 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2371 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 93.94147 </td>
-   <td style="text-align:right;"> 4.3019823 </td>
-   <td style="text-align:right;"> 3.8837967 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 45 </td>
-   <td style="text-align:right;"> 54.34151 </td>
-   <td style="text-align:right;"> 4.5317221 </td>
-   <td style="text-align:right;"> 5.3287505 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2701 </td>
-   <td style="text-align:right;"> 337 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.6283067 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2286 </td>
-   <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 0.7423693 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1222 </td>
-   <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 58 </td>
-   <td style="text-align:right;"> 46.66905 </td>
-   <td style="text-align:right;"> 4.7463175 </td>
-   <td style="text-align:right;"> 3.7266550 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2189 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 97 </td>
-   <td style="text-align:right;"> 98.73196 </td>
-   <td style="text-align:right;"> 4.4312471 </td>
-   <td style="text-align:right;"> 4.4701175 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1479 </td>
-   <td style="text-align:right;"> 382 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.1474349 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 991 </td>
-   <td style="text-align:right;"> 292 </td>
-   <td style="text-align:right;"> 10 </td>
-   <td style="text-align:right;"> 18.43909 </td>
-   <td style="text-align:right;"> 1.0090817 </td>
-   <td style="text-align:right;"> 1.8367451 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1719 </td>
-   <td style="text-align:right;"> 321 </td>
-   <td style="text-align:right;"> 178 </td>
-   <td style="text-align:right;"> 131.89769 </td>
-   <td style="text-align:right;"> 10.3548575 </td>
-   <td style="text-align:right;"> 7.4252912 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1789 </td>
-   <td style="text-align:right;"> 299 </td>
-   <td style="text-align:right;"> 13 </td>
-   <td style="text-align:right;"> 11.40175 </td>
-   <td style="text-align:right;"> 0.7266629 </td>
-   <td style="text-align:right;"> 0.6256469 </td>
+   <td style="text-align:right;"> 4.426494 </td>
   </tr>
 </tbody>
 </table>
@@ -3325,7 +2377,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi14_nophone <- readRDS("SVI.RDS")[[14]]
 svi14_nophone %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -3420,86 +2472,6 @@ svi14_nophone %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 42.72002 </td>
    <td style="text-align:right;"> 3.0586236 </td>
    <td style="text-align:right;"> 3.622357 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1038 </td>
-   <td style="text-align:right;"> 151 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 31.38471 </td>
-   <td style="text-align:right;"> 1.8304432 </td>
-   <td style="text-align:right;"> 3.011827 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 564 </td>
-   <td style="text-align:right;"> 122 </td>
-   <td style="text-align:right;"> 53 </td>
-   <td style="text-align:right;"> 84.85281 </td>
-   <td style="text-align:right;"> 9.3971631 </td>
-   <td style="text-align:right;"> 14.906871 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1148 </td>
-   <td style="text-align:right;"> 134 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 78.91768 </td>
-   <td style="text-align:right;"> 4.3554007 </td>
-   <td style="text-align:right;"> 6.855538 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 711 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.386858 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 574 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 2.956544 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 938 </td>
-   <td style="text-align:right;"> 110 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 1.809228 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 521 </td>
-   <td style="text-align:right;"> 100 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 26.83282 </td>
-   <td style="text-align:right;"> 2.8790787 </td>
-   <td style="text-align:right;"> 5.120520 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 364 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 39 </td>
-   <td style="text-align:right;"> 37.94733 </td>
-   <td style="text-align:right;"> 10.7142857 </td>
-   <td style="text-align:right;"> 10.009537 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 613 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 39.84972 </td>
-   <td style="text-align:right;"> 4.0783034 </td>
-   <td style="text-align:right;"> 6.477838 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 721 </td>
-   <td style="text-align:right;"> 92 </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 12.36932 </td>
-   <td style="text-align:right;"> 0.2773925 </td>
-   <td style="text-align:right;"> 1.715213 </td>
   </tr>
 </tbody>
 </table>
@@ -3628,7 +2600,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi15_noedu <- readRDS("SVI.RDS")[[15]]
 svi15_noedu %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -3724,86 +2696,6 @@ svi15_noedu %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 2.252036 </td>
    <td style="text-align:right;"> 2.500550 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 1736 </td>
-   <td style="text-align:right;"> 303 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 52.91503 </td>
-   <td style="text-align:right;"> 1.094470 </td>
-   <td style="text-align:right;"> 3.042109 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 812 </td>
-   <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 46.47580 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 5.723621 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1973 </td>
-   <td style="text-align:right;"> 237 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 67.33498 </td>
-   <td style="text-align:right;"> 3.446528 </td>
-   <td style="text-align:right;"> 3.387618 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1435 </td>
-   <td style="text-align:right;"> 229 </td>
-   <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 87.50429 </td>
-   <td style="text-align:right;"> 4.459930 </td>
-   <td style="text-align:right;"> 6.056182 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 874 </td>
-   <td style="text-align:right;"> 143 </td>
-   <td style="text-align:right;"> 20 </td>
-   <td style="text-align:right;"> 55.13620 </td>
-   <td style="text-align:right;"> 2.288330 </td>
-   <td style="text-align:right;"> 6.297369 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1565 </td>
-   <td style="text-align:right;"> 188 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 55.13620 </td>
-   <td style="text-align:right;"> 1.214058 </td>
-   <td style="text-align:right;"> 3.520060 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1022 </td>
-   <td style="text-align:right;"> 236 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 51.88449 </td>
-   <td style="text-align:right;"> 1.467710 </td>
-   <td style="text-align:right;"> 5.065434 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 764 </td>
-   <td style="text-align:right;"> 197 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 52.54522 </td>
-   <td style="text-align:right;"> 5.497382 </td>
-   <td style="text-align:right;"> 6.729982 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1210 </td>
-   <td style="text-align:right;"> 202 </td>
-   <td style="text-align:right;"> 33 </td>
-   <td style="text-align:right;"> 55.07268 </td>
-   <td style="text-align:right;"> 2.727273 </td>
-   <td style="text-align:right;"> 4.528632 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1285 </td>
-   <td style="text-align:right;"> 192 </td>
-   <td style="text-align:right;"> 26 </td>
-   <td style="text-align:right;"> 54.50688 </td>
-   <td style="text-align:right;"> 2.023346 </td>
-   <td style="text-align:right;"> 4.230993 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -3854,7 +2746,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi16_unemp <- readRDS("SVI.RDS")[[16]]
 svi16_unemp %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -3949,86 +2841,6 @@ svi16_unemp %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 57 </td>
    <td style="text-align:right;"> 6.605399 </td>
    <td style="text-align:right;"> 3.200334 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1510 </td>
-   <td style="text-align:right;"> 287 </td>
-   <td style="text-align:right;"> 43 </td>
-   <td style="text-align:right;"> 48 </td>
-   <td style="text-align:right;"> 2.847682 </td>
-   <td style="text-align:right;"> 3.132391 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 526 </td>
-   <td style="text-align:right;"> 182 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 2.281369 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1288 </td>
-   <td style="text-align:right;"> 263 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 0.931677 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1159 </td>
-   <td style="text-align:right;"> 223 </td>
-   <td style="text-align:right;"> 97 </td>
-   <td style="text-align:right;"> 61 </td>
-   <td style="text-align:right;"> 8.369284 </td>
-   <td style="text-align:right;"> 5.010761 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 611 </td>
-   <td style="text-align:right;"> 151 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.963993 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1237 </td>
-   <td style="text-align:right;"> 210 </td>
-   <td style="text-align:right;"> 115 </td>
-   <td style="text-align:right;"> 70 </td>
-   <td style="text-align:right;"> 9.296686 </td>
-   <td style="text-align:right;"> 5.434309 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 778 </td>
-   <td style="text-align:right;"> 209 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 46 </td>
-   <td style="text-align:right;"> 6.426735 </td>
-   <td style="text-align:right;"> 5.654920 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 653 </td>
-   <td style="text-align:right;"> 238 </td>
-   <td style="text-align:right;"> 59 </td>
-   <td style="text-align:right;"> 49 </td>
-   <td style="text-align:right;"> 9.035222 </td>
-   <td style="text-align:right;"> 6.742629 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 873 </td>
-   <td style="text-align:right;"> 206 </td>
-   <td style="text-align:right;"> 28 </td>
-   <td style="text-align:right;"> 30 </td>
-   <td style="text-align:right;"> 3.207331 </td>
-   <td style="text-align:right;"> 3.352050 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 826 </td>
-   <td style="text-align:right;"> 166 </td>
-   <td style="text-align:right;"> 15 </td>
-   <td style="text-align:right;"> 14 </td>
-   <td style="text-align:right;"> 1.815981 </td>
-   <td style="text-align:right;"> 1.655157 </td>
   </tr>
 </tbody>
 </table>
@@ -4205,7 +3017,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi17_esl <- readRDS("SVI.RDS")[[17]]
 svi17_esl %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -4301,86 +3113,6 @@ svi17_esl %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 1.2707377 </td>
    <td style="text-align:right;"> 2.456552 </td>
   </tr>
-  <tr>
-   <td style="text-align:right;"> 2322 </td>
-   <td style="text-align:right;"> 408 </td>
-   <td style="text-align:right;"> 118 </td>
-   <td style="text-align:right;"> 116.67048 </td>
-   <td style="text-align:right;"> 5.0818260 </td>
-   <td style="text-align:right;"> 4.944589 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 993 </td>
-   <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 58.78775 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 5.920217 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2547 </td>
-   <td style="text-align:right;"> 335 </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 78.11530 </td>
-   <td style="text-align:right;"> 2.1201413 </td>
-   <td style="text-align:right;"> 3.054250 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2099 </td>
-   <td style="text-align:right;"> 307 </td>
-   <td style="text-align:right;"> 52 </td>
-   <td style="text-align:right;"> 75.45197 </td>
-   <td style="text-align:right;"> 2.4773702 </td>
-   <td style="text-align:right;"> 3.576354 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1122 </td>
-   <td style="text-align:right;"> 189 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 58.78775 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 5.239550 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 2097 </td>
-   <td style="text-align:right;"> 284 </td>
-   <td style="text-align:right;"> 47 </td>
-   <td style="text-align:right;"> 71.62402 </td>
-   <td style="text-align:right;"> 2.2412971 </td>
-   <td style="text-align:right;"> 3.402032 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1439 </td>
-   <td style="text-align:right;"> 378 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 58.78775 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 4.085320 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 951 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 60.10824 </td>
-   <td style="text-align:right;"> 1.6824395 </td>
-   <td style="text-align:right;"> 6.301503 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1622 </td>
-   <td style="text-align:right;"> 314 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 58.78775 </td>
-   <td style="text-align:right;"> 0.0000000 </td>
-   <td style="text-align:right;"> 3.624399 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1690 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 61.98387 </td>
-   <td style="text-align:right;"> 1.4201183 </td>
-   <td style="text-align:right;"> 3.660291 </td>
-  </tr>
 </tbody>
 </table>
 
@@ -4452,7 +3184,7 @@ saveRDS(SVI,file = "SVI.RDS")
 ```r
 svi18_dis <- readRDS("SVI.RDS")[[18]]
 svi18_dis %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
-  head(20) %>% kbl() %>% 
+  head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -4547,86 +3279,6 @@ svi18_dis %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
    <td style="text-align:right;"> 62.64982 </td>
    <td style="text-align:right;"> 7.847411 </td>
    <td style="text-align:right;"> 3.354170 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1548 </td>
-   <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 16.97056 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 1.096290 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 575 </td>
-   <td style="text-align:right;"> 216 </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 36.05551 </td>
-   <td style="text-align:right;"> 5.043478 </td>
-   <td style="text-align:right;"> 5.977456 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1405 </td>
-   <td style="text-align:right;"> 282 </td>
-   <td style="text-align:right;"> 43 </td>
-   <td style="text-align:right;"> 51.41984 </td>
-   <td style="text-align:right;"> 3.060498 </td>
-   <td style="text-align:right;"> 3.607855 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1270 </td>
-   <td style="text-align:right;"> 234 </td>
-   <td style="text-align:right;"> 136 </td>
-   <td style="text-align:right;"> 125.57468 </td>
-   <td style="text-align:right;"> 10.708661 </td>
-   <td style="text-align:right;"> 9.688906 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 658 </td>
-   <td style="text-align:right;"> 141 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 29.54657 </td>
-   <td style="text-align:right;"> 2.431611 </td>
-   <td style="text-align:right;"> 4.460026 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 1484 </td>
-   <td style="text-align:right;"> 217 </td>
-   <td style="text-align:right;"> 73 </td>
-   <td style="text-align:right;"> 66.09841 </td>
-   <td style="text-align:right;"> 4.919137 </td>
-   <td style="text-align:right;"> 4.395605 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 978 </td>
-   <td style="text-align:right;"> 234 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 68.06614 </td>
-   <td style="text-align:right;"> 10.020450 </td>
-   <td style="text-align:right;"> 6.533733 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 634 </td>
-   <td style="text-align:right;"> 236 </td>
-   <td style="text-align:right;"> 39 </td>
-   <td style="text-align:right;"> 44.38468 </td>
-   <td style="text-align:right;"> 6.151420 </td>
-   <td style="text-align:right;"> 6.615674 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 996 </td>
-   <td style="text-align:right;"> 231 </td>
-   <td style="text-align:right;"> 155 </td>
-   <td style="text-align:right;"> 107.35455 </td>
-   <td style="text-align:right;"> 15.562249 </td>
-   <td style="text-align:right;"> 10.156298 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 850 </td>
-   <td style="text-align:right;"> 190 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 15.62050 </td>
-   <td style="text-align:right;"> 1.411765 </td>
-   <td style="text-align:right;"> 1.810408 </td>
   </tr>
 </tbody>
 </table>
