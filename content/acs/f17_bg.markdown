@@ -1,9 +1,11 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-09-09"
+date: "2021-09-20"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
@@ -87,15 +89,36 @@ Block Group Level
 
 
 
-```r
-pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
-# pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
-saveRDS(pdx_bg,file = "pdx_bg.RDS")
-```
 
 
 
 
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async
+  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+\(\begin{equation}Y=X_1+X_2,\quad X_1 \perp X_2\end{equation}\)
+
+
+\(\begin{equation}
+\text{MOE}(Y)=\text{MOE}(X_1+ X_2)=\sqrt{\text{MOE}(X_1)^2+\text{MOE}(X_2)^2}
+\end{equation}\)
+
+\[\begin{equation}
+\text{MOE}(X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_1)^2-\text{MOE}(Y)^2\cdot X_1^2/Y^2}
+\end{equation}\]
+
+
+\[\begin{equation}
+\text{MOE}(X_2)=\text{MOE}(Y - X_1)=\sqrt{\text{MOE}(Y)^2-\text{MOE}(X_1)^2}
+\end{equation}\]
+
+\[\begin{equation}
+\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2+\text{MOE}(Y)^2\cdot X_2^2/Y^2}
+\end{equation}\]
 
 
 # Base Social Vulnerability Indicators(percentages)
@@ -2051,7 +2074,12 @@ vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>%
 
 
 ```r
-SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% mutate(sum=summary_est-sum,per=100-per)
+# SVI<- readRDS("SVI.RDS")
+SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% 
+  mutate(nonW.sum=summary_est-sum,
+         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
+         nonW.per=100-per,
+         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est)
 saveRDS(SVI,file = "SVI.RDS")
 ```
 
@@ -2059,7 +2087,279 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```r
 svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
-svi9_nonwhite %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi9_nonwhite %>% select(summary_est, summary_moe, 
+                         sum,sumMOE,nonW.sum,nonW.sumMOE,
+                         per,perMOE,nonW.per,nonW.perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> summary_est </th>
+   <th style="text-align:right;"> summary_moe </th>
+   <th style="text-align:right;"> sum </th>
+   <th style="text-align:right;"> sumMOE </th>
+   <th style="text-align:right;"> nonW.sum </th>
+   <th style="text-align:right;"> nonW.sumMOE </th>
+   <th style="text-align:right;"> per </th>
+   <th style="text-align:right;"> perMOE </th>
+   <th style="text-align:right;"> nonW.per </th>
+   <th style="text-align:right;"> nonW.perMOE </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 209 </td>
+   <td style="text-align:right;"> 1878 </td>
+   <td style="text-align:right;"> 207 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 28.84441 </td>
+   <td style="text-align:right;"> 83.35553 </td>
+   <td style="text-align:right;"> 4.962188 </td>
+   <td style="text-align:right;"> 16.644474 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 204 </td>
+   <td style="text-align:right;"> 810 </td>
+   <td style="text-align:right;"> 189 </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 76.77890 </td>
+   <td style="text-align:right;"> 89.50276 </td>
+   <td style="text-align:right;"> 5.394581 </td>
+   <td style="text-align:right;"> 10.497238 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 182 </td>
+   <td style="text-align:right;"> 628 </td>
+   <td style="text-align:right;"> 144 </td>
+   <td style="text-align:right;"> 198 </td>
+   <td style="text-align:right;"> 111.30139 </td>
+   <td style="text-align:right;"> 76.02906 </td>
+   <td style="text-align:right;"> 4.825857 </td>
+   <td style="text-align:right;"> 23.970944 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 238 </td>
+   <td style="text-align:right;"> 1148 </td>
+   <td style="text-align:right;"> 229 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 64.83055 </td>
+   <td style="text-align:right;"> 94.71947 </td>
+   <td style="text-align:right;"> 3.322183 </td>
+   <td style="text-align:right;"> 5.280528 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 297 </td>
+   <td style="text-align:right;"> 1202 </td>
+   <td style="text-align:right;"> 278 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 104.52272 </td>
+   <td style="text-align:right;"> 91.75573 </td>
+   <td style="text-align:right;"> 4.194895 </td>
+   <td style="text-align:right;"> 8.244275 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 100.00000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2133 </td>
+   <td style="text-align:right;"> 308 </td>
+   <td style="text-align:right;"> 1946 </td>
+   <td style="text-align:right;"> 313 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 91.23301 </td>
+   <td style="text-align:right;"> 6.463867 </td>
+   <td style="text-align:right;"> 8.766995 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 208 </td>
+   <td style="text-align:right;"> 910 </td>
+   <td style="text-align:right;"> 193 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 77.55643 </td>
+   <td style="text-align:right;"> 94.59459 </td>
+   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 5.405405 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1016 </td>
+   <td style="text-align:right;"> 166 </td>
+   <td style="text-align:right;"> 861 </td>
+   <td style="text-align:right;"> 171 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 84.74409 </td>
+   <td style="text-align:right;"> 9.568776 </td>
+   <td style="text-align:right;"> 15.255906 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3003 </td>
+   <td style="text-align:right;"> 287 </td>
+   <td style="text-align:right;"> 2521 </td>
+   <td style="text-align:right;"> 272 </td>
+   <td style="text-align:right;"> 482 </td>
+   <td style="text-align:right;"> 91.56965 </td>
+   <td style="text-align:right;"> 83.94938 </td>
+   <td style="text-align:right;"> 4.203521 </td>
+   <td style="text-align:right;"> 16.050616 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2371 </td>
+   <td style="text-align:right;"> 432 </td>
+   <td style="text-align:right;"> 1810 </td>
+   <td style="text-align:right;"> 379 </td>
+   <td style="text-align:right;"> 561 </td>
+   <td style="text-align:right;"> 207.32342 </td>
+   <td style="text-align:right;"> 76.33910 </td>
+   <td style="text-align:right;"> 7.877254 </td>
+   <td style="text-align:right;"> 23.660903 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 993 </td>
+   <td style="text-align:right;"> 273 </td>
+   <td style="text-align:right;"> 891 </td>
+   <td style="text-align:right;"> 269 </td>
+   <td style="text-align:right;"> 102 </td>
+   <td style="text-align:right;"> 46.56179 </td>
+   <td style="text-align:right;"> 89.72810 </td>
+   <td style="text-align:right;"> 11.194441 </td>
+   <td style="text-align:right;"> 10.271903 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2748 </td>
+   <td style="text-align:right;"> 340 </td>
+   <td style="text-align:right;"> 2256 </td>
+   <td style="text-align:right;"> 348 </td>
+   <td style="text-align:right;"> 492 </td>
+   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 82.09607 </td>
+   <td style="text-align:right;"> 7.562868 </td>
+   <td style="text-align:right;"> 17.903930 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2286 </td>
+   <td style="text-align:right;"> 341 </td>
+   <td style="text-align:right;"> 1761 </td>
+   <td style="text-align:right;"> 334 </td>
+   <td style="text-align:right;"> 525 </td>
+   <td style="text-align:right;"> 68.73864 </td>
+   <td style="text-align:right;"> 77.03412 </td>
+   <td style="text-align:right;"> 9.023669 </td>
+   <td style="text-align:right;"> 22.965879 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1222 </td>
+   <td style="text-align:right;"> 215 </td>
+   <td style="text-align:right;"> 1066 </td>
+   <td style="text-align:right;"> 198 </td>
+   <td style="text-align:right;"> 156 </td>
+   <td style="text-align:right;"> 83.79141 </td>
+   <td style="text-align:right;"> 87.23404 </td>
+   <td style="text-align:right;"> 5.193531 </td>
+   <td style="text-align:right;"> 12.765957 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2189 </td>
+   <td style="text-align:right;"> 297 </td>
+   <td style="text-align:right;"> 1688 </td>
+   <td style="text-align:right;"> 246 </td>
+   <td style="text-align:right;"> 501 </td>
+   <td style="text-align:right;"> 166.41214 </td>
+   <td style="text-align:right;"> 77.11284 </td>
+   <td style="text-align:right;"> 4.102190 </td>
+   <td style="text-align:right;"> 22.887163 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1495 </td>
+   <td style="text-align:right;"> 386 </td>
+   <td style="text-align:right;"> 1063 </td>
+   <td style="text-align:right;"> 281 </td>
+   <td style="text-align:right;"> 432 </td>
+   <td style="text-align:right;"> 264.64127 </td>
+   <td style="text-align:right;"> 71.10368 </td>
+   <td style="text-align:right;"> 4.031508 </td>
+   <td style="text-align:right;"> 28.896321 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1001 </td>
+   <td style="text-align:right;"> 291 </td>
+   <td style="text-align:right;"> 876 </td>
+   <td style="text-align:right;"> 295 </td>
+   <td style="text-align:right;"> 125 </td>
+   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 87.51249 </td>
+   <td style="text-align:right;"> 14.875592 </td>
+   <td style="text-align:right;"> 12.487512 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1739 </td>
+   <td style="text-align:right;"> 323 </td>
+   <td style="text-align:right;"> 1657 </td>
+   <td style="text-align:right;"> 317 </td>
+   <td style="text-align:right;"> 82 </td>
+   <td style="text-align:right;"> 61.96773 </td>
+   <td style="text-align:right;"> 95.28465 </td>
+   <td style="text-align:right;"> 4.366918 </td>
+   <td style="text-align:right;"> 4.715354 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1818 </td>
+   <td style="text-align:right;"> 304 </td>
+   <td style="text-align:right;"> 1541 </td>
+   <td style="text-align:right;"> 277 </td>
+   <td style="text-align:right;"> 277 </td>
+   <td style="text-align:right;"> 125.24775 </td>
+   <td style="text-align:right;"> 84.76348 </td>
+   <td style="text-align:right;"> 5.590442 </td>
+   <td style="text-align:right;"> 15.236524 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+
+
+```r
+comb(paste0("B02001_00",2:8),white_tot) %>% 
+  select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
   head(20) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -2079,162 +2379,162 @@ svi9_nonwhite %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
   <tr>
    <td style="text-align:right;"> 2253 </td>
    <td style="text-align:right;"> 209 </td>
-   <td style="text-align:right;"> 375 </td>
-   <td style="text-align:right;"> 207 </td>
-   <td style="text-align:right;"> 16.644474 </td>
-   <td style="text-align:right;"> 4.962188 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 270.7305 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 7.6381353 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 905 </td>
    <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 95 </td>
-   <td style="text-align:right;"> 189 </td>
-   <td style="text-align:right;"> 10.497238 </td>
-   <td style="text-align:right;"> 5.394581 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 199.0754 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> NaN </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 826 </td>
    <td style="text-align:right;"> 182 </td>
-   <td style="text-align:right;"> 198 </td>
-   <td style="text-align:right;"> 144 </td>
-   <td style="text-align:right;"> 23.970944 </td>
-   <td style="text-align:right;"> 4.825857 </td>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 231.9138 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 17.4014369 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1212 </td>
    <td style="text-align:right;"> 238 </td>
-   <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 229 </td>
-   <td style="text-align:right;"> 5.280528 </td>
-   <td style="text-align:right;"> 3.322183 </td>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 241.8305 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 3.5372857 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1310 </td>
    <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 108 </td>
-   <td style="text-align:right;"> 278 </td>
-   <td style="text-align:right;"> 8.244275 </td>
-   <td style="text-align:right;"> 4.194895 </td>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 297.1212 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 0.6477314 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 641 </td>
    <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 189.2961 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 4.5856282 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2133 </td>
    <td style="text-align:right;"> 308 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 313 </td>
-   <td style="text-align:right;"> 8.766995 </td>
-   <td style="text-align:right;"> 6.463867 </td>
+   <td style="text-align:right;"> 2133 </td>
+   <td style="text-align:right;"> 330.6312 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 5.6362227 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 962 </td>
    <td style="text-align:right;"> 208 </td>
-   <td style="text-align:right;"> 52 </td>
-   <td style="text-align:right;"> 193 </td>
-   <td style="text-align:right;"> 5.405405 </td>
-   <td style="text-align:right;"> NaN </td>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 211.7971 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 4.1502006 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1016 </td>
    <td style="text-align:right;"> 166 </td>
-   <td style="text-align:right;"> 155 </td>
-   <td style="text-align:right;"> 171 </td>
-   <td style="text-align:right;"> 15.255906 </td>
-   <td style="text-align:right;"> 9.568776 </td>
+   <td style="text-align:right;"> 1016 </td>
+   <td style="text-align:right;"> 196.6367 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 10.3744079 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 3003 </td>
    <td style="text-align:right;"> 287 </td>
-   <td style="text-align:right;"> 482 </td>
-   <td style="text-align:right;"> 272 </td>
-   <td style="text-align:right;"> 16.050616 </td>
-   <td style="text-align:right;"> 4.203521 </td>
+   <td style="text-align:right;"> 3003 </td>
+   <td style="text-align:right;"> 318.5514 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 4.6028790 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2371 </td>
    <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 561 </td>
-   <td style="text-align:right;"> 379 </td>
-   <td style="text-align:right;"> 23.660903 </td>
-   <td style="text-align:right;"> 7.877254 </td>
+   <td style="text-align:right;"> 2371 </td>
+   <td style="text-align:right;"> 521.9598 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 12.3554236 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 993 </td>
    <td style="text-align:right;"> 273 </td>
-   <td style="text-align:right;"> 102 </td>
-   <td style="text-align:right;"> 269 </td>
-   <td style="text-align:right;"> 10.271903 </td>
-   <td style="text-align:right;"> 11.194441 </td>
+   <td style="text-align:right;"> 993 </td>
+   <td style="text-align:right;"> 281.7925 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 7.0335026 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2748 </td>
    <td style="text-align:right;"> 340 </td>
-   <td style="text-align:right;"> 492 </td>
-   <td style="text-align:right;"> 348 </td>
-   <td style="text-align:right;"> 17.903930 </td>
-   <td style="text-align:right;"> 7.562868 </td>
+   <td style="text-align:right;"> 2748 </td>
+   <td style="text-align:right;"> 401.1795 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 7.7490413 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2286 </td>
    <td style="text-align:right;"> 341 </td>
-   <td style="text-align:right;"> 525 </td>
-   <td style="text-align:right;"> 334 </td>
-   <td style="text-align:right;"> 22.965879 </td>
-   <td style="text-align:right;"> 9.023669 </td>
+   <td style="text-align:right;"> 2286 </td>
+   <td style="text-align:right;"> 408.3650 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 9.8285115 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1222 </td>
    <td style="text-align:right;"> 215 </td>
-   <td style="text-align:right;"> 156 </td>
-   <td style="text-align:right;"> 198 </td>
-   <td style="text-align:right;"> 12.765957 </td>
-   <td style="text-align:right;"> 5.193531 </td>
+   <td style="text-align:right;"> 1222 </td>
+   <td style="text-align:right;"> 230.4192 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 6.7817837 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 2189 </td>
    <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 501 </td>
-   <td style="text-align:right;"> 246 </td>
-   <td style="text-align:right;"> 22.887163 </td>
-   <td style="text-align:right;"> 4.102190 </td>
+   <td style="text-align:right;"> 2189 </td>
+   <td style="text-align:right;"> 354.8394 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 8.8702617 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1495 </td>
    <td style="text-align:right;"> 386 </td>
-   <td style="text-align:right;"> 432 </td>
-   <td style="text-align:right;"> 281 </td>
-   <td style="text-align:right;"> 28.896321 </td>
-   <td style="text-align:right;"> 4.031508 </td>
+   <td style="text-align:right;"> 1495 </td>
+   <td style="text-align:right;"> 398.6164 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 6.6550982 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1001 </td>
    <td style="text-align:right;"> 291 </td>
-   <td style="text-align:right;"> 125 </td>
-   <td style="text-align:right;"> 295 </td>
-   <td style="text-align:right;"> 12.487512 </td>
-   <td style="text-align:right;"> 14.875592 </td>
+   <td style="text-align:right;"> 1001 </td>
+   <td style="text-align:right;"> 307.0163 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 9.7769488 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1739 </td>
    <td style="text-align:right;"> 323 </td>
-   <td style="text-align:right;"> 82 </td>
-   <td style="text-align:right;"> 317 </td>
-   <td style="text-align:right;"> 4.715354 </td>
-   <td style="text-align:right;"> 4.366918 </td>
+   <td style="text-align:right;"> 1739 </td>
+   <td style="text-align:right;"> 327.6248 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 3.1543619 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 1818 </td>
    <td style="text-align:right;"> 304 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 277 </td>
-   <td style="text-align:right;"> 15.236524 </td>
-   <td style="text-align:right;"> 5.590442 </td>
+   <td style="text-align:right;"> 1818 </td>
+   <td style="text-align:right;"> 320.1406 </td>
+   <td style="text-align:right;"> 100 </td>
+   <td style="text-align:right;"> 5.5208646 </td>
   </tr>
 </tbody>
 </table>

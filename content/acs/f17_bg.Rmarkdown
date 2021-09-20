@@ -28,7 +28,7 @@ SVI <- lst()
 ```
 
 
-```{r,eval=F}
+```{r,eval=F,echo=F}
 pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
 # pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
 saveRDS(pdx_bg,file = "pdx_bg.RDS")
@@ -75,6 +75,32 @@ get_acs(
          perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
 }
 ```
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async
+  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+\(\begin{equation}Y=X_1+X_2,\quad X_1 \perp X_2\end{equation}\)
+
+
+\(\begin{equation}
+\text{MOE}(Y)=\text{MOE}(X_1+ X_2)=\sqrt{\text{MOE}(X_1)^2+\text{MOE}(X_2)^2}
+\end{equation}\)
+
+\[\begin{equation}
+\text{MOE}(X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_1)^2-\text{MOE}(Y)^2\cdot X_1^2/Y^2}
+\end{equation}\]
+
+
+\[\begin{equation}
+\text{MOE}(X_2)=\text{MOE}(Y - X_1)=\sqrt{\text{MOE}(Y)^2-\text{MOE}(X_1)^2}
+\end{equation}\]
+
+\[\begin{equation}
+\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2+\text{MOE}(Y)^2\cdot X_2^2/Y^2}
+\end{equation}\]
 
 
 # Base Social Vulnerability Indicators(percentages)
@@ -502,14 +528,45 @@ vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>%
 ```
 
 ```{r,eval=F}
-SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% mutate(sum=summary_est-sum,per=100-per)
+# SVI<- readRDS("SVI.RDS")
+SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% 
+  mutate(nonW.sum=summary_est-sum,
+         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
+         nonW.per=100-per,
+         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est)
 saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
 ```{r}
 svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
-svi9_nonwhite %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi9_nonwhite %>% select(summary_est, summary_moe, 
+                         sum,sumMOE,nonW.sum,nonW.sumMOE,
+                         per,perMOE,nonW.per,nonW.perMOE) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+```{r,eval=F,echo=F}
+(get_acs(
+  state = "41",
+  county = c('051','067','005'), # tri_cou,
+  geography = "block group",
+  variables = paste0("B02001_00",2:8), output = "wide",
+  summary_var = white_tot, cache_table = T
+  ) %>% arrange(GEOID))[,3:18] %>% 
+  mutate(nonW.sum=summary_est-sum,
+         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
+         nonW.per=100-per,
+         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est) %>% 
+  head(20) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r}
+comb(paste0("B02001_00",2:8),white_tot) %>% 
+  select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
   head(20) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
