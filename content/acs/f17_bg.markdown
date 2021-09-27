@@ -1741,28 +1741,28 @@ trial1 %>% select(summary_est, summary_moe,
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;"> 2983 </td>
-   <td style="text-align:right;"> 471 </td>
-   <td style="text-align:right;"> 2692 </td>
-   <td style="text-align:right;"> 582.3968 </td>
-   <td style="text-align:right;"> 0.9024472 </td>
-   <td style="text-align:right;"> 13.347000 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 209 </td>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 269.9315 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 7.582219 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 538 </td>
-   <td style="text-align:right;"> 322 </td>
-   <td style="text-align:right;"> 524 </td>
-   <td style="text-align:right;"> 297.6054 </td>
-   <td style="text-align:right;"> 0.9739777 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 204 </td>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 197.9874 </td>
+   <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> NaN </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1151 </td>
-   <td style="text-align:right;"> 336 </td>
-   <td style="text-align:right;"> 1106 </td>
-   <td style="text-align:right;"> 328.2194 </td>
-   <td style="text-align:right;"> 0.9609036 </td>
-   <td style="text-align:right;"> 5.130465 </td>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 208 </td>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 210.0905 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 3.073128 </td>
   </tr>
 </tbody>
 </table>

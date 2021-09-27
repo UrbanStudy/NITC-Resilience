@@ -566,7 +566,7 @@ trial2 <- get_acs(
   geography = "block group",
   variables = paste0("B02001_00",2:8), output = "wide",
   summary_var = white_tot, cache_table = T
-) # () %>% arrange(GEOID))[1,2:16] 
+)   %>% arrange(GEOID) #)[1,2:16] 
 rbind(
 trial2[1,] %>% # select(B02001_002M, B02001_005M,B02001_007M,B02001_008M) %>% 
   mutate(sum=B02001_002E + B02001_005E+B02001_007E+B02001_008E,
