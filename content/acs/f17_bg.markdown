@@ -1,9 +1,11 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-09-20"
+date: "2021-09-27"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
@@ -117,7 +119,7 @@ Block Group Level
 \end{equation}\]
 
 \[\begin{equation}
-\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2+\text{MOE}(Y)^2\cdot X_2^2/Y^2}
+\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2-\text{MOE}(Y)^2\cdot X_2^2/Y^2}
 \end{equation}\]
 
 
@@ -1406,7 +1408,8 @@ svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>%
 ```r
 white_var <- c("B02001_002")
 white_tot <- c("B02001_001")
-vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>% 
+nonwhite_var <- paste0("B02001_00",3:8)
+vars %>% filter(name %in% c(white_tot,nonwhite_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
@@ -1425,29 +1428,159 @@ vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>%
    <td style="text-align:left;"> RACE </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> B02001_002 </td>
-   <td style="text-align:left;"> Estimate!!Total:!!White alone </td>
+   <td style="text-align:left;"> B02001_003 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Black or African American alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_004 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!American Indian and Alaska Native alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_005 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Asian alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_006 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Native Hawaiian and Other Pacific Islander alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_007 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Some other race alone </td>
+   <td style="text-align:left;"> RACE </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> B02001_008 </td>
+   <td style="text-align:left;"> Estimate!!Total:!!Two or more races: </td>
    <td style="text-align:left;"> RACE </td>
   </tr>
 </tbody>
 </table>
 
 
+
 ```r
-# SVI<- readRDS("SVI.RDS")
-SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% 
-  mutate(nonW.sum=summary_est-sum,
-         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
-         nonW.per=100-per,
-         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est)
+SVI[[9]] <- svi9_nonwhite <- comb(nonwhite_var,white_tot)
 saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
-
 ```r
 svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
-svi9_nonwhite %>% select(summary_est, summary_moe, 
+svi9_nonwhite %>% select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
+  head(10) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> summary_est </th>
+   <th style="text-align:right;"> summary_moe </th>
+   <th style="text-align:right;"> sum </th>
+   <th style="text-align:right;"> sumMOE </th>
+   <th style="text-align:right;"> per </th>
+   <th style="text-align:right;"> perMOE </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 2253 </td>
+   <td style="text-align:right;"> 209 </td>
+   <td style="text-align:right;"> 375 </td>
+   <td style="text-align:right;"> 174.48782 </td>
+   <td style="text-align:right;"> 16.644474 </td>
+   <td style="text-align:right;"> 7.589214 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 905 </td>
+   <td style="text-align:right;"> 204 </td>
+   <td style="text-align:right;"> 95 </td>
+   <td style="text-align:right;"> 62.52999 </td>
+   <td style="text-align:right;"> 10.497238 </td>
+   <td style="text-align:right;"> 6.491583 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 826 </td>
+   <td style="text-align:right;"> 182 </td>
+   <td style="text-align:right;"> 198 </td>
+   <td style="text-align:right;"> 181.79109 </td>
+   <td style="text-align:right;"> 23.970944 </td>
+   <td style="text-align:right;"> 21.365440 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1212 </td>
+   <td style="text-align:right;"> 238 </td>
+   <td style="text-align:right;"> 64 </td>
+   <td style="text-align:right;"> 77.72387 </td>
+   <td style="text-align:right;"> 5.280528 </td>
+   <td style="text-align:right;"> 6.328471 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1310 </td>
+   <td style="text-align:right;"> 297 </td>
+   <td style="text-align:right;"> 108 </td>
+   <td style="text-align:right;"> 104.86658 </td>
+   <td style="text-align:right;"> 8.244275 </td>
+   <td style="text-align:right;"> 7.783812 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 641 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 29.39388 </td>
+   <td style="text-align:right;"> 0.000000 </td>
+   <td style="text-align:right;"> 4.585628 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2133 </td>
+   <td style="text-align:right;"> 308 </td>
+   <td style="text-align:right;"> 187 </td>
+   <td style="text-align:right;"> 106.52699 </td>
+   <td style="text-align:right;"> 8.766995 </td>
+   <td style="text-align:right;"> 4.831126 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 962 </td>
+   <td style="text-align:right;"> 208 </td>
+   <td style="text-align:right;"> 52 </td>
+   <td style="text-align:right;"> 87.22958 </td>
+   <td style="text-align:right;"> 5.405405 </td>
+   <td style="text-align:right;"> 8.991888 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1016 </td>
+   <td style="text-align:right;"> 166 </td>
+   <td style="text-align:right;"> 155 </td>
+   <td style="text-align:right;"> 97.08244 </td>
+   <td style="text-align:right;"> 15.255906 </td>
+   <td style="text-align:right;"> 9.224523 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3003 </td>
+   <td style="text-align:right;"> 287 </td>
+   <td style="text-align:right;"> 482 </td>
+   <td style="text-align:right;"> 165.80410 </td>
+   <td style="text-align:right;"> 16.050616 </td>
+   <td style="text-align:right;"> 5.303911 </td>
+  </tr>
+</tbody>
+</table>
+
+
+
+```r
+# df %>% mutate_if(is.numeric , replace_na, replace = 0)
+# SVI<- readRDS("SVI.RDS")
+trial1 <- comb(white_var,white_tot) %>% 
+  mutate(nonW.sum=summary_est-sum,
+         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
+         nonW.per=100-per,
+         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est)
+trial1 %>% select(summary_est, summary_moe, 
                          sum,sumMOE,nonW.sum,nonW.sumMOE,
                          per,perMOE,nonW.per,nonW.perMOE) %>% 
   head(10) %>% kbl() %>% 
@@ -1595,30 +1728,9 @@ svi9_nonwhite %>% select(summary_est, summary_moe,
 
 
 
-
-
-```r
-(comb(paste0("B02001_00",3:8),white_tot))[,3:20] %>% 
-  # select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
-  head(10) %>% kbl() %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
-```
-
 <table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
  <thead>
   <tr>
-   <th style="text-align:right;"> B02001_003E </th>
-   <th style="text-align:right;"> B02001_003M </th>
-   <th style="text-align:right;"> B02001_004E </th>
-   <th style="text-align:right;"> B02001_004M </th>
-   <th style="text-align:right;"> B02001_005E </th>
-   <th style="text-align:right;"> B02001_005M </th>
-   <th style="text-align:right;"> B02001_006E </th>
-   <th style="text-align:right;"> B02001_006M </th>
-   <th style="text-align:right;"> B02001_007E </th>
-   <th style="text-align:right;"> B02001_007M </th>
-   <th style="text-align:right;"> B02001_008E </th>
-   <th style="text-align:right;"> B02001_008M </th>
    <th style="text-align:right;"> summary_est </th>
    <th style="text-align:right;"> summary_moe </th>
    <th style="text-align:right;"> sum </th>
@@ -1629,207 +1741,34 @@ svi9_nonwhite %>% select(summary_est, summary_moe,
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 147 </td>
-   <td style="text-align:right;"> 98 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 99 </td>
-   <td style="text-align:right;"> 156 </td>
-   <td style="text-align:right;"> 103 </td>
-   <td style="text-align:right;"> 2253 </td>
-   <td style="text-align:right;"> 209 </td>
-   <td style="text-align:right;"> 375 </td>
-   <td style="text-align:right;"> 174.48782 </td>
-   <td style="text-align:right;"> 16.644474 </td>
-   <td style="text-align:right;"> 7.589214 </td>
+   <td style="text-align:right;"> 2983 </td>
+   <td style="text-align:right;"> 471 </td>
+   <td style="text-align:right;"> 2692 </td>
+   <td style="text-align:right;"> 582.3968 </td>
+   <td style="text-align:right;"> 0.9024472 </td>
+   <td style="text-align:right;"> 13.347000 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 6 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 54 </td>
-   <td style="text-align:right;"> 905 </td>
-   <td style="text-align:right;"> 204 </td>
-   <td style="text-align:right;"> 95 </td>
-   <td style="text-align:right;"> 62.52999 </td>
-   <td style="text-align:right;"> 10.497238 </td>
-   <td style="text-align:right;"> 6.491583 </td>
+   <td style="text-align:right;"> 538 </td>
+   <td style="text-align:right;"> 322 </td>
+   <td style="text-align:right;"> 524 </td>
+   <td style="text-align:right;"> 297.6054 </td>
+   <td style="text-align:right;"> 0.9739777 </td>
+   <td style="text-align:right;"> NaN </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 42 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 140 </td>
-   <td style="text-align:right;"> 174 </td>
-   <td style="text-align:right;"> 16 </td>
-   <td style="text-align:right;"> 24 </td>
-   <td style="text-align:right;"> 826 </td>
-   <td style="text-align:right;"> 182 </td>
-   <td style="text-align:right;"> 198 </td>
-   <td style="text-align:right;"> 181.79109 </td>
-   <td style="text-align:right;"> 23.970944 </td>
-   <td style="text-align:right;"> 21.365440 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 19 </td>
-   <td style="text-align:right;"> 29 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 45 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 1212 </td>
-   <td style="text-align:right;"> 238 </td>
-   <td style="text-align:right;"> 64 </td>
-   <td style="text-align:right;"> 77.72387 </td>
-   <td style="text-align:right;"> 5.280528 </td>
-   <td style="text-align:right;"> 6.328471 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 77 </td>
-   <td style="text-align:right;"> 89 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 31 </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 1310 </td>
-   <td style="text-align:right;"> 297 </td>
-   <td style="text-align:right;"> 108 </td>
-   <td style="text-align:right;"> 104.86658 </td>
-   <td style="text-align:right;"> 8.244275 </td>
-   <td style="text-align:right;"> 7.783812 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 641 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 29.39388 </td>
-   <td style="text-align:right;"> 0.000000 </td>
-   <td style="text-align:right;"> 4.585628 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 18 </td>
-   <td style="text-align:right;"> 28 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 96 </td>
-   <td style="text-align:right;"> 76 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 73 </td>
-   <td style="text-align:right;"> 66 </td>
-   <td style="text-align:right;"> 2133 </td>
-   <td style="text-align:right;"> 308 </td>
-   <td style="text-align:right;"> 187 </td>
-   <td style="text-align:right;"> 106.52699 </td>
-   <td style="text-align:right;"> 8.766995 </td>
-   <td style="text-align:right;"> 4.831126 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 52 </td>
-   <td style="text-align:right;"> 83 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 962 </td>
-   <td style="text-align:right;"> 208 </td>
-   <td style="text-align:right;"> 52 </td>
-   <td style="text-align:right;"> 87.22958 </td>
-   <td style="text-align:right;"> 5.405405 </td>
-   <td style="text-align:right;"> 8.991888 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 72 </td>
-   <td style="text-align:right;"> 68 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 83 </td>
-   <td style="text-align:right;"> 65 </td>
-   <td style="text-align:right;"> 1016 </td>
-   <td style="text-align:right;"> 166 </td>
-   <td style="text-align:right;"> 155 </td>
-   <td style="text-align:right;"> 97.08244 </td>
-   <td style="text-align:right;"> 15.255906 </td>
-   <td style="text-align:right;"> 9.224523 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;"> 7 </td>
-   <td style="text-align:right;"> 11 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 324 </td>
-   <td style="text-align:right;"> 145 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 12 </td>
-   <td style="text-align:right;"> 31 </td>
-   <td style="text-align:right;"> 36 </td>
-   <td style="text-align:right;"> 120 </td>
-   <td style="text-align:right;"> 69 </td>
-   <td style="text-align:right;"> 3003 </td>
-   <td style="text-align:right;"> 287 </td>
-   <td style="text-align:right;"> 482 </td>
-   <td style="text-align:right;"> 165.80410 </td>
-   <td style="text-align:right;"> 16.050616 </td>
-   <td style="text-align:right;"> 5.303911 </td>
+   <td style="text-align:right;"> 1151 </td>
+   <td style="text-align:right;"> 336 </td>
+   <td style="text-align:right;"> 1106 </td>
+   <td style="text-align:right;"> 328.2194 </td>
+   <td style="text-align:right;"> 0.9609036 </td>
+   <td style="text-align:right;"> 5.130465 </td>
   </tr>
 </tbody>
 </table>
+
+
+
 
 
 

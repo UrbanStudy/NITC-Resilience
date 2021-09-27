@@ -99,7 +99,7 @@ get_acs(
 \end{equation}\]
 
 \[\begin{equation}
-\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2+\text{MOE}(Y)^2\cdot X_2^2/Y^2}
+\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2-\text{MOE}(Y)^2\cdot X_2^2/Y^2}
 \end{equation}\]
 
 
@@ -523,48 +523,74 @@ get_acs(
 ```{r}
 white_var <- c("B02001_002")
 white_tot <- c("B02001_001")
-vars %>% filter(name %in% c(white_tot,white_var)) %>% kbl() %>% 
+nonwhite_var <- paste0("B02001_00",3:8)
+vars %>% filter(name %in% c(white_tot,nonwhite_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
+
 ```{r,eval=F}
+SVI[[9]] <- svi9_nonwhite <- comb(nonwhite_var,white_tot)
+saveRDS(SVI,file = "SVI.RDS")
+```
+
+```{r}
+svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
+svi9_nonwhite %>% select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
+  head(10) %>% kbl() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
+```{r,eval=T}
+# df %>% mutate_if(is.numeric , replace_na, replace = 0)
 # SVI<- readRDS("SVI.RDS")
-SVI[[9]] <- svi9_nonwhite <- comb(white_var,white_tot) %>% 
+trial1 <- comb(white_var,white_tot) %>% 
   mutate(nonW.sum=summary_est-sum,
          nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
          nonW.per=100-per,
          nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est)
-saveRDS(SVI,file = "SVI.RDS")
-```
-
-
-```{r}
-svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
-svi9_nonwhite %>% select(summary_est, summary_moe, 
+trial1 %>% select(summary_est, summary_moe, 
                          sum,sumMOE,nonW.sum,nonW.sumMOE,
                          per,perMOE,nonW.per,nonW.perMOE) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
-```{r,eval=F,echo=F}
-(get_acs(
+
+
+```{r,eval=T,echo=F}
+trial2 <- get_acs(
   state = "41",
   county = c('051','067','005'), # tri_cou,
   geography = "block group",
   variables = paste0("B02001_00",2:8), output = "wide",
   summary_var = white_tot, cache_table = T
-  ) %>% arrange(GEOID))[,3:18] %>% 
-  mutate(nonW.sum=summary_est-sum,
-         nonW.sumMOE=sqrt(summary_moe^2-sumMOE^2),
-         nonW.per=100-per,
-         nonW.perMOE= 100*sqrt(nonW.sumMOE^2-summary_moe^2*nonW.per^2)/summary_est) %>% 
-  head(10) %>% kbl() %>% 
+) # () %>% arrange(GEOID))[1,2:16] 
+rbind(
+trial2[1,] %>% # select(B02001_002M, B02001_005M,B02001_007M,B02001_008M) %>% 
+  mutate(sum=B02001_002E + B02001_005E+B02001_007E+B02001_008E,
+         sumMOE=sqrt(B02001_002M^2 + B02001_005M^2 + B02001_007M^2 + B02001_008M^2),
+         per=sum/summary_est,
+         perMOE= 100*sqrt(sumMOE^2-summary_moe^2*per^2)/summary_est),
+trial2[2,] %>% 
+  mutate(sum=B02001_002E + B02001_003E+ B02001_005E+B02001_008E,
+         sumMOE=sqrt(B02001_002M^2 + B02001_003M^2 + B02001_005M^2 + B02001_008M^2),
+         per=sum/summary_est,
+         perMOE= 100*sqrt(sumMOE^2-summary_moe^2*per^2)/summary_est),
+trial2[8,] %>% 
+  mutate(sum=B02001_002E + B02001_006E,
+         sumMOE=sqrt(B02001_002M^2 + B02001_006M^2),
+         per=sum/summary_est,
+         perMOE= 100*sqrt(sumMOE^2-summary_moe^2*per^2)/summary_est)
+) %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+  kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+
 ```
 
 
-```{r}
+```{r,eval=F, echo=F}
 (comb(paste0("B02001_00",3:8),white_tot))[,3:20] %>% 
   # select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
   head(10) %>% kbl() %>% 
