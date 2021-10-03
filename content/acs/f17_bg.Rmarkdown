@@ -24,7 +24,8 @@ Block Group Level
 ```{r,echo=F}
 # tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
 tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
-SVI <- lst()
+# SVI <- lst()
+# SVI <- readRDS("SVI.RDS")
 ```
 
 
@@ -61,46 +62,45 @@ per_moe <- function(sum_moe,total_moe,sum,total){
 comb <- function(var_list,summary_list){
 var_e <- paste0(var_list,"E")
 var_m <- paste0(var_list,"M")
-
-get_acs(
+# e_vars <- names(data) %>%  str_subset(pattern = "^B.*") %>%  str_subset(pattern = ".*E$")
+# m_vars <- names(data) %>%  str_subset(pattern = "^B.*") %>%  str_subset(pattern = ".*M$")
+data <- get_acs(
   state = "41",
   county = c('051','067','005'), # tri_cou,
   geography = "block group",
   variables = var_list, output = "wide",
   summary_var = summary_list, cache_table = T
-  ) %>% arrange(GEOID) %>% 
-  mutate(sum =sum_col(var_e),
-         sumMOE = sum_moe(var_m),
-         per = Perc(sum,summary_est),
-         perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
+  ) %>% arrange(GEOID) 
+
+data %>% 
+  left_join(
+    data %>% 
+      select(GEOID, all_of(var_e)) %>% 
+      pivot_longer(all_of(var_e), values_to="estimate") %>% 
+      mutate(name=str_sub(name, 1, end=-2L),
+             is_est_zero=if_else(estimate==0, 0L, 1L)) %>% 
+      left_join(
+        data %>% 
+          select(GEOID, all_of(var_m)) %>% 
+          pivot_longer(all_of(var_m), values_to="moe") %>% 
+          mutate(name=str_sub(name, 1, end=-2L)),
+        by=c("GEOID", "name")
+      ) %>% 
+      group_by(GEOID) %>% 
+      summarize(comb.e=sum(estimate),
+                comb.moe=sqrt(sum(is_est_zero*moe^2))),
+    by=c("GEOID")
+  ) %>%  
+ mutate(per.e = Perc(comb.e,summary_est),
+      per.moe = per_moe(comb.moe,summary_moe,comb.e,summary_est))
 }
+
+# %>% 
+#   mutate(sum =sum_col(var_e),
+#          sumMOE = sum_moe(var_m),
+#          per = Perc(sum,summary_est),
+#          perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
 ```
-
-<script src="//yihui.org/js/math-code.js"></script>
-<script async
-  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-
-
-\(\begin{equation}Y=X_1+X_2,\quad X_1 \perp X_2\end{equation}\)
-
-
-\(\begin{equation}
-\text{MOE}(Y)=\text{MOE}(X_1+ X_2)=\sqrt{\text{MOE}(X_1)^2+\text{MOE}(X_2)^2}
-\end{equation}\)
-
-\[\begin{equation}
-\text{MOE}(X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_1)^2-\text{MOE}(Y)^2\cdot X_1^2/Y^2}
-\end{equation}\]
-
-
-\[\begin{equation}
-\text{MOE}(X_2)=\text{MOE}(Y - X_1)=\sqrt{\text{MOE}(Y)^2-\text{MOE}(X_1)^2}
-\end{equation}\]
-
-\[\begin{equation}
-\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2-\text{MOE}(Y)^2\cdot X_2^2/Y^2}
-\end{equation}\]
 
 
 # Base Social Vulnerability Indicators(percentages)
@@ -113,7 +113,6 @@ get_acs(
 ```{r}
 child_var <- c("B09002_008")
 child_tot <- c("B09002_001")
-
 vars %>% filter(name %in% c(child_tot,child_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -126,7 +125,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi1_child <- readRDS("SVI.RDS")[[1]]
-svi1_child %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi1_child %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -150,7 +149,6 @@ get_acs(
 ```{r}
 l5_var <- c("B01001_003", "B01001_027")
 l5_tot <- c("B01001_001")
-
 vars %>% filter(name %in% c(l5_tot, l5_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -163,7 +161,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi2_l5 <- readRDS("SVI.RDS")[[2]]
-svi2_l5 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi2_l5 %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -230,7 +228,6 @@ get_acs(
 ```{r}
 g65_var <- c("C21007_017")
 g65_tot <- c("B01003_001")
-
 vars %>% filter(name %in% c(g65_tot, g65_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -243,7 +240,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi3_g65 <- readRDS("SVI.RDS")[[3]]
-svi3_g65 %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi3_g65 %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -310,7 +307,6 @@ vars %>% filter(str_detect(name, "C21007"),grepl("65 years and over",label),grep
 ```{r}
 g65_pov_var <- c("C21007_019","C21007_026")
 g65_pov_tot <- c("C21007_017")
-
 vars %>% filter(name %in% c(g65_pov_tot, g65_pov_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -323,7 +319,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi4_g65_pov <- readRDS("SVI.RDS")[[4]]
-svi4_g65_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi4_g65_pov %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -371,7 +367,6 @@ get_acs(
 ```{r}
 g16_tran_var <- c("B08301_010")
 g16_tran_tot <- c("B23025_004")
-
 vars %>% filter(name %in% c(g16_tran_tot, g16_tran_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -384,7 +379,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi5_g16_tran <- readRDS("SVI.RDS")[[5]]
-svi5_g16_tran %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi5_g16_tran %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -424,7 +419,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi6_noveh<- readRDS("SVI.RDS")[[6]]
-svi6_noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi6_noveh %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -461,7 +456,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi7_vac<- readRDS("SVI.RDS")[[7]]
-svi7_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi7_vac %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -498,13 +493,11 @@ saveRDS(SVI,file = "SVI.RDS")
 
 
 ```{r}
-svi8_vac<- readRDS("SVI.RDS")[[8]]
-svi8_vac %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi8_rent<- readRDS("SVI.RDS")[[8]]
+svi8_rent %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
-
-
 
 
 ```{r,echo=F,eval=F}
@@ -521,7 +514,7 @@ get_acs(
 
 
 ```{r}
-white_var <- c("B02001_002")
+# white_var <- c("B02001_002")
 white_tot <- c("B02001_001")
 nonwhite_var <- paste0("B02001_00",3:8)
 vars %>% filter(name %in% c(white_tot,nonwhite_var)) %>% kbl() %>% 
@@ -536,13 +529,13 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi9_nonwhite<- readRDS("SVI.RDS")[[9]]
-svi9_nonwhite %>% select(summary_est, summary_moe,sum,sumMOE,per,perMOE) %>% 
+svi9_nonwhite %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 
-```{r,eval=T}
+```{r,eval=F,echo=F}
 # df %>% mutate_if(is.numeric , replace_na, replace = 0)
 # SVI<- readRDS("SVI.RDS")
 trial1 <- comb(white_var,white_tot) %>% 
@@ -559,7 +552,7 @@ trial1 %>% select(summary_est, summary_moe,
 
 
 
-```{r,eval=T,echo=F}
+```{r,eval=F,echo=F}
 trial2 <- get_acs(
   state = "41",
   county = c('051','067','005'), # tri_cou,
@@ -583,7 +576,7 @@ trial2[8,] %>%
          sumMOE=sqrt(B02001_002M^2 + B02001_006M^2),
          per=sum/summary_est,
          perMOE= 100*sqrt(sumMOE^2-summary_moe^2*per^2)/summary_est)
-) %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+) %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 
@@ -639,21 +632,22 @@ vars %>% filter(name %in% group_vars) %>% kbl() %>%
 ### 11 Housing units built 20 years ago/Total housing Units
 
 ```{r}
-newhou_var <- c("B25034_002","B25034_003","B25034_004")
+# newhou_var <- c("B25034_002","B25034_003","B25034_004")
 newhou_tot <- c("B25034_001")
-vars %>% filter(name %in% c(newhou_tot,newhou_var)) %>% kbl() %>% 
+oldhou_var <- c(paste0("B25034_00",5:9),"B25034_010","B25034_011")
+vars %>% filter(name %in% c(newhou_tot,oldhou_var)) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ```{r,eval=F}
-SVI[[11]] <- svi11_oldhou <- comb(newhou_var,newhou_tot) %>% mutate(sum=summary_est-sum,per=100-per)
+SVI[[11]] <- svi11_oldhou <- comb(oldhou_var,newhou_tot)
 saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
 ```{r}
 svi11_oldhou<- readRDS("SVI.RDS")[[11]]
-svi11_oldhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi11_oldhou %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -689,7 +683,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi12_mhou<- readRDS("SVI.RDS")[[12]]
-svi12_mhou %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi12_mhou %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -726,7 +720,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi13_pov <- readRDS("SVI.RDS")[[13]]
-svi13_pov %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi13_pov %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -756,14 +750,14 @@ vars %>% filter(name %in% c(nophone_tot,nophone_var)) %>% kbl() %>%
 ```
 
 ```{r,eval=F}
-SVI[[14]] <- svi14_pov <- comb(nophone_var,nophone_tot)
+SVI[[14]] <- svi14_nophone <- comb(nophone_var,nophone_tot)
 saveRDS(SVI,file = "SVI.RDS")
 ```
 
 
 ```{r}
 svi14_nophone <- readRDS("SVI.RDS")[[14]]
-svi14_nophone %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi14_nophone %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -822,7 +816,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi15_noedu <- readRDS("SVI.RDS")[[15]]
-svi15_noedu %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi15_noedu %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -858,7 +852,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi16_unemp <- readRDS("SVI.RDS")[[16]]
-svi16_unemp %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi16_unemp %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -938,10 +932,11 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi17_esl <- readRDS("SVI.RDS")[[17]]
-svi17_esl %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi17_esl %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
+
 
 
 ```{r,eval=F,echo=F}
@@ -1018,7 +1013,7 @@ saveRDS(SVI,file = "SVI.RDS")
 
 ```{r}
 svi18_dis <- readRDS("SVI.RDS")[[18]]
-svi18_dis %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+svi18_dis %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(10) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -1036,4 +1031,30 @@ get_acs(
               per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
   select(starts_with("B"), sum, summary_est, per)
 ```
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async
+  src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+\(\begin{equation}Y=X_1+X_2,\quad X_1 \perp X_2\end{equation}\)
+
+
+\(\begin{equation}
+\text{MOE}(Y)=\text{MOE}(X_1+ X_2)=\sqrt{\text{MOE}(X_1)^2+\text{MOE}(X_2)^2}
+\end{equation}\)
+
+\[\begin{equation}
+\text{MOE}(X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_1)^2-\text{MOE}(Y)^2\cdot X_1^2/Y^2}
+\end{equation}\]
+
+
+\[\begin{equation}
+\text{MOE}(X_2)=\text{MOE}(Y - X_1)=\sqrt{\text{MOE}(Y)^2-\text{MOE}(X_1)^2}
+\end{equation}\]
+
+\[\begin{equation}
+\text{MOE}(1-X_1/Y)=\frac1Y\sqrt{\text{MOE}(X_2)^2-\text{MOE}(Y)^2\cdot X_2^2/Y^2}
+\end{equation}\]
 

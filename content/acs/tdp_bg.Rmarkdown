@@ -116,18 +116,35 @@ per_moe <- function(sum_moe,total_moe,sum,total){
 comb <- function(var_list,summary_list){
 var_e <- paste0(var_list,"E")
 var_m <- paste0(var_list,"M")
-
-get_acs(
+data <- get_acs(
   state = "41",
   county = c('051','067','005'), # tri_cou,
   geography = "block group",
   variables = var_list, output = "wide",
   summary_var = summary_list, cache_table = T
-  ) %>% arrange(GEOID) %>% 
-  mutate(sum =sum_col(var_e),
-         sumMOE = sum_moe(var_m),
-         per = Perc(sum,summary_est),
-         perMOE=per_moe(sumMOE,summary_moe,sum,summary_est))
+  ) %>% arrange(GEOID) 
+
+data %>% 
+  left_join(
+    data %>% 
+      select(GEOID, all_of(var_e)) %>% 
+      pivot_longer(all_of(var_e), values_to="estimate") %>% 
+      mutate(name=str_sub(name, 1, end=-2L),
+             is_est_zero=if_else(estimate==0, 0L, 1L)) %>% 
+      left_join(
+        data %>% 
+          select(GEOID, all_of(var_m)) %>% 
+          pivot_longer(all_of(var_m), values_to="moe") %>% 
+          mutate(name=str_sub(name, 1, end=-2L)),
+        by=c("GEOID", "name")
+      ) %>% 
+      group_by(GEOID) %>% 
+      summarize(comb.e=sum(estimate),
+                comb.moe=sqrt(sum(is_est_zero*moe^2))),
+    by=c("GEOID")
+  ) %>%  
+ mutate(per.e = Perc(comb.e,summary_est),
+      per.moe = per_moe(comb.moe,summary_moe,comb.e,summary_est))
 }
 ```
 
@@ -150,14 +167,14 @@ saveRDS(noveh,file = "noveh.RDS")
 
 ```{r}
 noveh <- readRDS("noveh.RDS")
-noveh %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+noveh %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(20) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
 
 ```{r}
-noveh.sig <- noveh %>% filter(per>perMOE) 
-noveh.sig %>% select(summary_est, summary_moe, sum,sumMOE,per,perMOE) %>% 
+noveh.sig <- noveh %>% filter(per.e>per.moe) 
+noveh.sig %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
   head(20) %>% kbl() %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
 ```
@@ -178,8 +195,8 @@ nrow(pdx_bg_noveh.sig)
 
 ```{r, eval=T,echo=F }
 library(leafsync)
-sync(mapview(pdx_bg_noveh, zcol = "sum"), mapview(pdx_bg_noveh.sig, zcol = "sum"))
-sync(mapview(pdx_bg_noveh, zcol = "per"), mapview(pdx_bg_noveh.sig, zcol = "per"))
+sync(mapview(pdx_bg_noveh, zcol = "comb.e"), mapview(pdx_bg_noveh.sig, zcol = "comb.e"))
+sync(mapview(pdx_bg_noveh, zcol = "per.e"), mapview(pdx_bg_noveh.sig, zcol = "per.e"))
 ```
 
 
