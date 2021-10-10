@@ -1,9 +1,11 @@
 ---
 title: "4 Social Vulnerability Index (BG)"
-date: "2021-10-03"
+date: "2021-10-09"
 categories: ["R"]
 tags: ["R Markdown", "ACS", "Census data"]
 ---
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
@@ -3018,6 +3020,172 @@ svi18_dis %>% select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>
 </table>
 
 
+
+
+
+
+
+```r
+countna <- function(x){
+  sum(is.na(x))
+}
+SVI <- readRDS("SVI.RDS")
+lapply(SVI, countna) %>% as_vector() 
+```
+
+```
+##                                                       
+##  3  0 16  2  1  1  0  0  0  0  3  0  0  0  0  0  0  0
+```
+
+```r
+SVI[[3]] %>% filter(is.na(per.moe)) %>% 
+  select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+<table class="table table-striped table-hover table-condensed" style="font-size: 7px; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> summary_est </th>
+   <th style="text-align:right;"> summary_moe </th>
+   <th style="text-align:right;"> comb.e </th>
+   <th style="text-align:right;"> comb.moe </th>
+   <th style="text-align:right;"> per.e </th>
+   <th style="text-align:right;"> per.moe </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 2735 </td>
+   <td style="text-align:right;"> 594 </td>
+   <td style="text-align:right;"> 733 </td>
+   <td style="text-align:right;"> 157 </td>
+   <td style="text-align:right;"> 26.80073 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1466 </td>
+   <td style="text-align:right;"> 403 </td>
+   <td style="text-align:right;"> 518 </td>
+   <td style="text-align:right;"> 133 </td>
+   <td style="text-align:right;"> 35.33424 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1894 </td>
+   <td style="text-align:right;"> 365 </td>
+   <td style="text-align:right;"> 316 </td>
+   <td style="text-align:right;"> 55 </td>
+   <td style="text-align:right;"> 16.68427 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1485 </td>
+   <td style="text-align:right;"> 277 </td>
+   <td style="text-align:right;"> 574 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 38.65320 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 825 </td>
+   <td style="text-align:right;"> 415 </td>
+   <td style="text-align:right;"> 249 </td>
+   <td style="text-align:right;"> 94 </td>
+   <td style="text-align:right;"> 30.18182 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 863 </td>
+   <td style="text-align:right;"> 189 </td>
+   <td style="text-align:right;"> 412 </td>
+   <td style="text-align:right;"> 90 </td>
+   <td style="text-align:right;"> 47.74044 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1674 </td>
+   <td style="text-align:right;"> 600 </td>
+   <td style="text-align:right;"> 387 </td>
+   <td style="text-align:right;"> 115 </td>
+   <td style="text-align:right;"> 23.11828 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1978 </td>
+   <td style="text-align:right;"> 599 </td>
+   <td style="text-align:right;"> 451 </td>
+   <td style="text-align:right;"> 109 </td>
+   <td style="text-align:right;"> 22.80081 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 990 </td>
+   <td style="text-align:right;"> 263 </td>
+   <td style="text-align:right;"> 705 </td>
+   <td style="text-align:right;"> 153 </td>
+   <td style="text-align:right;"> 71.21212 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 884 </td>
+   <td style="text-align:right;"> 181 </td>
+   <td style="text-align:right;"> 545 </td>
+   <td style="text-align:right;"> 111 </td>
+   <td style="text-align:right;"> 61.65158 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2410 </td>
+   <td style="text-align:right;"> 768 </td>
+   <td style="text-align:right;"> 380 </td>
+   <td style="text-align:right;"> 104 </td>
+   <td style="text-align:right;"> 15.76763 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1667 </td>
+   <td style="text-align:right;"> 580 </td>
+   <td style="text-align:right;"> 267 </td>
+   <td style="text-align:right;"> 91 </td>
+   <td style="text-align:right;"> 16.01680 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 1122 </td>
+   <td style="text-align:right;"> 470 </td>
+   <td style="text-align:right;"> 244 </td>
+   <td style="text-align:right;"> 94 </td>
+   <td style="text-align:right;"> 21.74688 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 856 </td>
+   <td style="text-align:right;"> 389 </td>
+   <td style="text-align:right;"> 184 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 21.49533 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2122 </td>
+   <td style="text-align:right;"> 425 </td>
+   <td style="text-align:right;"> 525 </td>
+   <td style="text-align:right;"> 103 </td>
+   <td style="text-align:right;"> 24.74081 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2702 </td>
+   <td style="text-align:right;"> 773 </td>
+   <td style="text-align:right;"> 492 </td>
+   <td style="text-align:right;"> 131 </td>
+   <td style="text-align:right;"> 18.20873 </td>
+   <td style="text-align:right;"> NaN </td>
+  </tr>
+</tbody>
+</table>
 
 
 

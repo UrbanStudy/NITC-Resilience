@@ -52,11 +52,13 @@ sum_moe <- function(...){
 }
 
 Perc <- function(sum,total){
-   100 * sum /total
+   ifelse(total==0,0,
+          100 * sum /total)
 }
 
 per_moe <- function(sum_moe,total_moe,sum,total){
-    100*sqrt(sum_moe^2-total_moe^2*(sum /total)^2)/total
+   ifelse(total==0,0,
+    100*sqrt(sum_moe^2-total_moe^2*(sum /total)^2)/total)
 }
 
 comb <- function(var_list,summary_list){
@@ -1031,6 +1033,20 @@ get_acs(
               per = 100 * sum / summary_est) %>% arrange(GEOID) %>%
   select(starts_with("B"), sum, summary_est, per)
 ```
+
+
+```{r}
+countna <- function(x){
+  sum(is.na(x))
+}
+SVI <- readRDS("SVI.RDS")
+lapply(SVI, countna) %>% as_vector() 
+SVI[[3]] %>% filter(is.na(per.moe)) %>% 
+  select(summary_est, summary_moe, comb.e,comb.moe,per.e,per.moe) %>% 
+  kbl() %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), font_size = 7)
+```
+
+
 
 <script src="//yihui.org/js/math-code.js"></script>
 <script async
