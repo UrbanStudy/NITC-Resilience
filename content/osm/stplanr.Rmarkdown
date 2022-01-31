@@ -1,0 +1,372 @@
+---
+title: "6 Shortest Distance"
+date: "`r Sys.Date()`"
+categories: ["R"]
+tags: ["R Markdown", "stplanr", "sf"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+if (!require(pacman)) {install.packages("pacman"); library(pacman)}
+p_load(tidyverse,sf,mapview, osmdata, stplanr, tmap, osrm,pct) # crsuggest,dodgr, bench
+# remotes::install_github('ropensci/osmdata')
+# devtools::install_github ("ropensci/osmplotr")
+
+# devtools::install_github("ropensci/stplanr")
+# remotes::install_github("ropensci/stplanr")
+options(scipen=10)
+options(digits=6)
+# packageVersion ("dodgr")
+```
+
+# Introducing stplanr
+
+https://docs.ropensci.org/stplanr/articles/stplanr.html
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+
+```{r}
+# data(package = "stplanr")$result[, "Item"]
+od <- od_data_sample %>%
+  select(-matches("rail|name|moto|car|tax|home|la_")) %>%
+  top_n(n = 14, wt = all)
+class(od)
+od
+
+od_matrix <- od_to_odmatrix(od[1:3])
+class(od_matrix)
+od_matrix
+odmatrix_to_od(od_matrix)
+```
+
+by mode
+
+```{r}
+# lapply(c("all", "bicycle"), function(x) od_to_odmatrix(od[c("geo_code1", "geo_code2", x)]))
+```
+
+Inter and intra-zonal flows
+
+```{r}
+(od_inter <- od %>% filter(geo_code1 != geo_code2))
+(od_intra <- od %>% filter(geo_code1 == geo_code2))
+```
+
+Oneway lines
+
+```{r}
+(od_min <- od_data_sample[c(1, 2, 9), 1:6])
+(od_oneway <- od_oneway(od_min))
+```
+
+
+```{r}
+travel_network <- od2line(flow = od_data_sample, zones = cents_sf)
+w <- flow$all / max(flow$all) *10
+plot(travel_network, lwd = w)
+```
+
+```{r}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = travel_network)
+```
+
+OD data to desire lines and routes
+
+```{r}
+flow_single_line <- od_data_sample[2:3, ] # select only the first line
+desire_line_single <- od2line(flow = flow_single_line, zones = cents_sf)
+plot(desire_line_single$geometry, lwd = 5)
+plot(cents_sf, add = TRUE, cex = 5)
+```
+
+```{r}
+l <- od2line(flow = flow, zones = cents_sf) # identify 'intrazone flows'
+sel_intra <- l$Area.of.residence == l$Area.of.workplace
+# find distances
+l_distances <- geo_length(l)
+summary(l_distances)
+```
+
+```{r}
+sel_dist <- l_distances > 2000
+sel <- !sel_intra & sel_dist
+l <- l[sel, ]
+plot(l)
+```
+
+```{r}
+lwd <- l$All / mean(l$All)
+plot(st_geometry(l), lwd = lwd)
+plot(l["Bicycle"], lwd = lwd)
+```
+
+
+
+
+# Origin-destination data
+
+- London
+
+```{r,eval=F}
+od_all <- pct::get_od()
+nrow(od_all)
+
+od_all$Active <- (od_all$bicycle + od_all$foot) /
+  od_all$all * 100
+centroids_all <- pct::get_centroids_ew() %>% sf::st_transform(4326)
+nrow(centroids_all)
+
+london <- pct::pct_regions %>% filter(region_name == "london")
+centroids_london <- centroids_all[london, ]
+od_london <- od_all %>%
+  filter(geo_code1 %in% centroids_london$msoa11cd) %>%
+  filter(geo_code2 %in% centroids_london$msoa11cd)
+od_london <- od_all[
+  od_all$geo_code1 %in% centroids_london$msoa11cd &
+    od_all$geo_code2 %in% centroids_london$msoa11cd,
+]
+```
+
+```{r,eval=F}
+desire_lines_london <- od2line(od_london, centroids_london)
+nrow(desire_lines_london)
+```
+
+```{r,eval=F}
+min_trips_threshold <- 20
+desire_lines_inter <- desire_lines_london %>% filter(geo_code1 != geo_code2)
+desire_lines_intra <- desire_lines_london %>% filter(geo_code1 == geo_code2)
+desire_lines_top <- desire_lines_inter %>% filter(all >= min_trips_threshold)
+nrow(desire_lines_top)
+```
+
+```{r,eval=F}
+nrow(desire_lines_top) / nrow(desire_lines_london)
+sum(desire_lines_top$all) / sum(desire_lines_london$all)
+```
+
+Summaries by origin and destination
+
+
+```{r}
+zones_london <- pct::get_pct_zones("london") %>%
+  select("geo_code")
+origin_attributes <- desire_lines_top %>%
+  sf::st_drop_geometry() %>%
+  group_by(geo_code1) %>%
+  summarize_if(is.numeric, sum) %>%
+  dplyr::rename(geo_code = geo_code1)
+# origin_attributes <-
+zones_origins <- left_join(zones_london, origin_attributes, by = "geo_code")
+plot(zones_origins, border = NA)
+```
+
+```{r}
+destination_attributes <- desire_lines_top %>%
+  sf::st_drop_geometry() %>%
+  group_by(geo_code2) %>%
+  summarize_if(is.numeric, sum) %>%
+  dplyr::rename(geo_code = geo_code2) %>%
+  mutate_at(vars(-matches("geo_|all")), funs(. / all)) %>%
+  left_join(zones_london, ., by = "geo_code")
+
+plot(destination_attributes, border = NA)
+```
+
+# for Transport Planning
+
+stplanr tackles this issue by using 3rd party APIs to provide route-allocation.
+
+
+
+# Route networks with stplanr
+
+
+```{r}
+sample_routes <- routes_fast_sf[2:6, 1]
+sample_routes$value <- rep(1:3, length.out = 5)
+rnet <- overline(sample_routes, attrib = "value")
+plot(sample_routes["value"], lwd = sample_routes$value, main = "Routes")
+plot(rnet["value"], lwd = rnet$value, main = "Route network")
+```
+
+
+# Transport routing 
+
+```{r,eval=F}
+remotes::install_github("itsleeds/geofabrik")
+library(geofabrik)
+roads_iow = get_geofabrik(name = "Isle of Wight")
+f = gf_filename("Isle of Wight")
+file.copy(f, "iow.pbf")
+options(osrm.server = "https://0.0.0.0:5000/", osrm.profile = "driving")
+```
+
+
+```{r}
+# docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-extract -p /opt/car.lua /data/iow.pbf
+# docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-partition /data/iow.osrm
+# docker run -t -v "${PWD}:/data" osrm/osrm-backend osrm-customize /data/iow.osrm
+# docker run -t -i -p 5000:5000 -v "${PWD}:/data" osrm/osrm-backend osrm-routed --algorithm mld /data/iow.osrm
+# curl "https://127.0.0.1:5000/route/v1/driving/13.388860,52.517037;13.385983,52.496891?steps=true"
+```
+
+
+```{r}
+# l = pct::wight_lines_30
+# p = line2points(l)
+# r = osrm::osrmRoute(src = p[1, ], dst = p[2, ], returnclass = "sf", overview = "full")
+# plot(r)
+```
+
+
+```{r}
+routes_osrm = route(l = l, route_fun = osrmRoute, returnclass = "sf", overview = "full")
+rnet_osrm = overline(routes_osrm, attrib = "bicycle")
+mapview::mapview(rnet_osrm, lwd = rnet_osrm$bicycle / 10)
+```
+
+```{r}
+# tidy up
+f = list.files(pattern = "iow")
+unlink(x = f, recursive = TRUE)
+```
+
+```{r}
+# docker ps
+# docker stop stupefied_hopper
+```
+
+
+
+
+# Portland
+
+Zones 
+
+
+```{r}
+pdx_bg <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/acs/pdx_bg.RDS")
+# pdx.bg <- st_centroid(pdx_bg)
+# mapview(pdx_bg); mapview(pdx.bg)
+# class(pdx_bg)
+pdx_bg <- pdx_bg %>% select(GEOID,INTPTLAT,INTPTLON,-geometry) %>%
+  mutate(lat=as.numeric(INTPTLAT),lon=as.numeric(INTPTLON)) %>%
+  select(-INTPTLAT,-INTPTLON)
+pdx.bg <- st_centroid(pdx_bg)
+#  sf::st_drop_geometry()
+```
+
+route
+
+```{r}
+pdx.net <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+class(pdx.net)
+dim(pdx.net) 
+# table(pdx.net$highway)
+# weight.name <- c("construction", "proposed", "crossing", "abandoned") #"raceway", "platform", "corridor", , "elevator"
+pdx.net.main<- pdx.net[which(pdx.net$highway%in% c("motorway", "motorway_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link")),]
+pdx.net.main <- pdx.net.main %>% select(osm_id, highway, geometry)
+```
+
+
+
+```{r}
+od.sf <- pdx.bg %>% filter(GEOID%in%c("410670326081","410510056002", "410510073001")) #%>% select(-GEOID)
+r = osrm::osrmRoute(src = od.sf[1, ], dst = od.sf[3, ], returnclass = "sf", overview = "full")
+plot(r["duration"])
+```
+
+All possible routes
+
+```{r}
+# getOption("osrm.server")
+Rout <- osrm::osrmRoute(src = od.sf[1,], dst = od.sf[2,], returnclass = "sf", overview = "full") # %>% do.call (cbind, .)
+
+for (i in 1:3) {
+ for (j in 1:3) {
+  Rout[(i-1)*3+j,] <- osrm::osrmRoute(src = od.sf[i,], dst = od.sf[j,], returnclass = "sf", overview = "full")
+ }
+}
+# rout1[2,] <- osrm::osrmRoute(src = od.sf[1,], dst = od.sf[2,], returnclass = "sf", overview = "full")
+
+rnet_duration = overline(Rout, attrib = "duration")
+mapview::mapview(rnet_duration) #, lwd = rnet_duration$duration/.1
+
+```
+
+
+```{r,eval=F}
+pdx.net.motorway<- pdx.net.main[which(pdx.net.main$highway%in% c("motorway", "motorway_link")),]
+names(routes_pdx)
+routes_pdx = route(l = pdx.net.motorway, route_fun = osrmRoute, returnclass = "sf", overview = "full")
+saveRDS(routes_pdx, "~/urbanstudy/NITC-Resilience/content/osm/routes_pdx.Rds")
+```
+
+
+```{r}
+routes_pdx <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/routes_pdx.Rds")
+rnet_duration = overline(routes_pdx, attrib = "duration")
+mapview::mapview(rnet_duration) #, lwd = rnet_duration$duration/.1
+```
+
+
+
+
+
+
+OD
+
+```{r}
+od.pdx <- data.frame(O=rep("410510056002",nrow(pdx_bg)),D=pdx_bg$GEOID,flow=runif(nrow(pdx_bg))*10)
+```
+
+
+```{r}
+desire_lines_pdx <- od2line(flow = od.pdx, zones = pdx_bg)
+nrow(desire_lines_pdx)
+
+min_trips_threshold <- 2
+desire_lines_inter <- desire_lines_pdx %>% filter(O != D)
+desire_lines_intra <- desire_lines_pdx %>% filter(O == D)
+desire_lines_top <- desire_lines_inter %>% filter(flow >= min_trips_threshold)
+nrow(desire_lines_top)
+
+plot(desire_lines_top["flow"], lwd = desire_lines_top$flow/5)
+```
+
+```{r}
+library(tmap)
+desire_lines_top <- desire_lines_pdx %>%  slice_max(flow,prop=.1)
+tm_shape(pdx_bg) + tm_borders() +
+  tm_shape(desire_lines_top) +
+  tm_lines(
+    palette = "plasma", breaks = seq(min(desire_lines_top$flow), max(desire_lines_top$flow), length.out=10),
+    lwd = "flow",
+    scale = 9,
+    title.lwd = "Number of trips",
+    alpha = 0.5,
+    col = "flow",
+    title = "travel flow",
+    legend.lwd.show = FALSE
+  ) +
+  tm_scale_bar() +
+  tm_layout(
+    legend.bg.alpha = 0.5,
+    legend.bg.color = "white"
+  )
+```
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,389 @@
+---
+title: "6 dodgr"
+date: "`r Sys.Date()`"
+categories: ["R"]
+tags: ["R Markdown", "ACS", "Census data"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+if (!require(pacman)) {install.packages("pacman"); library(pacman)}
+p_load(tidyverse,mapview, osmdata, dodgr, bench) # crsuggest,
+# remotes::install_github('ropensci/osmdata')
+# remotes::install_git("https://git.sr.ht/~mpadge/dodgr")
+# remotes::install_bitbucket("atfutures/dodgr")
+# remotes::install_gitlab("atfutures1/dodgr")
+# remotes::install_github("ATFutures/dodgr")
+# install.packages("BiocManager")
+# BiocManager::install("graph")
+# install.packages("ggm")
+# devtools::install_github ("ropensci/osmplotr")
+options(scipen=10)
+options(digits=6)
+# packageVersion ("dodgr")
+```
+
+
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+
+```{r,echo=F}
+# tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
+tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+# pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+# pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+pdx_bg <- readRDS("pdx_bg.RDS")
+```
+
+# Usage: Sample Data and dodgr networks
+
+https://github.com/ATFutures/dodgr
+
+
+```{r}
+class (hampi)
+dim (hampi)
+# mapview(hampi)
+graph <- weight_streetnet (hampi, wt_profile = "foot")
+class (graph)
+dim (graph)
+v <- dodgr_vertices (graph)
+head (v)
+```
+
+```{r}
+from <- sample (v$id, size = 2)
+to <- sample (v$id, size = 5)
+d <- dodgr_dists (graph = graph, from = from, to = to)
+dim (d)
+```
+
+```{r}
+from_x <- min (graph$from_lon) + runif (2) * diff (range (graph$from_lon))
+from_y <- min (graph$from_lat) + runif (2) * diff (range (graph$from_lat))
+to_x <- min (graph$from_lon) + runif (5) * diff (range (graph$from_lon))
+to_y <- min (graph$from_lat) + runif (5) * diff (range (graph$from_lat))
+d <- dodgr_dists (graph = graph, from = cbind (from_x, from_y), to = cbind (to_x, to_y))
+```
+
+```{r}
+graph <- graph [graph$component == 1, ]
+nrow (graph)
+```
+
+```{r}
+from <- match_points_to_graph (v, cbind (from_x, from_y), connected = TRUE)
+to <- match_points_to_graph (v, cbind (to_x, to_y), connected = TRUE)
+d <- dodgr_dists (graph = graph, from = v$id[from], to = v$id[to])
+```
+
+
+
+# dodgr
+
+## 2 Introduction to dodgr
+
+https://cran.r-project.org/web/packages/dodgr/index.html
+
+
+```{r}
+# bb <- osmdata::getbb ("york uk")
+bb <- osmdata::getbb ("portland or")
+npts <- 10
+xy <- apply (bb, 1, function (i) min (i) + runif (npts) * diff (i))
+bb; head (xy)
+```
+
+```{r,eval=F}
+# net <- dodgr_streetnet (bb)
+# Error in check_for_error(doc) : General overpass server error; returned:
+# The data included in this document is from www.openstreetmap.org. The data is made available under ODbL. runtime error: Query timed out in "query" at line 3 after 26 seconds.
+net <- dodgr_streetnet ("portland or")
+# dodgr_save_streetnet(net, "~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+saveRDS(net, "~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+# net <- dodgr_load_streetnet ("pdxstreetnet.Rds")
+```
+
+
+```{r}
+net <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+class(net)
+dim(net)
+net <- weight_streetnet (net, wt_profile ="motorcar") # "motorcycle"  "foot"
+system.time (
+            d <- dodgr_dists (net, from = xy, to = xy)
+            )
+dim (d); range (d, na.rm = TRUE)
+```
+
+## 3 Graphs and Street Networks
+
+```{r}
+hampi <- dodgr_streetnet ("hampi india")
+class (hampi)
+class (hampi$geometry)
+dim (hampi)
+```
+
+```{r}
+library (osmplotr)
+library (magrittr)
+map <- osm_basemap (hampi, bg = "gray95") %>%
+    add_osm_objects (hampi, col = "gray5") %>%
+    add_axes () %>%
+    print_osm_map ()
+```
+
+```{r}
+graph <- weight_streetnet (hampi, wt_profile = "foot")
+dim (graph)
+vt <- dodgr_vertices (graph)
+head(vt)
+dim (vt)
+nrow (graph) / nrow (vt)
+```
+
+### 3.1 Graph Components
+
+```{r}
+table (net$component)
+length (unique (net$component))
+```
+
+```{r}
+cols <- c ("edge_id", "from_id", "to_id", "d")
+net_min <- net[, which (names (net) %in% cols)]
+net_min <- dodgr_components (net_min)
+head (net_min)
+net_connected <- net[graph$component == 1, ]
+```
+
+
+### 3.2 Weighting Profiles
+
+- weighting_profiles;
+
+- surface_speeds; and
+
+- penalties
+
+```{r}
+ # dodgr::weighting_profiles
+wp <- weighting_profiles$weighting_profiles
+names (wp)
+unique (wp$name)
+```
+
+```{r}
+wp [wp$name == "motorcar", ] #"foot"
+table (net$highway)
+```
+
+```{r}
+names (os_roads_bristol)
+colnm <- "formOfWay"
+table (os_roads_bristol [[colnm]])
+```
+
+```{r}
+wts <- data.frame (name = "custom",
+                   way = unique (os_roads_bristol [[colnm]]),
+                   value = c (0.1, 0.2, 0.8, 1))
+net_bristol <- weight_streetnet (os_roads_bristol, wt_profile = wts,
+                         type_col = colnm, id_col = "identifier")
+```
+
+### 3.3 Random Sub-Graphs
+
+
+```{r}
+graph_sub <- dodgr_sample (graph, nverts = 100)
+nrow (graph_sub)
+nrow (dodgr_vertices (graph_sub))
+```
+
+```{r}
+net_sub <- dodgr_sample (net, nverts = 100)
+nrow (net_sub)
+nrow (dodgr_vertices (net_sub))
+```
+
+
+## 4 Distance Matrices: dodgr_dists()
+
+
+```{r}
+net.motorway <- net[net$highway%in%c("motorway","motorway_link"),]
+```
+
+
+### 4.1 Aligning Routing Points to Graphs
+
+```{r}
+vt <- dodgr_vertices (net.motorway)
+n <- 10 # number of points to generate
+xy <- data.frame (x = min (vt$x) + runif (n) * diff (range (vt$x)),
+                  y = min (vt$y) + runif (n) * diff (range (vt$y)))
+```
+
+```{r}
+d <- dodgr_dists (net.motorway, from = xy)
+dim (d); range (d, na.rm = TRUE)
+
+d <- dodgr_dists (net.motorway, from = xy, to = xy [1:10, ])
+dim (d)
+```
+
+```{r}
+net.motorway_connected <- net.motorway[net.motorway$component == 1, ]
+```
+
+
+```{r}
+bb <- osmdata::getbb ("york uk")
+npts <- 100
+xy <- apply (bb, 1, function (i) min (i) + runif (npts) * diff (i))
+
+routed_points <- function (expand = 0, pts) {
+
+    gr0 <- dodgr_streetnet (pts = pts, expand = expand) %>%
+        weight_streetnet ()
+    d0 <- dodgr_dists (gr0, from = pts)
+    length (which (is.na (d0))) / length (d0)
+}
+```
+
+```{r}
+vapply (c (0, 0.05, 0.1, 0.2), function (i) routed_points (i, pts = xy),
+        numeric (1))
+```
+
+```{r}
+head (graph [, names (graph) %in% c ("from_id", "to_id", "d")])
+```
+
+```{r}
+graph_min <- graph [, names (graph) %in% c ("from_id", "to_id", "d")]
+fr <- sample (graph_min$from_id, size = 10) # 10 random points
+to <- sample (graph_min$to_id, size = 20)
+d <- dodgr_dists (graph_min, from = fr, to = to)
+dim (d)
+```
+
+### 4.2 Shortest Path Calculations: Priority Queues
+
+```{r}
+compare_heaps (graph, nverts = 100)
+```
+
+```{r}
+v <- dodgr_vertices (graph)
+pts <- sample (v$id, 1000)
+igr <- dodgr_to_igraph (graph)
+d <- igraph::distances (igr, v = pts, to = pts, mode = "out")
+```
+
+## 5 Graph Contraction
+
+```{r}
+netc <- dodgr_contract_graph (net)
+```
+
+```{r}
+nrow (net); nrow (netc); nrow (netc) / nrow (net)
+```
+
+```{r}
+from <- sample (grc$from_id, size = 100)
+to <- sample (grc$to_id, size = 100)
+bench::mark (
+    full = dodgr_dists (graph, from = from, to = to),
+    contracted = dodgr_dists (grc, from = from, to = to),
+    check = FALSE # numeric rounding errors can lead to differences
+    )
+```
+
+### 5.1 Routing on Contracted Graphs
+
+```{r}
+grc <- dodgr_contract_graph (graph)
+nrow (grc)
+verts <- sample (dodgr_vertices (graph)$id, size = 100)
+head (verts) # a character vector
+grc <- dodgr_contract_graph (graph, verts)
+nrow (grc)
+```
+
+## 6 Shortest Paths
+
+```{r}
+# dp <- dodgr_paths (graph, from = from, to = to)
+from <- sample (graph$from_id, size = 10)
+to <- sample (graph$to_id, size = 5)
+dp <- dodgr_paths (graph, from = from, to = to)
+length (dp)
+dp [[1]] [[1]]
+```
+
+```{r}
+verts <- dodgr_vertices (graph)
+path1 <- verts [match (dp [[1]] [[1]], verts$id), ]
+head (path1)
+```
+
+# dodgr flows
+
+## 1 Flow Aggregation
+
+```{r}
+graph <- weight_streetnet (hampi, wt_profile = "foot")
+from <- sample (graph$from_id, size = 10)
+to <- sample (graph$to_id, size = 10)
+flows <- matrix (10 * runif (length (from) * length (to)),
+                 nrow = length (from))
+```
+
+```{r}
+graph_f <- dodgr_flows_aggregate (graph, from = from, to = to, flows = flows)
+head (graph_f)
+summary (graph_f$flow)
+```
+
+## 2 Flow Dispersal
+
+```{r}
+dens <- rep (1, length (from)) # uniform densities
+graph_f <- dodgr_flows_disperse (graph, from = from, dens = dens)
+summary (graph_f$flow)
+```
+
+
+## 3 Merging directed flows
+
+```{r}
+graph_undir <- merge_directed_graph (graph_f)
+nrow (graph_f); nrow (graph_undir) # the latter is much smaller
+```
+
+```{r}
+graph <- graph [graph_undir$edge_id, ]
+graph$flow <- graph_undir$flow
+```
+
+```{r}
+graph_f <- graph_f [graph_f$flow > 0, ]
+dodgr_flowmap (graph_f, linescale = 5)
+```
+
+
+
+# Aggregating distances along categories of edges
+
+## 1 Full Distance Information for Edge Categories
+
+# Street networks and time-based routing
+
+## 1 Street Networks and Time-Based Routing
+
+This vignette describes the use of the dodgr package for routing through street networks, specifically for Open Street Map (OSM) networks extracted with the osmdata package, or via the dodgr functions dodgr_streetnet() and dodgr_streetnet_sc(). Both of these functions use the osmdata package package to extract networks from Open Street Map, with the former returning data in Simple Features (sf) format, and the latter in Silicate (sc) format. The latter format enables more detailed weighting, notably including the effects of turning angles and elevation, as described below.
+

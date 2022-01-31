@@ -1,8 +1,13 @@
 .Rproj.user
 # .Rhistory
-# .RData
-# .Ruserdata
+.RData
+.Ruserdata
 .DS_Store
 Thumbs.db
+*.Rds
+*.gpkg
+*.pbf
 /public/
 /resources/
+/content/osm/*.Rds
+/content/osm/original\ data/

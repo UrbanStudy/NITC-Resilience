@@ -25,6 +25,8 @@ tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
 pdx_bg <- readRDS("pdx_bg.RDS")
 ```
 
+https://cran.r-project.org/web/packages/osmdata/vignettes/osmdata.html#1_Introduction
+
 https://wiki.openstreetmap.org/wiki/Category:Keys
 
 ```{r,eval=F,echo=F}
@@ -125,10 +127,57 @@ dat_break <- dat %>% filter(`osm_id`!=5509189)
 mapview(dat) + mapview(dat_break)
 ```
 
-# Base Social Vulnerability Indicators(percentages)
 
-## Child care Needs
+```{r}
+pdx_sf <- opq('portland or') %>%
+    add_osm_feature(key = 'relation', value = 'I 405 (OR)') %>% 
+  osmdata_sf()
+mapview(pdx_sf)
+```
 
-### 1 Single parent households with children/Total Households
+```{r}
+sf::st_layers('oregon-latest.osm')
+# or_points <- sf::st_read('oregon-latest.osm', layer = 'points', quiet = F)
+or_lines <- sf::st_read('oregon-latest.osm', layer = 'lines', quiet = F)
+# or_multilinestrings <- sf::st_read('oregon-latest.osm', layer = 'multilinestrings', quiet = F)
+# or_multipolygons <- sf::st_read('oregon-latest.osm', layer = 'multipolygons', quiet = F)
+# or_other_relations <- sf::st_read('oregon-latest.osm', layer = 'other_relations', quiet = F)
+```
 
+```{r}
+dat2 <- osmdata_sf(q, 'oregon-latest.osm')
+readLines('oregon-latest.osm')[1:6]
+```
+
+wget http://download.geofabrik.de/north-america/us/oregon-latest.osm.pbf
+
+https://github.com/r-spatial/sf/issues/1157
+
+```{r}
+# make_ini_attributes = function(x, defaults = c("name", "highway", "waterway", "aerialway", "barrier", "man_made"), append = TRUE) {
+#     attributes_default_ini = paste0("attributes=", paste(defaults, collapse = ","))
+#     if(append) {
+#         x = c(defaults, x)
+#     } 
+#     attributes_default_ini_new = paste0("attributes=", paste(x, collapse = ","))
+#     ini_file = readLines("https://github.com/OSGeo/gdal/raw/master/gdal/data/osmconf.ini")
+#     sel_attributes = grepl(pattern = attributes_default_ini, x = ini_file)
+#     message("Old attributes: ", ini_file[sel_attributes])
+#     message("New attributes: ", attributes_default_ini_new)
+#     ini_file[sel_attributes] = attributes_default_ini_new
+#     ini_file
+# }
+# 
+# ini_new = make_ini_attributes(x = c("oneway", "maxspeed", "foot", "bicycle"))
+# #> Old attributes: attributes=name,highway,waterway,aerialway,barrier,man_made
+# #> New attributes: attributes=name,highway,waterway,aerialway,barrier,man_made,oneway,maxspeed,foot,bicycle
+# writeLines(ini_new, "ini_new.ini")
+```
+
+
+```{r}
+res <-  sf::st_read("oregon-latest.osm.pbf", layer = "lines") #, options = "CONFIG_FILE=ini_new.ini"
+class(res)
+str(res)
+```
 

@@ -1,0 +1,413 @@
+---
+title: "6 Shortest Distance"
+date: "`r Sys.Date()`"
+categories: ["R"]
+tags: ["R Markdown", "Dodgr", "sf"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning = F,cache = T)
+if (!require(pacman)) {install.packages("pacman"); library(pacman)}
+p_load(tidyverse,sf,mapview, osmdata, osmextract, dodgr, bench,igraph) # crsuggest,
+# remotes::install_github('ropensci/osmdata')
+# devtools::install_github ("ropensci/osmplotr")
+
+# remotes::install_git("https://git.sr.ht/~mpadge/dodgr")
+# remotes::install_bitbucket("atfutures/dodgr")
+# remotes::install_gitlab("atfutures1/dodgr")
+# remotes::install_github("ATFutures/dodgr")
+# install.packages("BiocManager")
+# BiocManager::install("graph")
+# install.packages("ggm")
+
+# devtools::install_github("ropensci/stplanr")
+options(scipen=10)
+options(digits=7)
+# packageVersion ("dodgr")
+```
+
+
+
+<!-- #  {.tabset .tabset-fade .tabset-pills} -->
+
+```{r,echo=F}
+# tri_cou <- c(Multnomah = "41051", Washington = "41067", Clackamas = "41005") #, Yamhill = "41071" , Clark = "53011"
+tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
+# pdx_bg <- block_groups(state = "41",county = tri_cou, cb = FALSE, year = 2019)
+# pdx_bg <- pdx_bg %>% filter(str_sub(GEOID10, 1, 5)  %in% tri_cou)
+```
+
+# dodgr networks
+
+Import and save the network.
+
+```{r,eval=F}
+or.osm <- oe_read("~/urbanstudy/NITC-Resilience/content/osm/oregon-latest.osm.pbf")
+st_crs(or.osm)
+pdx_bg <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/acs/pdx_bg.RDS")
+st_crs(pdx_bg)
+or.osm4269 <- or.osm %>% st_transform(4269)
+st_crs(or.osm4269)
+pdx.net <- st_crop(or.osm4269, st_bbox(pdx_bg))
+# net <- dodgr_streetnet ("portland or")
+# dodgr_save_streetnet(net, "~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+saveRDS(pdx.net, "~/urbanstudy/NITC-Resilience/content/osm/pdx3cnet.Rds")
+# net <- dodgr_load_streetnet ("pdxstreetnet.Rds")
+```
+
+Select 3 columns and 8 types of highway.
+
+
+```{r}
+pdx3cnet <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/pdx3cnet.Rds")
+class(pdx3cnet)
+dim(pdx3cnet) 
+# table(pdx.net$highway)
+# weight.name <- c("construction", "proposed", "crossing", "abandoned") #"raceway", "platform", "corridor", , "elevator"
+pdx3cnet.main<- pdx3cnet[which(pdx3cnet$highway%in% c("motorway", "motorway_link", "primary", "primary_link", "secondary", "secondary_link", "tertiary", "tertiary_link")),] # ,"unclassified", "residential"
+pdx3cnet.main <- pdx3cnet.main %>% select(osm_id, highway, geometry)
+```
+
+Plot the major network
+
+```{r,eval=F}
+bb <- osmdata::getbb ("portland or")
+bb <- sf::st_bbox(pdx_bg) %>% matrix(2,2,dimnames = list(c("x", "y"),c("min", "max")))
+# mapview(pdx.net)
+# mapview(pdx_bg) + mapview(pdx.net.main)
+library (osmplotr)
+library (magrittr)
+# pdx3cnet.main4326 <- pdx3cnet.main %>% st_transform(4326)
+map <- osm_basemap (bb, bg = "gray95") %>%
+    add_osm_objects (pdx3cnet.main, col = "gray5") %>%
+    add_axes () %>%
+    print_osm_map ()
+# geom_path requires the following missing aesthetics: x and y
+```
+
+Weighted network by "motorcar" include from, to, distance, and time.
+
+```{r}
+# net3c <- weight_streetnet (pdx3cnet, wt_profile ="motorcar") # "motorcycle"  "foot"
+# Not compatible with requested type: [type=list; target=double]
+# rm(pdx.net)
+net3c.main <- weight_streetnet (pdx3cnet.main, wt_profile ="motorcar") #
+# table(pdx.net$highway)
+# table (net.main$component)
+# length (unique (net$component))
+```
+
+
+Graph Contraction
+
+Simplify the network
+
+```{r}
+# net3c <- net3c[net3c$component == 1, ]
+# net3cc <- dodgr_contract_graph (net3c)
+# nrow (net3c); nrow (net3cc); nrow (net3cc) / nrow (net3c)
+net3c.main <- net3c.main[net3c.main$component == 1, ]
+net3cc.main <- dodgr_contract_graph (net3c.main)
+nrow (net3c.main); nrow (net3cc.main); nrow (net3cc.main) / nrow (net3c.main)
+```
+
+
+Aligning Routing Points to Graphs
+
+```{r}
+pdx_bg <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/acs/pdx_bg.RDS")
+# pdx.bg <- st_centroid(pdx_bg)
+# mapview(pdx_bg); mapview(pdx.bg)
+# class(pdx_bg)
+# psu <- pdx_bg[pdx_bg$GEOID=="410510056002",]
+pdx_df <- pdx_bg %>% as.data.frame() %>% select(GEOID,INTPTLAT,INTPTLON,-geometry) %>% # as_tibble()
+  mutate(lat=as.numeric(INTPTLAT),lon=as.numeric(INTPTLON)) %>% 
+  select(-INTPTLAT,-INTPTLON)
+# pdx.bg <- st_centroid(pdx_bg)
+od <- pdx_df %>% filter(GEOID%in%c("410670326081","410510056002", "410510073001")) %>% select(-GEOID) # airport(Hils)	PSU airport(PDX) 
+od.all <- pdx_df  %>% select(-GEOID)
+```
+
+
+Calculate all network distance
+
+```{r}
+odd.matrix <- dodgr_dists (net3cc.main, from = od.all, to = od.all)
+row.names(odd.matrix) <- pdx_df$GEOID
+colnames(odd.matrix) <- pdx_df$GEOID
+odd.matrix[1:10,1:10]
+class(odd.matrix)
+od.table <-odd.matrix %>% as_tibble(rownames= "rowname") %>%  # rownames= NA include but hide
+  pivot_longer(!rowname, names_to = "dest", values_to = "dist") %>% arrange(rowname,dest)
+head(od.table)
+# mean(d.c.m.all[upper.tri(d.c.m.all)])
+# od.table1 <- stplanr::odmatrix_to_od(d.c.m.all) 
+# head(od.table1)
+```
+
+```{r}
+# mapview(pdx_bg)
+pdx_bg %>% left_join(od.table %>% filter(rowname=="410510073001"),by = c("GEOID"="dest")) %>% 
+  mapview(z="dist") + mapview(pdx3cnet.main) # "410059800001","410510073001"
+```
+
+
+
+
+Calculate distance (before 2021-01-19)
+
+```{r}
+d <- dodgr_dists (net, from = od[1,], to = od[2,])
+d.c <- dodgr_dists (netc, from = od[1,], to = od[2,])
+d.main <- dodgr_dists (net.main, from = od[1,], to = od[2,])
+d.c.main <- dodgr_dists (netc.main, from = od[1,], to = od[2,])
+c(d,d.c,d.main,d.c.main)
+
+bench::mark (full = dodgr_dists (net, from = od[1,], to = od[2,]),
+             contract = dodgr_dists (netc, from = od[1,], to = od[2,]),
+             main = dodgr_dists (net.main, from = od[1,], to = od[2,]),
+             mainontract = dodgr_dists (netc.main, from = od[1,], to = od[2,]),
+             check = FALSE, time_unit = "s") [, 1:3]
+```
+
+match the points to graph firstly. The results is the same as above
+
+
+```{r,eval=T}
+v <- dodgr_vertices (net)
+vc <- dodgr_vertices (netc)
+vm <- dodgr_vertices (net.main)
+vcm <- dodgr_vertices (net3cc.main)
+
+from <- match_points_to_graph (v, od[1,], connected = TRUE)
+to <- match_points_to_graph (v, od[2,], connected = TRUE)
+fromc <- match_points_to_graph (vc, od[1,], connected = TRUE)
+toc <- match_points_to_graph (vc, od[2,], connected = TRUE)
+fromm <- match_points_to_graph (vm, od[1,], connected = TRUE)
+tom <- match_points_to_graph (vm, od[2,], connected = TRUE)
+fromcm <- match_points_to_graph (vcm, od[1,], connected = TRUE)
+tocm <- match_points_to_graph (vcm, od[2,], connected = TRUE)
+
+d.match <- dodgr_dists (graph = net, from = v$id[from], to = v$id[to])
+d.c.match <- dodgr_dists (graph = netc, from = vc$id[fromc], to = vc$id[toc])
+d.main.match <- dodgr_dists (graph = net.main, from = vm$id[fromm], to = vm$id[tom])
+d.c.main.match <- dodgr_dists (graph = netc.main, from = vcm$id[fromcm], to = vcm$id[tocm])
+
+cbind(d.match, d.c.match, d.main.match, d.c.main.match)
+bench::mark (full = dodgr_dists (net, from = v$id[from], to = v$id[to]),
+             contract = dodgr_dists (netc, from = vc$id[fromc], to = vc$id[toc]),
+             main = dodgr_dists (net.main, from = vm$id[fromm], to = vm$id[tom]),
+             mainontract = dodgr_dists (netc.main, from = vcm$id[fromcm], to = vcm$id[tocm]),
+             check = FALSE, time_unit = "s") [, 1:3]
+```
+
+igraph gives shorter distances.
+
+```{r,eval=T}
+igr <- dodgr_to_igraph (net)
+igrc <- dodgr_to_igraph (netc)
+igrm <- dodgr_to_igraph (net.main)
+igrcm <- dodgr_to_igraph (netc.main)
+d.igr <- distances (igr, v = from, to = to) # mode = c("out", "all", "in"),  ignored for undirected graphs
+d.c.igr <- distances (igrc, v = fromc, to = toc) #algorithm = c("automatic", "unweighted", "dijkstra", "bellman-ford", "johnson")
+d.main.igr <- distances (igrm, v = fromm, to = tom)
+d.c.main.igr <- distances (igrcm, v = fromcm, to = tocm)
+
+cbind(d.igr,d.c.igr, d.main.igr, d.c.main.igr)
+bench::mark (full = distances (igr, v = from, to = to),
+             contract = distances (igrc, v = fromc, to = toc),
+             main = distances (igrm, v = fromm, to = tom),
+             mainontract = distances (igrcm, v = fromcm, to = tocm),
+             check = FALSE, time_unit = "s") [, 1:3]
+```
+
+```{r,eval=T}
+d.igr <- distances (igr, v = from, to = to, algorithm = "unweighted") # mode = c("out", "all", "in"),  ignored for undirected graphs
+d.c.igr <- distances (igrc, v = fromc, to = toc, algorithm = "unweighted")
+d.main.igr <- distances (igrm, v = fromm, to = tom, algorithm = "unweighted")
+d.c.main.igr <- distances (igrcm, v = fromcm, to = tocm, algorithm = "unweighted")
+
+cbind(d.igr,d.c.igr, d.main.igr, d.c.main.igr)
+bench::mark (full = distances (igr, v = from, to = to, algorithm = "unweighted"),
+             contract = distances (igrc, v = fromc, to = toc, algorithm = "unweighted"),
+             main = distances (igrm, v = fromm, to = tom, algorithm = "unweighted"),
+             mainontract = distances (igrcm, v = fromcm, to = tocm, algorithm = "unweighted"),
+             check = FALSE, time_unit = "s") [, 1:3]
+```
+
+
+Calculate all network distance
+
+```{r}
+d.all <- dodgr_dists (net, from = od.all, to = od.all)
+d.c.all <- dodgr_dists (netc, from = od.all, to = od.all)
+d.m.all <- dodgr_dists (net.main, from = od.all, to = od.all)
+d.c.m.all <- dodgr_dists (netc.main, from = od.all, to = od.all)
+d.all[1:10,1:10]
+d.c.all[1:10,1:10]
+d.m.all[1:10,1:10]
+d.c.m.all[1:10,1:10]
+# no id number
+mean(d.all[upper.tri(d.all)],na.rm = T)
+mean(d.c.all[upper.tri(d.c.all)],na.rm = T)
+mean(d.m.all[upper.tri(d.m.all)])
+mean(d.c.m.all[upper.tri(d.c.m.all)])
+# The total distances are the same
+```
+
+
+```{r}
+v.od <- match_points_to_graph (v, od.all, connected = TRUE)
+vc.od <- match_points_to_graph (vc, od.all, connected = TRUE)
+vm.od <- match_points_to_graph (vm, od.all, connected = TRUE)
+vcm.od <- match_points_to_graph (vcm, od.all, connected = TRUE)
+# match block group points to vertex
+d.all.match <- dodgr_dists (net, from = v.od, to = v.od)
+d.c.all.match <- dodgr_dists (netc, from = vc.od, to = vc.od)
+d.m.all.match <- dodgr_dists (net.main, from = vm.od, to = vm.od)
+d.c.m.all.match <- dodgr_dists (netc.main, from = vcm.od, to = vcm.od)
+# all distance
+from <- match_points_to_graph (v, od, connected = TRUE)
+fromc <- match_points_to_graph (vc, od, connected = TRUE)
+fromm <- match_points_to_graph (vm, od, connected = TRUE)
+fromcm <- match_points_to_graph (vcm, od, connected = TRUE)
+# select the three points
+d.all.match[v$id[from],v$id[from]]
+d.c.all.match[vc$id[fromc],vc$id[fromc]]
+d.m.all.match[vm$id[fromm],vm$id[fromm]]
+d.c.m.all.match[vcm$id[fromcm],vcm$id[fromcm]]
+# distances among the three points
+sum(is.na.data.frame(d.all.match))
+sum(is.na.data.frame(d.c.all.match))
+sum(is.na.data.frame(d.m.all.match))
+sum(is.na.data.frame(d.c.m.all.match))
+# main roads have no NA
+mean(d.all.match[upper.tri(d.all.match)],na.rm = T)
+mean(d.c.all.match[upper.tri(d.c.all.match)],na.rm = T)
+mean(d.m.all.match[upper.tri(d.m.all.match)])
+mean(d.c.m.all.match[upper.tri(d.c.m.all.match)])
+# The total distances are the same
+
+# d.all.igr <- distances (igrcm, v = v.od[1], to = v.od[-1]) 
+# Duplicate vertices in `to', this is not allowed
+```
+
+
+
+
+```{r}
+distance_table(igrcm, directed = F)
+distance_table(igrcm, directed = T)
+mean_distance(igrcm, directed = T, unconnected = TRUE)
+mean_distance(igrcm, directed = F, unconnected = TRUE)
+```
+
+
+Find the shortest paths
+
+```{r,eval=T}
+p.igr <- shortest_paths (igr, from = from, to = to,output = "both") # ,output = c("vpath", "epath", "both")
+p.c.igr <- shortest_paths (igrc, from = fromc, to = toc,output = "both")
+p.main.igr <- shortest_paths (igrm, from = fromm, to = tom,output = "both")
+p.c.main.igr <- shortest_paths (igrcm, from = fromcm, to = tocm,output = "both")
+
+bench::mark (full = shortest_paths (igr, from = from, to = to, output = "both"),
+             contract = shortest_paths (igrc, from = fromc, to = toc, output = "both"),
+             main = shortest_paths (igrm, from = fromm, to = tom, output = "both"),
+             mainontract =  shortest_paths (igrcm, from = fromcm, to = tocm, output = "both"),
+             check = FALSE, time_unit = "s") [, 1:3]
+
+p.c.main.igr
+```
+
+Find all shortest paths
+
+```{r}
+fromcm <- match_points_to_graph (vcm, od[,], connected = TRUE)
+all_shortest_paths(igrcm, from= fromcm[3],to= fromcm) #from must be one vertex
+```
+
+
+
+
+
+ Flow Aggregation
+
+https://github.com/ATFutures/dodgr/issues/31
+
+
+```{r}
+# flows <- matrix (10 * runif (length (from) * length (to)),nrow = length (from))
+flows <- matrix (10 * runif (1041 * 3),nrow = 1041)
+netc.main_f <- dodgr_flows_aggregate (netc.main, from = pdx_df[,-1], to = od[1:3,], flows = flows)
+nrow(netc.main_f[netc.main_f$flow!=0,])
+summary (netc.main_f$flow)
+sum(netc.main_f$flow)
+```
+
+
+```{r}
+dodgr_flowmap (netc.main_f, linescale = 10)
+```
+
+Merging directed flows
+
+```{r,eval=T}
+netc.main_undir <- merge_directed_graph (netc.main_f)
+nrow (netc.main_f); nrow (netc.main_undir) # the latter is much smaller
+dodgr_flowmap (netc.main_undir, linescale = 10)
+# graph <- graph [net.motorway_undir$edge_id, ]
+# graph$flow <- graph_undir$flow
+# netc.main_f <- netc.main_f [netc.main_f$flow > 0, ]
+```
+
+
+
+Flow Dispersal
+
+```{r,eval=F}
+dens <- rep (1, length (od[1,])) # uniform densities
+netc_f <- dodgr_flows_disperse (netc, from = od[1,], dens = dens)
+summary (netc_f$flow)
+```
+
+Shortest Paths
+
+```{r,eval=F}
+dp <- dodgr_paths (netc.main, from = od[1,], to = od[3,])
+length (dp)
+dp [[1]] [[1]]
+```
+
+
+```{r}
+dodgr_flowmap (netc.main_f, linescale = 10)
+dodgr_flowmap (netc.main_undir[netc.main_undir$from_id %in% dp[[1]][[1]] & netc.main_undir$to_id %in% dp[[1]][[1]],])
+```
+
+
+
+```{r,eval=F}
+v <- dodgr_vertices (netc.main)
+path1 <- v[match (dp [[1]] [[1]], v$id), ]
+head (path1)
+```
+
+```{r,eval=F}
+cols <- c ("edge_id", "from_id", "to_id", "d")
+net_min <- net[, which (names (net) %in% cols)]
+net_min <- dodgr_components (net_min)
+head (net_min)
+```
+
+```{r,eval=F}
+wp <- weighting_profiles$weighting_profiles
+names (wp)
+unique (wp$name)
+wp [wp$name == "motorcar", ] #"foot"
+```
+
+```{r,eval=F}
+# Shortest Path Calculations: Priority Queues
+compare_heaps (net.motorway, nverts = 100)
+```
