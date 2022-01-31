@@ -134,7 +134,6 @@ mean_distance(igrcm, unconnected = TRUE) # , directed = T
 summary(igr.odd.table$res)
 plot(density(igr.odd.table$res))
 
-# igraph gives shorter distances.
 # Duplicate vertices in `to', this is not allowed
 
 
