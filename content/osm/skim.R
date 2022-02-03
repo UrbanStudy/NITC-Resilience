@@ -64,7 +64,7 @@ plot(density(net3cc.main$d))
 
 
 ## Calculate OD matrix
-odd.matrix <- dodgr_dists (net3c.main, from = od.all, to = od.all) #, heap = "Heap23"
+odd.matrix <- dodgr_dists (net3cc.main, from = od.all, to = od.all) #, heap = "Heap23"
 # Binary Heap (BHeap),Fibonacci Heap "FHeap", Trinomial Heap (TriHeap), Extended Trinomial Heap (TriHeapExt, and 2-3 Heap (Heap23').
 row.names(odd.matrix) <- pdx_df$GEOID
 colnames(odd.matrix) <- pdx_df$GEOID
@@ -88,16 +88,16 @@ plot(density(od.table$dist))
 
 ## Join Block Group with long OD table
 pdx_bg %>% left_join(od.table %>% filter(orig=="410510073001"),by = c("GEOID"="dest")) %>% 
-  mapview(z="dist") #+ mapview(pdx3cnet.main) 
+  mapview(z="dist") #+ mapview(pdx3cnet.main) # PDX airport, 34.7km to Hillsboro airport (41.8km in GoogleMap)
 
 pdx_bg %>% left_join(od.table %>% filter(orig=="410670326081"),by = c("GEOID"="dest")) %>% 
-  mapview(z="dist")
+  mapview(z="dist") # Hillsboro airport
 
 pdx_bg %>% left_join(od.table %>% filter(orig=="410050243042"),by = c("GEOID"="dest")) %>% 
-  mapview(z="dist")
+  mapview(z="dist") # The longest distance # Mt. Hood, Government Camp to Glenwood 211.4km (146km in GoogleMap)
 
 pdx_bg %>% left_join(od.table %>% filter(orig=="410510103052"),by = c("GEOID"="dest")) %>% 
-  mapview(z="dist")
+  mapview(z="dist") # Palisades, 55.5km to Hillsboro downtown (62km in GoogleMap)
 
 ##################################################################
 # Calculate all network distance after match points to graph
