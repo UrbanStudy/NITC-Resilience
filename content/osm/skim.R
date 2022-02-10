@@ -32,7 +32,7 @@ pdx3cnet.main <- pdx3cnet.main %>% select(osm_id, highway, geometry)
 saveRDS(pdx3cnet.main, "~/urbanstudy/NITC-Resilience/content/osm/pdx3cnet.main.Rds")
 
 ## Weighted network by "motorcar" include from, to, distance, and time.
-net3c.main <- weight_streetnet (pdx3cnet.main, wt_profile ="motorcar") #
+net3c.main <- weight_streetnet (pdx3cnet.main, wt_profile ="motorcar",id_col = "osm_id") #
 
 ## Graph Contraction: Simplify the network
 net3c.main <- net3c.main[net3c.main$component == 1, ]
