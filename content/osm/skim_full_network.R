@@ -51,36 +51,45 @@ pdx_bg %>% left_join(od.table %>% filter(orig=="410510073001"),by = c("GEOID"="d
 
 ##################################################################
 # Calculate -1 network distance
-leg <-c("5528057","595610338") #  NULL 
-# osm_id: 5528057, 595610338 # Marquam Bridge
-# osm_id: 123374695, 587574521, 174985371 Rose Island Bridge
-# osm_id: "465285319","923041198","595610339","486837832" Sellwood Bridge
-network <- net3cc.main
-O <- D <- pdx_df
-# ohsu <- O[O$GEOID=="410510058002",]
+
 breakaleg <- function(network, O, D, leg){
+  net.break <- network[!(network$osm_id %in%leg),]  
+  net <- dodgr::weight_streetnet (net.break, wt_profile ="motorcar",id_col = "osm_id") #
+  net <- net[net$component == 1, ]
+  net <- dodgr::dodgr_contract_graph (net)
+  
   o <- O %>% select(-GEOID)
   d <- D %>% select(-GEOID)
-  net.break <- network[!(network$way_id %in%leg),]
-  odd.matrix <- dodgr_dists (net.break, from = o, to = d) #, heap = "Heap23"
-# Binary Heap (BHeap),Fibonacci Heap "FHeap", Trinomial Heap (TriHeap), Extended Trinomial Heap (TriHeapExt, and 2-3 Heap (Heap23').
+
+  odd.matrix <- dodgr::dodgr_dists (net, from = o, to = d) #, heap = "Heap23"
+  # Binary Heap (BHeap),Fibonacci Heap "FHeap", Trinomial Heap (TriHeap), Extended Trinomial Heap (TriHeapExt, and 2-3 Heap (Heap23').
   colnames(odd.matrix) <- D$GEOID
   row.names(odd.matrix) <- O$GEOID
-## Convert to long table
-od.table <- odd.matrix %>% as_tibble(rownames= "orig") %>%  # rownames= NA include but hide
+  ## Convert to long table
+  od.table <- odd.matrix %>% as_tibble(rownames= "orig") %>%  # rownames= NA include but hide
   pivot_longer(!orig, names_to = "dest", values_to = "dist") %>% arrange(orig,dest)
 return(mean(od.table$dist))
 }
 
-alltoall <- breakaleg(network,O, D,NULL)
-alltoall_marguambridge <- breakaleg(network,O, D,c("5528057","595610338"))
-alltoall_rossislandbridge <- breakaleg(network,O, D,c("189307193","542826787","682179096","587574521","123374695","174985371"))
-alltoall_sellwoodbridge <- breakaleg(network,O, D,c("465285319","923041198","595610339","486837832"))
 
-oshutoall <- breakaleg(network,O[O$GEOID=="410510058002",], D,NULL)
-oshutoall_marguambridge <- breakaleg(network,O[O$GEOID=="410510058002",], D,c("5528057","595610338"))
-oshutoall_rossislandbridge <- breakaleg(network,O[O$GEOID=="410510058002",], D,c("189307193","542826787","682179096","587574521","123374695","174985371"))
-oshutoall_sellwoodbridge <- breakaleg(network,O[O$GEOID=="410510058002",], D,leg=c("465285319","923041198","595610339","486837832"))
 
-network[network$way_id %in%c("189307193","542826787","682179096","587574521","123374695","174985371"),] %>% nrow()
-network[network$way_id %in%c("465285319","923041198","595610339","486837832"),] %>% nrow()
+leg.marguambridge <- c("5528057","595610338") # Marquam Bridge
+leg.rossislandbridge <- c("189307193","542826787","682179096","587574521","123374695","174985371") # Rose Island Bridge
+leg.sellwoodbridge <- c("465285319","923041198","595610339","486837832") # Sellwood Bridge
+ohsu <- pdx_df[pdx_df$GEOID=="410510058002",]
+
+pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.marguambridge),] %>% mapview()
+pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.rossislandbridge),] %>% mapview()
+pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.sellwoodbridge),] %>% mapview()
+
+alltoall <- breakaleg(pdx3cnet.main,pdx_df, pdx_df,NULL)
+alltoall_marguambridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.marguambridge)
+alltoall_rossislandbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.rossislandbridge)
+alltoall_sellwoodbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.sellwoodbridge)
+
+oshutoall <- breakaleg(pdx3cnet.main,ohsu, pdx_df,NULL)
+oshutoall_marguambridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.marguambridge)
+oshutoall_rossislandbridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.rossislandbridge)
+oshutoall_sellwoodbridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.sellwoodbridge)
+
+
