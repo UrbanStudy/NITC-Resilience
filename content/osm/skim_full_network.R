@@ -7,7 +7,7 @@ options(digits=7)
 
 ##################################################################
 # Import simplified full network.
-net3cc.main <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")
+# net3cc.main <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")
 # summary(net3cc.main$d)
 # plot(density(net3cc.main$d))
 # Import Census Block Groups.
@@ -58,6 +58,7 @@ breakaleg <- function(network, O, D, leg){
   net <- net[net$component == 1, ]
   net <- dodgr::dodgr_contract_graph (net)
   
+  library(tidyverse)
   o <- O %>% select(-GEOID)
   d <- D %>% select(-GEOID)
 
@@ -88,7 +89,12 @@ alltoall_rossislandbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.rossis
 alltoall_sellwoodbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.sellwoodbridge)
 
 oshutoall <- breakaleg(pdx3cnet.main,ohsu, pdx_df,NULL)
+
+library(tictoc)
+tic()
 oshutoall_marguambridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.marguambridge)
+toc()
+
 oshutoall_rossislandbridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.rossislandbridge)
 oshutoall_sellwoodbridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.sellwoodbridge)
 
