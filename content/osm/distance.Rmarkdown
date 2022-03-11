@@ -42,7 +42,7 @@ tri_cou <- c('051','067','005')# "Multnomah", "Washington", "Clackamas"
 Import and save the network.
 
 ```{r,eval=F}
-or.osm <- oe_read("~/urbanstudy/NITC-Resilience/content/osm/oregon-latest.osm.pbf")
+or.osm <- oe_read("~/urbanstudy/NITC-Resilience/content/osm/original data/oregon-latest.osm.pbf")
 st_crs(or.osm)
 pdx_bg <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/acs/pdx_bg.RDS")
 st_crs(pdx_bg)

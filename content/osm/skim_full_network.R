@@ -7,7 +7,7 @@ options(digits=7)
 
 ##################################################################
 # Import simplified full network.
-# net3cc.main <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")
+net3cc.main <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")
 # summary(net3cc.main$d)
 # plot(density(net3cc.main$d))
 # Import Census Block Groups.
@@ -16,12 +16,13 @@ pdx_bg <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/acs/pdx_bg.RDS")
 pdx_df <- pdx_bg %>% as.data.frame() %>% select(GEOID,INTPTLAT,INTPTLON,-geometry) %>% # as_tibble()
   mutate(lat=as.numeric(INTPTLAT),lon=as.numeric(INTPTLON)) %>% 
   select(GEOID,lat,lon)
-## All centroid points as OD
-od.all <- pdx_df  %>% select(-GEOID)
+
 
 ##################################################################
 # Calculate full network distance
 ## Calculate OD matrix
+## All centroid points as OD
+od.all <- pdx_df  %>% select(-GEOID)
 odd.matrix <- dodgr_dists (net3cc.main, from = od.all, to = od.all) #, heap = "Heap23"
 # Binary Heap (BHeap),Fibonacci Heap "FHeap", Trinomial Heap (TriHeap), Extended Trinomial Heap (TriHeapExt, and 2-3 Heap (Heap23').
 colnames(odd.matrix) <- row.names(odd.matrix) <- pdx_df$GEOID
@@ -74,8 +75,10 @@ return(mean(od.table$dist))
 
 
 
-leg.marguambridge <- c("5528057","595610338") # Marquam Bridge
-leg.rossislandbridge <- c("189307193","542826787","682179096","587574521","123374695","174985371") # Rose Island Bridge
+leg.marguambridge <- c("595610338","5528057") # Marquam Bridge #,"5528057"
+leg.marguambridge1 <- c("595610338") # Marquam Bridge #,"5528057"
+leg.marguambridge2 <- c("5528057") 
+leg.rossislandbridge <- c("682179096","123374695","587574521","174985371") # Rose Island Bridge #"189307193","542826787",
 leg.sellwoodbridge <- c("465285319","923041198","595610339","486837832") # Sellwood Bridge
 ohsu <- pdx_df[pdx_df$GEOID=="410510058002",]
 
@@ -83,16 +86,25 @@ pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.marguambridge),] %>% mapview()
 pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.rossislandbridge),] %>% mapview()
 pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.sellwoodbridge),] %>% mapview()
 
-alltoall <- breakaleg(pdx3cnet.main,pdx_df, pdx_df,NULL)
-alltoall_marguambridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.marguambridge)
-alltoall_rossislandbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.rossislandbridge)
-alltoall_sellwoodbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.sellwoodbridge)
-
-oshutoall <- breakaleg(pdx3cnet.main,ohsu, pdx_df,NULL)
-
 library(tictoc)
 tic()
+alltoall <- breakaleg(pdx3cnet.main,pdx_df, pdx_df,NULL)
+alltoall_marguambridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.marguambridge)
+# 24546.76 # no broken
+# 24547.74 # breaking "5528057"
+# 24550.54 # breaking "595610338"
+# 24558.45 # two way broken
+alltoall_rossislandbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.rossislandbridge)
+alltoall_sellwoodbridge <- breakaleg(pdx3cnet.main, pdx_df, pdx_df, leg.sellwoodbridge)
+toc()
+# 394.341 sec elapsed
+
+
+tic()
+oshutoall <- breakaleg(pdx3cnet.main,ohsu, pdx_df,NULL)
 oshutoall_marguambridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.marguambridge)
+oshutoall_marguambridge1 <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.marguambridge1)
+oshutoall_marguambridge2 <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.marguambridge2)
 toc()
 
 oshutoall_rossislandbridge <- breakaleg(pdx3cnet.main,ohsu, pdx_df, leg.rossislandbridge)

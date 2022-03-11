@@ -373,6 +373,17 @@ net = as_sfnetwork(pdx.net.main, directed = FALSE) %>%
 net
 ```
 
+```{r}
+MotorVehicleSystem_RLIS <- st_read( "~/urbanstudy/NITC-Resilience/content/retr/MotorVehicleSystem_RLIS.shp")
+st_geometry(MotorVehicleSystem_RLIS)
+net_RLIS <- st_cast(MotorVehicleSystem_RLIS, "LINESTRING") # MULTILINESTRING to LINESTRING
+net = as_sfnetwork(net_RLIS, directed = FALSE) %>%
+  # st_transform(3035) %>%
+  activate("edges") %>%
+  mutate(weight = edge_length())
+# Error: Geometries are not all of type LINESTRING, or all of type POINT
+net
+```
 
 
 ```{r}
@@ -402,6 +413,13 @@ paths %>%
 plot(od.sf, col = colors, pch = 8, cex = 2, lwd = 2, add = TRUE)
 ```
 
+```{r}
+st_network_cost(net, from = c(p1, p2, p3), to = c(p1, p2, p3))
+
+with_graph(net, graph_order())
+cost_matrix = st_network_cost(net)
+dim(cost_matrix)
+```
 
 # Network cleaning functions
 
