@@ -111,7 +111,7 @@ pdx3cnet.main[!(pdx3cnet.main$osm_id %in% leg.sellwoodbridge),] %>% mapview()
 ######################################  RLIS network
 
 # rlis_landslide_instersection <- st_intersection(MotorVehicleSystem_RLIS, Landslides_poly)
-# rlis_landslide_difference <- st_difference(MotorVehicleSystem_RLIS, Landslides_poly)
+rlis_landslide_difference <- st_difference(MotorVehicleSystem_RLIS, Landslides_poly)
 # pdx3c_landslide_instersection <- st_intersection(pdx3cnet.main6360, Landslides_poly)
 # MotorVehicleSystem_RLIS %>% anti_join(rlis_landslide) # not work for sf
 
