@@ -1,6 +1,6 @@
 # The scripts is used to evaluate the impact of disaster on travel distance 
 # Three counties in Portland Metro: Multnomah = "41051", Washington = "41067", Clackamas = "41005"
-##
+####################
 # The inputs include
 # I1 Origin: Centroid points of 1041 Census Block Groups, or
 #           Fire and resuce, 
@@ -17,13 +17,18 @@
 # I4 Road network: from RLIS, or
 #                  from OSM
 #
-##
+#########################
+# The evaluation includes
+# E1 Assigning the weights and buffer
+#
+# E2 Defining the function
+#
+######################
 # The outputs include:
-# O1 Broken road netework
 #
-# O2 The OD cost matrix (baseline)
+# O1 The OD cost matrix (baseline)
 #
-# O3 The OD cost matrix (scenarios)
+# O2 The OD cost matrix (scenarios)
 
 
 library(tidyverse)
@@ -45,20 +50,19 @@ Hospital <- st_read( paste0(getwd(),"/Hospital.shp"))
 
 Landslides <- st_read( paste0(getwd(),"/Landslides_poly.shp"))
 
-
 # I4 Road network: 
 ##  Import shape file of road network
 network <- st_read( paste0(getwd(),"/MotorVehicleSystem_RLIS.shp"))
 
 ############## Evaluate #########################################################
 
+# E1 # Assigning the weights and buffer
 
-# E1 # Assigning the weights (length=10)
-
-weights <- c (1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8)
+weights <- c (1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8) # length=10
 buffer <- 100 # unit: feet
 
-##  Defining the function
+# E2 #  Defining the function
+
 ODcost <- function(network, O, D, disaster, buffer, weights){
   if (class(disaster)=="NULL") {
     network_broken <- network
@@ -92,12 +96,15 @@ ODcost <- function(network, O, D, disaster, buffer, weights){
   return((od.table))
 }
 
-# E2 # Calculating the distances
+############## Outputs #########################################################
 
-to_hospital <- ODcost(network, pdx_bg, Hospital, NULL, buffer,weights)
+# O1 The OD cost matrix (baseline)
+
+to_hospital <- ODcost(network, pdx_bg, Hospital, NULL, buffer, weights)
 to_hospital$dist %>% mean()  #  = 21014.6
 
-##
-landslide_to_hospital <- ODcost(network, pdx_bg, Hospital, Landslides, buffer,weights)
+# O2 The OD cost matrix (scenarios)
+
+landslide_to_hospital <- ODcost(network, pdx_bg, Hospital, Landslides, buffer, weights)
 landslide_to_hospital$dist %>% mean()  #  = 34084.37
 
