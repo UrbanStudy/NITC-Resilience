@@ -49,7 +49,7 @@ Hospital <- st_read( paste0(getwd(),"/Hospital.shp"))
 ## Import shape file of Landslides, 
 
 Landslides <- st_read( paste0(getwd(),"/Landslides_poly.shp"))
-
+Landslides <- Landslides %>% filter(CONFIDENCE=="High (=>30)")
 # I4 Road network: 
 ##  Import shape file of road network
 network <- st_read( paste0(getwd(),"/MotorVehicleSystem_RLIS.shp"))
@@ -58,13 +58,13 @@ network <- st_read( paste0(getwd(),"/MotorVehicleSystem_RLIS.shp"))
 
 # E1 # Assigning the weights and buffer
 
-weights <- c (1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8) # length=10
+weights <- c (1, 0.6, 0.6, 0.6, 0.6, 0.6, 0.4, 0.4, 0.4, 0.4) # length=10 # 0.9-0.8
 buffer <- 100 # unit: feet
 
 # E2 #  Defining the function
 
 ODcost <- function(network, O, D, disaster, buffer, weights){
-  if (class(disaster)=="NULL") {
+  if (class(disaster)[1]=="NULL") {
     network_broken <- network
   } else {
     disaster_nearby <- st_intersection(disaster, st_buffer(network, buffer))
@@ -92,7 +92,9 @@ ODcost <- function(network, O, D, disaster, buffer, weights){
   colnames(o) <- colnames(d) <- c("lon","lat")
   odd.matrix <- dodgr_dists (net, from = o, to = d) 
   od.table <- odd.matrix %>% as_tibble(rownames= "orig") %>%  # rownames= NA include but hide
-    pivot_longer(!orig, names_to = "dest", values_to = "dist") %>% arrange(orig,dest)
+    pivot_longer(!orig, names_to = "dest", values_to = "dist") %>% 
+    mutate_at(c('orig', 'dest'), as.numeric) %>% 
+    arrange(orig,dest)
   return((od.table))
 }
 
@@ -101,10 +103,34 @@ ODcost <- function(network, O, D, disaster, buffer, weights){
 # O1 The OD cost matrix (baseline)
 
 to_hospital <- ODcost(network, pdx_bg, Hospital, NULL, buffer, weights)
-to_hospital$dist %>% mean()  #  = 21014.6
+to_hospital$dist %>% mean()  #  = 21014.6; 22419.14
 
 # O2 The OD cost matrix (scenarios)
 
 landslide_to_hospital <- ODcost(network, pdx_bg, Hospital, Landslides, buffer, weights)
-landslide_to_hospital$dist %>% mean()  #  = 34084.37
+landslide_to_hospital$dist %>% mean()  #  = 34084.37; 33742.85; 23601.73; 25160.9
+
+
+landslide_to_hospital <- landslide_to_hospital %>% 
+  left_join(to_hospital,by=c("orig","dest")) %>% 
+  mutate(longer=dist.x-dist.y)
+
+hist(landslide_to_hospital$longer)
+summary(landslide_to_hospital$longer)
+
+landslide_to_hospital_sum <- landslide_to_hospital %>% group_by(orig) %>% summarise(avg.longer=mean(longer))
+landslide_to_hospital_sum$avg.longer %>%  hist()
+
+landslide_to_hospital_bg <- pdx_bg
+landslide_to_hospital_bg$avg.longer <- landslide_to_hospital_sum$avg.longer
+
+library(mapview)
+mapview(landslide_to_hospital_bg,zcol="avg.longer") +
+  mapview(Hospital)
+
+library(tmap)
+tmap_mode("view")
+tmap_options(check.and.fix = TRUE)
+tm_shape(Landslides) + tm_polygons(alpha = 0.5)  #, zindex = pdx_bg$ALAND tm_lines(alpha = 0.5, col = "red" ,lwd=2) #, border.col = 4 ,border.alpha =1
+
 

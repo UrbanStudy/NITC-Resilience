@@ -4,7 +4,7 @@ p_load(tidyverse, sf, mapview, dodgr) # crsuggest,, bench,igraph, osmdatasf,, sf
 options(scipen=10)
 options(digits=7)
 # packageVersion ("dodgr")
-# remotes::install_github("r-spatial/mapview",force = TRUE)
+# remotes::install_github("r-spatial/mapview") #,force = TRUE
 ##################################################################
 # Import simplified retr network.
 # net3cc.main <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")

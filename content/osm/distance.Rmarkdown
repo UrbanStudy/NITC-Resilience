@@ -109,6 +109,7 @@ Simplify the network
 net3c.main <- net3c.main[net3c.main$component == 1, ]
 net3cc.main <- dodgr_contract_graph (net3c.main)
 nrow (net3c.main); nrow (net3cc.main); nrow (net3cc.main) / nrow (net3c.main)
+rm(net3c.main); rm(pdx3cnet);rm(pdx3cnet.main)
 ```
 
 
@@ -132,6 +133,7 @@ od.all <- pdx_df  %>% select(-GEOID)
 Calculate all network distance
 
 ```{r}
+net3cc.main <- readRDS(file = "~/urbanstudy/NITC-Resilience/content/osm/net3ccmain.Rds")
 odd.matrix <- dodgr_dists (net3cc.main, from = od.all, to = od.all)
 row.names(odd.matrix) <- pdx_df$GEOID
 colnames(odd.matrix) <- pdx_df$GEOID
@@ -339,15 +341,15 @@ https://github.com/ATFutures/dodgr/issues/31
 ```{r}
 # flows <- matrix (10 * runif (length (from) * length (to)),nrow = length (from))
 flows <- matrix (10 * runif (1041 * 3),nrow = 1041)
-netc.main_f <- dodgr_flows_aggregate (netc.main, from = pdx_df[,-1], to = od[1:3,], flows = flows)
-nrow(netc.main_f[netc.main_f$flow!=0,])
-summary (netc.main_f$flow)
+net3cc.main_f <- dodgr_flows_aggregate (net3c.main, from = pdx_df[,-1], to = od[1,], flows = flows)
+nrow(netc.main_f[net3cc.main_f$flow!=0,])
+summary (net3cc.main_f$flow)
 sum(netc.main_f$flow)
 ```
 
 
 ```{r}
-dodgr_flowmap (netc.main_f, linescale = 10)
+dodgr_flowmap (net3cc.main_f, linescale = 10)
 ```
 
 Merging directed flows
