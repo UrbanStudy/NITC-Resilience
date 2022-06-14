@@ -106,7 +106,9 @@ saveRDS(net, "~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
 
 
 ```{r}
-net <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/pdxstreetnet.Rds")
+net <- readRDS("~/urbanstudy/NITC-Resilience/content/osm/original data/pdxstreetnet.Rds")
+# net$access %>% table()
+# mapview(net,zcol="access")
 class(net)
 dim(net)
 net <- weight_streetnet (net, wt_profile ="motorcar") # "motorcycle"  "foot"

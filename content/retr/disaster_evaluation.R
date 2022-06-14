@@ -58,7 +58,7 @@ network <- st_read( paste0(getwd(),"/MotorVehicleSystem_RLIS.shp"))
 
 # E1 # Assigning the weights and buffer
 
-weights <- c (1, 0.6, 0.6, 0.6, 0.6, 0.6, 0.4, 0.4, 0.4, 0.4) # length=10 # 0.9-0.8
+weights <- c (1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8) # length=10 # 0.9-0.8 # 0.6-0.4
 buffer <- 100 # unit: feet
 
 # E2 #  Defining the function
@@ -126,11 +126,16 @@ landslide_to_hospital_bg$avg.longer <- landslide_to_hospital_sum$avg.longer
 
 library(mapview)
 mapview(landslide_to_hospital_bg,zcol="avg.longer") +
-  mapview(Hospital)
+  mapview(Hospital,cex=1,color="darkred")
 
 library(tmap)
 tmap_mode("view")
 tmap_options(check.and.fix = TRUE)
 tm_shape(Landslides) + tm_polygons(alpha = 0.5)  #, zindex = pdx_bg$ALAND tm_lines(alpha = 0.5, col = "red" ,lwd=2) #, border.col = 4 ,border.alpha =1
+
+### Check the negative cases
+
+landslide_to_hospital %>% filter(longer< -1) %>% select(longer) %>% t() %>% as.vector() %>% summary()
+
 
 
