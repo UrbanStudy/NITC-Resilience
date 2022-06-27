@@ -1,4 +1,6 @@
-# There are many broken-net OD distance shorter than full-net
+# Checking each step
+# 1. change the method of subtracting the road network
+# 2. In the weighted network, using low weighting broken roads is better than identifying broken way-ID 
 
 library(tidyverse)
 library(sf)
@@ -129,6 +131,9 @@ od.table <- odd.matrix %>% as_tibble(rownames= "orig") %>%  # rownames= NA inclu
   mutate_at(c('orig', 'dest'), as.numeric) %>% 
   arrange(orig,dest)
 
+summary(od.table$dist)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 244.7 12484.5 17295.2 19565.4 24560.0 64919.7 
 
 # E5 # Using Broken network ############################
 ### Deleting the broken segment by index
@@ -141,7 +146,7 @@ od.table_broken <- odd.matrix_broken %>% as_tibble(rownames= "orig") %>%  # rown
 
 
 ### Broken segment by weights
-weights_broken <- c (rep(1,10), 0.001) # length=10 # 0.9-0.8 # 0.6-0.4 ## 1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8, 
+weights_broken <- c (rep(1,10), 0.01) # length=10 # 0.9-0.8 # 0.6-0.4 ## 1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8, 
 wts_broken <- data.frame (name = "custom",
                    way = way ,
                    value = weights_broken[1:length(way)])
@@ -161,12 +166,19 @@ od.table_broken <- odd.matrix_broken %>% as_tibble(rownames= "orig") %>%  # rown
   mutate_at(c('orig', 'dest'), as.numeric) %>% 
   arrange(orig,dest)
 
+summary(od.table_broken$dist)
+# Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+# 244.7 16171.6 26206.2 25953.2 33289.7 75702.8 
+
 
 landslide_to_hospital <- od.table %>% 
   left_join(od.table_broken,by=c("orig","dest")) %>% 
   mutate(longer=dist.y-dist.x)
 
-landslide_to_hospital %>% filter(longer!=0)
+hist(landslide_to_hospital$longer)
+
+landslide_to_hospital_truncated <- landslide_to_hospital %>% mutate(longer = ifelse(longer >10000, NA, longer))
+hist(landslide_to_hospital_truncated$longer)
 
 
 landslide_to_hospital_bg <- pdx_bg
