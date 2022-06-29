@@ -264,4 +264,4 @@ to_hospital_204013 <- Hospital
 to_hospital_204013$longer <- od.change_204013$longer
 mapview(to_hospital_204013,zcol="longer",cex=5) +
   mapview(network, lwd=1) +
-  mapview(pdx_bg_204013)
+  mapview(pdx_bg_204013,col.region="darkred")
