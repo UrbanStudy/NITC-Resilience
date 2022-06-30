@@ -1,7 +1,7 @@
 # The scripts is used to evaluate the impact of disaster on travel distance 
 # Scope: Three counties in Portland Metro: 
 # Element: Census Block Groups, destinations, disasters, road network
-
+# Include step I, step E, and step O
 ##############################################################################
 # The inputs include
 # I1 Origin: Centroid points of 1041 Census Block Groups;
@@ -18,7 +18,8 @@
 #
 # I4 Road network: from RLIS, or
 #                  from OSM, Census roads.
-#
+# (In this case, disasters and road network have the same coordination)
+
 ##############################################################################
 # The evaluation includes
 # E1 Breaking the network by disasters
@@ -45,7 +46,6 @@
 #  Find why it becomes shorter after disaster
 
 
-
 library(tidyverse)
 library(tigris)
 options(tigris_use_cache = TRUE)
@@ -67,8 +67,8 @@ crs <- st_crs(tri_cou)
 pdx_bg <- block_groups(state = "41",county = tri_cou.id) 
 
 # The two lines below are integrated to the function ###
-O <- st_coordinates(st_centroid(pdx_bg)) # Use centroid points
-colnames(O) <- c("lon","lat")
+# O <- st_coordinates(st_centroid(pdx_bg)) # Use centroid points
+# colnames(O) <- c("lon","lat")
 ####
 
 # I2 Destination ####
@@ -79,10 +79,10 @@ Hospital <- st_read( paste0(getwd(),"/Hospital.shp"))
 # The line below is for a single destination
 # Hospital <- Hospital %>% filter(NAME=="Providence St. Vincent") # |facilitiy1== "OHSU Complex"
 
-# The three lines below is integrated to the function ### 
-D <- Hospital %>% st_transform(crs)
-D <- st_coordinates(D) # [,1:2]
-colnames(D) <- c("lon","lat")
+# The three lines below are integrated to the function ### 
+# D <- Hospital %>% st_transform(crs)
+# D <- st_coordinates(D) # [,1:2]
+# colnames(D) <- c("lon","lat")
 ####
 
 # I3 Disaster ####
@@ -191,10 +191,11 @@ mapview(landslide_to_hospital_bg,zcol="longer") +
 #          D, disaster, and network: EPSG 6360
 #  Only transforming to EPSG 4269 gives correct distance.
 
-# Complete I steps firstly, and define
+# Do step I firstly, and define
 buffer <- 100 # unit: feet
 levelname <- "MOTORCODE"
 idname <- "LOCALID"
+# All-one setting also works.
 weights <- c (1, 0.9, 0.9, 0.9, 0.9, 0.9, 0.8, 0.8, 0.8, 0.8) # or, rep(1,length(sort(unique (network[[levelname]]))))
 # Convert Multi-lines to lines
 network <- st_cast(network, "LINESTRING") 
